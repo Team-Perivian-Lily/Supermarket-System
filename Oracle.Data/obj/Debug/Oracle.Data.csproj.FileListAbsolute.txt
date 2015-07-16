@@ -3,3 +3,8 @@ C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\Oracle.Dat
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\Oracle.Data\obj\Debug\Oracle.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\Oracle.Data\obj\Debug\Oracle.Data.dll
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\Oracle.Data\obj\Debug\Oracle.Data.pdb
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\Oracle.Data\bin\Debug\Oracle.Data.dll
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\Oracle.Data\bin\Debug\Oracle.Data.pdb
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\Oracle.Data\obj\Debug\Oracle.Data.csprojResolveAssemblyReference.cache
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\Oracle.Data\obj\Debug\Oracle.Data.dll
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\Oracle.Data\obj\Debug\Oracle.Data.pdb
