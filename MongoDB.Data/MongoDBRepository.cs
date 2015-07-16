@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Data
 {
-    public class MongoDBRepository
+    public static class MongoDBRepository
     {
     }
 }

@@ -3,3 +3,8 @@ C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\MySQL.Data
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\MySQL.Data\obj\Debug\MySQL.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\MySQL.Data\obj\Debug\MySQL.Data.dll
 C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\MySQL.Data\obj\Debug\MySQL.Data.pdb
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\bin\Debug\MySQL.Data.dll
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\bin\Debug\MySQL.Data.pdb
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.csprojResolveAssemblyReference.cache
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.dll
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.pdb
