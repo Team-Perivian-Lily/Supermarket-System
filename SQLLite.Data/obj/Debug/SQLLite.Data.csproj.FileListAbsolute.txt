@@ -1,0 +1,4 @@
+C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\SQLLite.Data\bin\Debug\SQLLite.Data.dll
+C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\SQLLite.Data\bin\Debug\SQLLite.Data.pdb
+C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\SQLLite.Data\obj\Debug\SQLLite.Data.dll
+C:\Users\Georgi\Documents\Visual Studio 2015\Projects\SupermarketSoft\SQLLite.Data\obj\Debug\SQLLite.Data.pdb
