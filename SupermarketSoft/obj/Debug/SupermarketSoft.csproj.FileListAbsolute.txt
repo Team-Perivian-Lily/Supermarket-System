@@ -69,3 +69,5 @@ C:\Users\Djumi\Desktop\Supermarket-System\SupermarketSoft\obj\Debug\SupermarketS
 C:\Users\Djumi\Desktop\Supermarket-System\SupermarketSoft\obj\Debug\SupermarketSoft.MainForm.resources
 C:\Users\Djumi\Desktop\Supermarket-System\SupermarketSoft\obj\Debug\SupermarketSoft.Properties.Resources.resources
 C:\Users\Djumi\Desktop\Supermarket-System\SupermarketSoft\obj\Debug\SupermarketSoft.csproj.GenerateResource.Cache
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\SupermarketSoft\bin\Debug\Supermarket.Models.dll
+C:\Users\Georgi\Documents\GitHub\Supermarket-System\SupermarketSoft\bin\Debug\Supermarket.Models.pdb
