@@ -34,7 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.ReplicateOracle = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.ExportToJsonMongoDb = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ExportFromMSSQL
@@ -89,33 +89,34 @@
             // 
             this.button4.Location = new System.Drawing.Point(496, 212);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(129, 28);
+            this.button4.Size = new System.Drawing.Size(172, 28);
             this.button4.TabIndex = 5;
             this.button4.Text = ".....";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // ExportToJsonMongoDb
             // 
-            this.button5.Location = new System.Drawing.Point(496, 147);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(129, 28);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "....";
-            this.button5.UseVisualStyleBackColor = true;
+            this.ExportToJsonMongoDb.Location = new System.Drawing.Point(496, 147);
+            this.ExportToJsonMongoDb.Name = "ExportToJsonMongoDb";
+            this.ExportToJsonMongoDb.Size = new System.Drawing.Size(172, 28);
+            this.ExportToJsonMongoDb.TabIndex = 6;
+            this.ExportToJsonMongoDb.Text = "Export to JSON/MongoDB";
+            this.ExportToJsonMongoDb.UseVisualStyleBackColor = true;
+            this.ExportToJsonMongoDb.Click += new System.EventHandler(this.ExportToJsonMongoDb_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 383);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.ExportToJsonMongoDb);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.ReplicateOracle);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.programName);
             this.Controls.Add(this.ExportFromMSSQL);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -130,7 +131,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ReplicateOracle;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ExportToJsonMongoDb;
     }
 }
 

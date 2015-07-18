@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace MSSQL.Data
 {
@@ -21,6 +22,14 @@ namespace MSSQL.Data
                 }
 
                 return productNames;
+            }
+        }
+
+        public static List<Product> GetProducts()
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                return context.Products.Include(p => p.Vendor).ToList();
             }
         }
     }

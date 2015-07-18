@@ -27,5 +27,11 @@ namespace SupermarketSoft
         {
             MessageBox.Show(Oracle.Data.OracleRepository.ReplicateOracleToMSSQL());
         }
+
+        private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
+        {
+            var jsonMongoForm = new ExportToJsonMongoForm();
+            jsonMongoForm.ShowDialog();
+        }
     }
 }
