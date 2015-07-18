@@ -26,5 +26,8 @@ namespace MSSQL.Data
         }
     
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Measure> Measures { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Vendor> Vendors { get; set; }
     }
 }

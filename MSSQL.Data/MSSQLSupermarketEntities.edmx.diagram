@@ -6,6 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="03fc9a29387e44728b8efb8fc958dae8" Name="Diagram1">
         <EntityTypeShape EntityType="MSSQLSupermarketModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MSSQLSupermarketModel.Measure" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="MSSQLSupermarketModel.sysdiagram" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MSSQLSupermarketModel.Vendor" Width="1.5" PointX="0.75" PointY="5.125" />
+        <AssociationConnector Association="MSSQLSupermarketModel.FK_Products_Measures" />
+        <AssociationConnector Association="MSSQLSupermarketModel.FK_Products_Vendors" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

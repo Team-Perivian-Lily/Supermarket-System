@@ -12,15 +12,18 @@ namespace MSSQL.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Measure
     {
-        public int Id { get; set; }
-        public int VendorID { get; set; }
-        public string ProductName { get; set; }
-        public int MeasureID { get; set; }
-        public double Price { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Measure()
+        {
+            this.Products = new HashSet<Product>();
+        }
     
-        public virtual Measure Measure { get; set; }
-        public virtual Vendor Vendor { get; set; }
+        public int Id { get; set; }
+        public string MeasureName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
