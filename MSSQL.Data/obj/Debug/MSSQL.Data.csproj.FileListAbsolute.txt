@@ -18,3 +18,13 @@ C:\Users\Georgi\Documents\GitHub\Supermarket-System\MSSQL.Data\bin\Debug\EntityF
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.dll
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\MSSQL.Data.dll.config
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\MSSQL.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\MSSQL.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\EntityFramework.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\EntityFramework.xml
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.csprojResolveAssemblyReference.cache
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MSSQL.Data\obj\Debug\MSSQL.Data.pdb

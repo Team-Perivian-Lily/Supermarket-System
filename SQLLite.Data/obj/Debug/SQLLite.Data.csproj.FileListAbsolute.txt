@@ -7,3 +7,8 @@ C:\Users\Georgi\Documents\GitHub\Supermarket-System\SQLLite.Data\bin\Debug\SQLLi
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.dll
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\SQLLite.Data\bin\Debug\SQLLite.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\SQLLite.Data\bin\Debug\SQLLite.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.csprojResolveAssemblyReference.cache
+C:\Users\Djumi\Desktop\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\SQLLite.Data\obj\Debug\SQLLite.Data.pdb

@@ -8,3 +8,8 @@ C:\Users\Georgi\Documents\GitHub\Supermarket-System\MongoDB.Data\bin\Debug\Mongo
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.dll
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MongoDB.Data\bin\Debug\MongoDB.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MongoDB.Data\bin\Debug\MongoDB.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.csprojResolveAssemblyReference.cache
+C:\Users\Djumi\Desktop\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MongoDB.Data\obj\Debug\MongoDB.Data.pdb

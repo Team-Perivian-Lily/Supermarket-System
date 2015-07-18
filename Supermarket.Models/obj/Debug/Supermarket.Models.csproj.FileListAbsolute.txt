@@ -1,0 +1,5 @@
+C:\Users\Djumi\Desktop\Supermarket-System\Supermarket.Models\bin\Debug\Supermarket.Models.dll
+C:\Users\Djumi\Desktop\Supermarket-System\Supermarket.Models\bin\Debug\Supermarket.Models.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\Supermarket.Models\obj\Debug\Supermarket.Models.csprojResolveAssemblyReference.cache
+C:\Users\Djumi\Desktop\Supermarket-System\Supermarket.Models\obj\Debug\Supermarket.Models.dll
+C:\Users\Djumi\Desktop\Supermarket-System\Supermarket.Models\obj\Debug\Supermarket.Models.pdb

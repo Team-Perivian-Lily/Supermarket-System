@@ -8,3 +8,8 @@ C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\bin\Debug\MySQL.D
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.dll
 C:\Users\Georgi\Documents\GitHub\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MySQL.Data\bin\Debug\MySQL.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MySQL.Data\bin\Debug\MySQL.Data.pdb
+C:\Users\Djumi\Desktop\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.csprojResolveAssemblyReference.cache
+C:\Users\Djumi\Desktop\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.dll
+C:\Users\Djumi\Desktop\Supermarket-System\MySQL.Data\obj\Debug\MySQL.Data.pdb
