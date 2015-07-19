@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExportSalesReportToPdf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportSalesReportToPdf.Designer.cs">
+      <DependentUpon>ExportSalesReportToPdf.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportToJsonMongoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     </Compile>
     <Compile Include="SupermarketSoftMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ExportSalesReportToPdf.resx">
+      <DependentUpon>ExportSalesReportToPdf.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExportToJsonMongoForm.resx">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
     </EmbeddedResource>

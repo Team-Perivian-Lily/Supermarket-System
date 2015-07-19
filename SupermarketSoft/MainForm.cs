@@ -33,5 +33,11 @@ namespace SupermarketSoft
             var jsonMongoForm = new ExportToJsonMongoForm();
             jsonMongoForm.ShowDialog();
         }
+
+        private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
+        {
+            var exportToPdfForm = new ExportSalesReportToPdf();
+            exportToPdfForm.ShowDialog();
+        }
     }
 }

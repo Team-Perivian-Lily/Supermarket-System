@@ -33,7 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.ReplicateOracle = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.ExportSalesReportToPdf = new System.Windows.Forms.Button();
             this.ExportToJsonMongoDb = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -85,14 +85,15 @@
             this.ReplicateOracle.UseVisualStyleBackColor = true;
             this.ReplicateOracle.Click += new System.EventHandler(this.ReplicateOracle_Click);
             // 
-            // button4
+            // ExportSalesReportToPdf
             // 
-            this.button4.Location = new System.Drawing.Point(496, 212);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(172, 28);
-            this.button4.TabIndex = 5;
-            this.button4.Text = ".....";
-            this.button4.UseVisualStyleBackColor = true;
+            this.ExportSalesReportToPdf.Location = new System.Drawing.Point(496, 212);
+            this.ExportSalesReportToPdf.Name = "ExportSalesReportToPdf";
+            this.ExportSalesReportToPdf.Size = new System.Drawing.Size(172, 28);
+            this.ExportSalesReportToPdf.TabIndex = 5;
+            this.ExportSalesReportToPdf.Text = "Export Sales Report to Pdf";
+            this.ExportSalesReportToPdf.UseVisualStyleBackColor = true;
+            this.ExportSalesReportToPdf.Click += new System.EventHandler(this.ExportSalesReportToPdf_Click);
             // 
             // ExportToJsonMongoDb
             // 
@@ -110,7 +111,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 383);
             this.Controls.Add(this.ExportToJsonMongoDb);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.ExportSalesReportToPdf);
             this.Controls.Add(this.ReplicateOracle);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -130,7 +131,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ReplicateOracle;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button ExportSalesReportToPdf;
         private System.Windows.Forms.Button ExportToJsonMongoDb;
     }
 }
