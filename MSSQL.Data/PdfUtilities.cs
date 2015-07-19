@@ -1,7 +1,7 @@
 ﻿namespace MSSQL.Data
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using iTextSharp.text;
@@ -24,11 +24,13 @@
                 new FileStream(Path.GetTempPath() + "/Pdf-Report" + "/Sales-Report.pdf", FileMode.Create));
 
             pdfReport.Open();
-            pdfReport.Add(this.GenerateReportTable(context, pdfReport));
+            pdfReport.Add(this.GenerateReportTable(context));
             pdfReport.Close();
+
+            Process.Start(Path.GetTempPath() + "/Pdf-Report/");
         }
 
-        private PdfPTable GenerateReportTable(MSSQLSupermarketEntities context, Document pdfReport)
+        private PdfPTable GenerateReportTable(MSSQLSupermarketEntities context)
         {
             var salesGroupsByDate = context.Sales
                 .GroupBy(s => s.Date);
@@ -48,29 +50,46 @@
             return salesTable;
         }
 
-        private void AddGroupContentCells(PdfPTable salesTable, IEnumerable<Sale> salesGroup)
+        private void AddGroupContentCells(PdfPTable salesTable, IGrouping<DateTime, Sale> salesGroup)
         {
+            PdfPCell[] contentCells = new PdfPCell[5];
+
             foreach (var sale in salesGroup)
             {
-                PdfPCell[] contentCells = new[] { 
-                    new PdfPCell { Colspan = 1 },
-                    new PdfPCell { Colspan = 1 }, 
-                    new PdfPCell { Colspan = 1 }, 
-                    new PdfPCell { Colspan = 1 }, 
-                    new PdfPCell { Colspan = 1 }
-                };
+                var productName = sale.Product.ProductName;
+                var quantity = sale.Quantity + " " + sale.Product.Measure.MeasureName;
+                var unitPrice = sale.Product.Price.ToString("F");
+                var location = sale.Location.Name;
+                var sumOfSale = (sale.Product.Price * sale.Quantity).ToString("F");
 
-                contentCells[0].AddElement(new Paragraph(sale.Product.ProductName));
-                contentCells[1].AddElement(new Paragraph(sale.Quantity + " " + sale.Product.Measure.MeasureName));
-                contentCells[2].AddElement(new Paragraph(sale.Product.Price.ToString("F")));
-                contentCells[3].AddElement(new Paragraph(sale.Location.Name));
-                contentCells[4].AddElement(new Paragraph((sale.Product.Price * sale.Quantity).ToString("F")));
+                contentCells[0] = new PdfPCell(new Paragraph(productName));
+                contentCells[1] = new PdfPCell(new Paragraph(quantity));
+                contentCells[2] = new PdfPCell(new Paragraph(unitPrice));
+                contentCells[3] = new PdfPCell(new Paragraph(location));
+                contentCells[4] = new PdfPCell(new Paragraph(sumOfSale));
 
                 foreach (var contentCell in contentCells)
                 {
                     salesTable.AddCell(contentCell);
                 }
             }
+
+            var totalDateSumLabel = new PdfPCell();
+            totalDateSumLabel.Colspan = 4;
+
+            var preLastParagraph = new Paragraph("Total sum for " + salesGroup.Key.ToShortDateString());
+            preLastParagraph.Alignment = Element.ALIGN_RIGHT;
+
+            var totalDateSum = new PdfPCell();
+            totalDateSum.Colspan = 1;
+
+            var lastParagraph = new Paragraph(salesGroup.Sum(sg => sg.Quantity * sg.Product.Price).ToString("F"));
+
+            totalDateSumLabel.AddElement(preLastParagraph);
+            totalDateSum.AddElement(lastParagraph);
+
+            salesTable.AddCell(totalDateSumLabel);
+            salesTable.AddCell(totalDateSum);
         }
 
         private void AddSalesTableMainHeader(PdfPTable salesTable)
