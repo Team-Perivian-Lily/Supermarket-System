@@ -16,7 +16,7 @@ namespace MongoDB.Data
         private static IMongoDatabase database = client.GetDatabase("supermarket");
         private static IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("SalesByProductReports");
 
-        public static async void ImportSalesByProductReports(string jsonReport)
+        public static async void ImportSalesByProductReport(string jsonReport)
         {
             await collection.InsertOneAsync(MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(jsonReport));
         }

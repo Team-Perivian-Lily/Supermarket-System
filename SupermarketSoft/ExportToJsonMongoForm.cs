@@ -34,7 +34,7 @@ namespace SupermarketSoft
 
                 foreach (var product in MSSQLRepository.GetProducts())
                 {
-                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReports(JsonUtilities.CreateJsonReport(product));
+                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtilities.CreateJsonReport(product));
                 }
             }
             catch (Exception ex)

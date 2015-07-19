@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonUtilities.cs" />
+    <Compile Include="Location.cs">
+      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Measure.cs">
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
@@ -77,6 +80,9 @@
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale.cs">
+      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
