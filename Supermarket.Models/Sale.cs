@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Supermarket.Models
 {
-    public class Product
+    public class Sale
     {
         public int Id { get; set; }
-        public int VendorID { get; set; }
-        public string ProductName { get; set; }
-        public int MeasureID { get; set; }
-        public double Price { get; set; }
+        public System.DateTime Date { get; set; }
+        public int LocationID { get; set; }
+        public int ProductID { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -11,8 +11,6 @@ using System.Web.Script.Serialization;
 
 namespace SupermarketSoft
 {
-    using System.Diagnostics;
-    using System.IO;
 
     using MSSQL.Data;
 
@@ -27,14 +25,15 @@ namespace SupermarketSoft
         {
             try
             {
-                MSSQL.Data.JsonUtilities.CreateJsonFiles(
-                DateTime.Parse(this.startDatePicker.Text),
-                DateTime.Parse(this.endDatePicker.Text),
-                MSSQLRepository.GetProducts());
+                var salesReports = MSSQLRepository.SalesByProductReports(
+                    DateTime.Parse(this.startDatePicker.Text),
+                    DateTime.Parse(this.endDatePicker.Text));
 
-                foreach (var product in MSSQLRepository.GetProducts())
+                JsonUtilities.CreateJsonFiles(salesReports);
+
+                foreach (var salesReport in salesReports)
                 {
-                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtilities.CreateJsonReport(product));
+                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtilities.CreateJsonReport(salesReport));
                 }
             }
             catch (Exception ex)

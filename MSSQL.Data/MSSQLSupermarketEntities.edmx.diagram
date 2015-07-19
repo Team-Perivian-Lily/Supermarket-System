@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="MSSQLSupermarketModel.Vendor" Width="1.5" PointX="0.75" PointY="5.125" />
         <AssociationConnector Association="MSSQLSupermarketModel.FK_Products_Measures" />
         <AssociationConnector Association="MSSQLSupermarketModel.FK_Products_Vendors" />
-        <EntityTypeShape EntityType="MSSQLSupermarketModel.Location" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="MSSQLSupermarketModel.Location" Width="1.5" PointX="4.875" PointY="8.125" />
         <EntityTypeShape EntityType="MSSQLSupermarketModel.Sale" Width="1.5" PointX="3" PointY="3.875" />
         <AssociationConnector Association="MSSQLSupermarketModel.FK_Sales_Locations" />
         <AssociationConnector Association="MSSQLSupermarketModel.FK_Sales_Products" />

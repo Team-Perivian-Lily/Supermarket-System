@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonUtilities.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
@@ -83,6 +82,7 @@
     <Compile Include="Sale.cs">
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="SalesReport.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
     </Compile>
@@ -117,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Supermarket.Models\Supermarket.Models.csproj">
+      <Project>{def36b7d-7315-4640-ae22-a5f7065a50dc}</Project>
+      <Name>Supermarket.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,7 +11,6 @@ namespace MongoDB.Data
     public static class MongoDBRepository
     {
         private const string connectionString = "mongodb://team:softuni123@ds047602.mongolab.com:47602/supermarket";
-
         private static MongoClient client = new MongoClient(connectionString);
         private static IMongoDatabase database = client.GetDatabase("supermarket");
         private static IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("SalesByProductReports");

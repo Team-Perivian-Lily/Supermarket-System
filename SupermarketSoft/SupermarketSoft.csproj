@@ -65,6 +65,7 @@
     <Compile Include="ExportToJsonMongoForm.Designer.cs">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="JsonUtilities.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +124,14 @@
     <ProjectReference Include="..\SQLLite.Data\SQLLite.Data.csproj">
       <Project>{d25ad6dc-7721-41d7-b86c-a737ee4ddcc1}</Project>
       <Name>SQLLite.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Supermarket.Data\Supermarket.Data.csproj">
+      <Project>{0cb92baa-b56a-432e-9c7a-d67ecd658f5f}</Project>
+      <Name>Supermarket.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Supermarket.Models\Supermarket.Models.csproj">
+      <Project>{def36b7d-7315-4640-ae22-a5f7065a50dc}</Project>
+      <Name>Supermarket.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

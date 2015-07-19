@@ -26,7 +26,7 @@ namespace Oracle.Data.Migrations
                 {
                     context.Products.Add(new Product()
                     {
-                        Name = line
+                        ProductName = line
                     });
 
 

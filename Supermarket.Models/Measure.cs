@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Supermarket.Models
 {
-    public class Product
+    public class Measure
     {
         public int Id { get; set; }
-        public int VendorID { get; set; }
-        public string ProductName { get; set; }
-        public int MeasureID { get; set; }
-        public double Price { get; set; }
+        public string MeasureName { get; set; }
     }
 }
