@@ -10,7 +10,7 @@ namespace Oracle.Data
     {
         public static string ReplicateOracleToMSSQL()
         {
-            return "DATABASE REPLICATED :)";
+            return "DATABASE REPLICATED :) DONE!";
         }
     }
 }
