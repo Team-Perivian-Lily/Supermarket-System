@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Supermarket.Models
+﻿namespace Supermarket.Models
 {
+    using System.Collections.Generic;
+
     public class Product
     {
+        public Product()
+        {
+            Sales = new HashSet<Sale>();
+        }
+
         public int Id { get; set; }
         public int VendorID { get; set; }
         public string ProductName { get; set; }
         public int MeasureID { get; set; }
         public double Price { get; set; }
+        public virtual Measure Measure { get; set; }
+        public virtual Vendor Vendor { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

@@ -1,14 +1,10 @@
-using System.IO;
-using Supermarket.Models;
-
 namespace Oracle.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using System.IO;
+    using Supermarket.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Oracle.Data.OracleDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<OracleDbContext>
     {
         public Configuration()
         {
@@ -16,15 +12,15 @@ namespace Oracle.Data.Migrations
             ContextKey = "Oracle.Data.OracleDbContext";
         }
 
-        protected override void Seed(Oracle.Data.OracleDbContext context)
+        protected override void Seed(OracleDbContext context)
         {
-            using (StreamReader reader = new StreamReader("../../../ProductData.txt"))
+            using (var reader = new StreamReader("../../../ProductData.txt"))
             {
                 var line = reader.ReadLine();
                 line = reader.ReadLine();
-                while (line!=null)
+                while (line != null)
                 {
-                    context.Products.Add(new Product()
+                    context.Products.Add(new Product
                     {
                         ProductName = line
                     });

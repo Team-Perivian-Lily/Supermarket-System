@@ -6,6 +6,7 @@
     using System.Linq;
     using iTextSharp.text;
     using iTextSharp.text.pdf;
+    using Supermarket.Models;
 
     public class PdfUtilities
     {
@@ -24,7 +25,7 @@
                 new FileStream(Path.GetTempPath() + "/Pdf-Report" + "/Sales-Report.pdf", FileMode.Create));
 
             pdfReport.Open();
-            pdfReport.Add(this.GenerateReportTable(context));
+            pdfReport.Add(GenerateReportTable(context));
             pdfReport.Close();
 
             Process.Start(Path.GetTempPath() + "/Pdf-Report/");
@@ -60,7 +61,7 @@
                 var quantity = sale.Quantity + " " + sale.Product.Measure.MeasureName;
                 var unitPrice = sale.Product.Price.ToString("F");
                 var location = sale.Location.Name;
-                var sumOfSale = (sale.Product.Price * sale.Quantity).ToString("F");
+                var sumOfSale = (sale.Product.Price*sale.Quantity).ToString("F");
 
                 contentCells[0] = new PdfPCell(new Paragraph(productName));
                 contentCells[1] = new PdfPCell(new Paragraph(quantity));
@@ -83,7 +84,7 @@
             var totalDateSum = new PdfPCell();
             totalDateSum.Colspan = 1;
 
-            var lastParagraph = new Paragraph(salesGroup.Sum(sg => sg.Quantity * sg.Product.Price).ToString("F"));
+            var lastParagraph = new Paragraph(salesGroup.Sum(sg => sg.Quantity*sg.Product.Price).ToString("F"));
 
             totalDateSumLabel.AddElement(preLastParagraph);
             totalDateSum.AddElement(lastParagraph);
@@ -118,8 +119,8 @@
 
             salesTable.AddCell(dateCell);
 
-            string[] headerParagraphs = { "Product", "Quantity", "Unit Price", "Location", "Sum" };
-            foreach (string text in headerParagraphs)
+            string[] headerParagraphs = {"Product", "Quantity", "Unit Price", "Location", "Sum"};
+            foreach (var text in headerParagraphs)
             {
                 Paragraph headerParagraph = new Paragraph(text);
                 headerParagraph.Alignment = 0;

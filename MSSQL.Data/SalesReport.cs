@@ -1,11 +1,13 @@
 namespace MSSQL.Data
 {
+    using Supermarket.Models;
+
     public class SalesReport
     {
         public int ProductId { get; set; }
 
         public Product Product { get; set; }
-        
+
         public Vendor Vendor { get; set; }
 
         public int TotalQuantitySold { get; set; }

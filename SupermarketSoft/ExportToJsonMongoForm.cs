@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Web.Script.Serialization;
-
-namespace SupermarketSoft
+﻿namespace SupermarketSoft
 {
-
+    using System;
+    using System.Windows.Forms;
     using MSSQL.Data;
 
     public partial class ExportToJsonMongoForm : Form
@@ -40,7 +30,6 @@ namespace SupermarketSoft
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
     }
 }

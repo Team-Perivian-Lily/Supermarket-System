@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D126F53C-3997-461C-B950-485C9716CF99}</ProjectGuid>
+    <ProjectGuid>{73B2D867-2A7D-4F56-8DB3-EA2F01EB57EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSSQL.Data</RootNamespace>
@@ -39,16 +39,15 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="itextsharp">
-      <HintPath>..\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\Supermarket-System\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,71 +56,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Location.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Measure.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MSSQLRepository.cs" />
-    <Compile Include="MSSQLSupermarketEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MSSQLSupermarketEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MSSQLSupermarketEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MSSQLSupermarketEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MSSQLSupermarketEntities.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="MSSQLSupermarketEntities.cs" />
     <Compile Include="PdfUtilities.cs" />
-    <Compile Include="Product.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sale.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="SalesReport.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Vendor.cs">
-      <DependentUpon>MSSQLSupermarketEntities.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="MSSQLSupermarketEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MSSQLSupermarketEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="MSSQLSupermarketEntities.edmx.diagram">
-      <DependentUpon>MSSQLSupermarketEntities.edmx</DependentUpon>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MSSQLSupermarketEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MSSQLSupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>MSSQLSupermarketEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="MSSQLSupermarketEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MSSQLSupermarketEntities.edmx</DependentUpon>
-      <LastGenOutput>MSSQLSupermarketEntities.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Supermarket.Models\Supermarket.Models.csproj">

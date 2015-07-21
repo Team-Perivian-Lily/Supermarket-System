@@ -114,13 +114,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MSSQL.Data\MSSQL.Data.csproj">
+      <Project>{73b2d867-2a7d-4f56-8db3-ea2f01eb57ea}</Project>
+      <Name>MSSQL.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MongoDB.Data\MongoDB.Data.csproj">
       <Project>{1abc64dc-4e8f-4210-8408-4a5561c7ce24}</Project>
       <Name>MongoDB.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MSSQL.Data\MSSQL.Data.csproj">
-      <Project>{d126f53c-3997-461c-b950-485c9716cf99}</Project>
-      <Name>MSSQL.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MySQL.Data\MySQL.Data.csproj">
       <Project>{13f79f3b-519b-4ff2-ab68-e3d5dbb54a98}</Project>

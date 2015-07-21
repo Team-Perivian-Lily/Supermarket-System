@@ -11,26 +11,26 @@
     {
         public static void CreateJsonFiles(List<SalesReport> productsSales)
         {
-            if (!Directory.Exists(System.IO.Path.GetTempPath() + "/Json-Reports"))
+            if (!Directory.Exists(Path.GetTempPath() + "/Json-Reports"))
             {
-                    Directory.CreateDirectory(System.IO.Path.GetTempPath() + "/Json-Reports");
-                }
-               
-                foreach (var productSales in productsSales)
-                {
-                    FileStream fs1 = new FileStream(System.IO.Path.GetTempPath() + "/Json-Reports/" + productSales.Product.Id + ".json", FileMode.OpenOrCreate, FileAccess.Write);
-                    StreamWriter writer = new StreamWriter(fs1);
+                Directory.CreateDirectory(Path.GetTempPath() + "/Json-Reports");
+            }
 
-                    writer.WriteLine(CreateJsonReport(productSales));
-                    writer.Close();
-                }
+            foreach (var productSales in productsSales)
+            {
+                FileStream fs1 = new FileStream(Path.GetTempPath() + "/Json-Reports/" + productSales.Product.Id + ".json", FileMode.OpenOrCreate, FileAccess.Write);
+                StreamWriter writer = new StreamWriter(fs1);
 
-                Process.Start(System.IO.Path.GetTempPath() + "/Json-Reports/");
+                writer.WriteLine(CreateJsonReport(productSales));
+                writer.Close();
+            }
+
+            Process.Start(Path.GetTempPath() + "/Json-Reports/");
         }
 
         public static string CreateJsonReport(SalesReport salesReport)
         {
-            return 
+            return
                 new JavaScriptSerializer().Serialize(
                     new Dictionary<string, string>()
                         {
@@ -41,5 +41,6 @@
                             { "total-incomes", salesReport.TotalIncomes.ToString() }
                         });
         }
-    } 
+    }
 }
+
