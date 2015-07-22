@@ -1,11 +1,10 @@
-﻿namespace SupermarketSoft
+﻿namespace SupermarketSoft.Utilities
 {
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Web.Script.Serialization;
-
-    using MSSQL.Data;
+    using Supermarket.Models.Reports;
 
     public static class JsonUtilities
     {

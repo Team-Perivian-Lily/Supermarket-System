@@ -59,9 +59,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MSSQLRepository.cs" />
     <Compile Include="MSSQLSupermarketEntities.cs" />
-    <Compile Include="PdfUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SalesReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

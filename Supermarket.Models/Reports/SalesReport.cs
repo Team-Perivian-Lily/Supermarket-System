@@ -1,6 +1,6 @@
-namespace MSSQL.Data
+namespace Supermarket.Models.Reports
 {
-    using Supermarket.Models;
+    using Models;
 
     public class SalesReport
     {

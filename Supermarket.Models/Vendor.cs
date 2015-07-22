@@ -10,7 +10,9 @@
         }
 
         public int Id { get; set; }
+
         public string VendorName { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }

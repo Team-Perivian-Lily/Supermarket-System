@@ -3,6 +3,7 @@
     using System;
     using System.Windows.Forms;
     using MSSQL.Data;
+    using Utilities;
 
     public partial class ExportSalesReportToPdf : Form
     {
@@ -15,8 +16,9 @@
         {
             try
             {
-                PdfUtilities pdfUtils = new PdfUtilities();
-                pdfUtils.CreateReportFile();
+                PdfUtilities.CreatePdfFile(MSSQLRepository.GetSalesByDate(
+                    DateTime.Parse(this.startDatePicker.Text),
+                    DateTime.Parse(this.endDatePicker.Text)));
             }
             catch (Exception ex)
             {
