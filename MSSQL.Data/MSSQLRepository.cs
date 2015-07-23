@@ -1,6 +1,4 @@
-﻿using Supermarket.Models;
-
-namespace MSSQL.Data
+﻿namespace MSSQL.Data
 {
     using System;
     using System.Collections.Generic;

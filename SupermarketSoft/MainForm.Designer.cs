@@ -31,8 +31,6 @@
             this.ExportFromMSSQL = new System.Windows.Forms.Button();
             this.programName = new System.Windows.Forms.Label();
             this.ExportToXml = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.ImportSalesFromXls = new System.Windows.Forms.Button();
             this.ReplicateOracle = new System.Windows.Forms.Button();
             this.ExportSalesReportToPdf = new System.Windows.Forms.Button();
@@ -117,10 +115,8 @@
             this.Controls.Add(this.ExportToJsonMongoDb);
             this.Controls.Add(this.ExportSalesReportToPdf);
             this.Controls.Add(this.ReplicateOracle);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.ExportToXml);
             this.Controls.Add(this.ImportSalesFromXls);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.programName);
             this.Controls.Add(this.ExportFromMSSQL);
             this.Name = "MainForm";
@@ -135,8 +131,6 @@
         private System.Windows.Forms.Button ExportFromMSSQL;
         private System.Windows.Forms.Label programName;
         private System.Windows.Forms.Button ExportToXml;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ImportSalesFromXls;
         private System.Windows.Forms.Button ReplicateOracle;
         private System.Windows.Forms.Button ExportSalesReportToPdf;

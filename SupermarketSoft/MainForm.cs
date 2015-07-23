@@ -1,17 +1,12 @@
-﻿using System.IO;
-using MSSQL.Data;
-using Supermarket.Models;
-using SupermarketSoft.Utilities;
-
-namespace SupermarketSoft
+﻿namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
     using System.Windows.Forms;
-
-    using Oracle.Data;
     using MySQL.DataSupermarket;
-    using SQLLite.Data;
+    using MSSQL.Data;
+    using Oracle.Data;
+    using Utilities;
 
 
     public partial class MainForm : Form
