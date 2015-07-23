@@ -13,8 +13,7 @@ namespace MySQL.DataSupermarket
         public static void AddProducts(List<SalesReport> list)
         {
             var ctx = new MySQLEntities();
-
-            //var p = list.Where(p=>p.Product.ProductName!=ctx.Locations)
+            //var p = list.Where(p => p.Product.ProductName != ctx.Locations);
 
             foreach (var salesReport in list)
             {

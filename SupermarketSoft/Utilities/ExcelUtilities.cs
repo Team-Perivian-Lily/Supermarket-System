@@ -11,6 +11,11 @@ using SQLLite.Data;
 
 namespace SupermarketSoft.Utilities
 {
+    using System.IO.Compression;
+    using System.Windows.Forms;
+
+    using Excel;
+
     public static class ExcelUtilities
     {
         public static string GenerateFile(DirectoryInfo outputDir = null)
@@ -136,6 +141,37 @@ namespace SupermarketSoft.Utilities
             }
 
             return newFile.FullName;
+        }
+
+        public static void ReadExcelData(ZipArchiveEntry entry, string[] salesData)
+        {
+            var ms = new MemoryStream();
+            CopyStream(entry.Open(), ms);
+            var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
+            var dataSet = excelReader.AsDataSet();
+            string shop = dataSet.Tables[0].Rows[1][1].ToString();
+            string result = string.Empty;
+            for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
+            {
+                var row = dataSet.Tables[0].Rows[i];
+
+                result +=
+                    "\n\nDate: " + salesData[0]
+                    + "\nShop: " + shop
+                    + "\nProduct: " + row[1]
+                    + "\nQuantity: " + row[2];
+            }
+            MessageBox.Show(result);
+        }
+
+        public static void CopyStream(Stream input, Stream output)
+        {
+            var buffer = new byte[16 * 1024];
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                output.Write(buffer, 0, read);
+            }
         }
     }
 }
