@@ -1,3 +1,5 @@
+using MySql.Data.Entity;
+using MySQL.DataSupermarket.Migrations;
 using Supermarket.Models;
 
 namespace MySQL.DataSupermarket
@@ -6,6 +8,7 @@ namespace MySQL.DataSupermarket
     using System.Data.Entity;
     using System.Linq;
 
+    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MySQLEntities : DbContext
     {
         // Your context has been configured to use a 'MySQLEntities' connection string from your application's 
@@ -17,6 +20,7 @@ namespace MySQL.DataSupermarket
         public MySQLEntities()
             : base("name=MySQLEntities")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySQLEntities, Configuration>());
         }
 
         public virtual IDbSet<Product> Products { get; set; }

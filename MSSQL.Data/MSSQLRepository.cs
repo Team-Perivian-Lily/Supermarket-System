@@ -1,4 +1,6 @@
-﻿namespace MSSQL.Data
+﻿using Supermarket.Models;
+
+namespace MSSQL.Data
 {
     using System;
     using System.Collections.Generic;
@@ -68,6 +70,27 @@
             }
 
             return result;
+        }
+
+        public static List<SalesReport> GetProducts()
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                return context.Products
+                    .Where(p => p.Sales.Any())
+                        .Select(p => new SalesReport
+                        {
+                            ProductId = p.Id,
+                            Product = p,
+                            Vendor = p.Vendor
+                            
+                        })
+                        .ToList();
+
+
+            }
+
+            
         }
     }
 }

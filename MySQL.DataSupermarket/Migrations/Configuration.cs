@@ -9,7 +9,8 @@ namespace MySQL.DataSupermarket.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            //SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
         protected override void Seed(MySQL.DataSupermarket.MySQLEntities entities)

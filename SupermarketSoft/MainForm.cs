@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using MSSQL.Data;
+using Supermarket.Models;
 using SupermarketSoft.Utilities;
 
 namespace SupermarketSoft
@@ -18,14 +20,26 @@ namespace SupermarketSoft
         }
 
         private void ExportFromMSSQL_Click(object sender, EventArgs e)
-        {   // Test MySQL
-            MySQLRepository.Test();
+        {   
+            //// Test MySQL
+            //MySQLRepository.Test();
 
-             //Test SQLite
-            SQLiteRepository.Test();
+            // //Test SQLite
+            //SQLiteRepository.Test();
 
-             //Test Excel
-            ExcelUtilities.GenerateFile();
+            // //Test Excel
+            //ExcelUtilities.GenerateFile();
+
+            //var ctx = new MySQLEntities();
+
+            //ctx.Locations.Add(new Location()
+            //{
+            //    Name = "Tuk"
+            //});
+            //ctx.SaveChanges();
+            var products = MSSQLRepository.GetProducts();
+
+            MySQLRepository.AddProducts(products);
         }
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
