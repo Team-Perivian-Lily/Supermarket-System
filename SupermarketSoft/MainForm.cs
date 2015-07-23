@@ -58,5 +58,11 @@ namespace SupermarketSoft
             var exportToPdfForm = new ExportSalesReportToPdf();
             exportToPdfForm.ShowDialog();
         }
+
+        private void ExportSalesReportToXml_Click(object sender, EventArgs e)
+        {
+            var exportToPdfForm = new ExportSalesReportToXml();
+            exportToPdfForm.ShowDialog();
+        }
     }
 }

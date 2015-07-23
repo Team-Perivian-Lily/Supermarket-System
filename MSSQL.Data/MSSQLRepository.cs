@@ -83,14 +83,46 @@ namespace MSSQL.Data
                             ProductId = p.Id,
                             Product = p,
                             Vendor = p.Vendor
-                            
+
                         })
                         .ToList();
 
 
             }
+        }
 
-            
+        public static List<VendorsSalesReports> GetSalesByVendor(DateTime startDate, DateTime endDate)
+        {
+            var result = new List<VendorsSalesReports>();
+
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                var vendorGroups = context.Sales
+                    .Where(s => s.Date >= startDate && s.Date <= endDate)
+                    .OrderBy(s => s.Product.Vendor.VendorName)
+                    .GroupBy(s => s.Product.Vendor)
+                    .Select(vg => new
+                    {
+                        Vendor = vg.Key,
+                        Group = vg
+                            .GroupBy(sale => sale.Date)
+                            .Select(sg => new VendorSalesReport
+                            {
+                                DateOfSale = sg.Key,
+                                SumOfSales = sg.Sum(s => s.Quantity * s.Product.Price)
+                            })
+                    }).ToList();
+
+                result.AddRange(vendorGroups
+                    .Select(@group => new VendorsSalesReports
+                    {
+                        Vendor = @group.Vendor,
+                        VendorReports = @group.Group
+                    })
+                );
+            }
+
+            return result;
         }
     }
 }
