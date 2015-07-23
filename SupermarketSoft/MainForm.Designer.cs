@@ -31,7 +31,7 @@
             this.ExportFromMSSQL = new System.Windows.Forms.Button();
             this.programName = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.ImportSalesFromXls = new System.Windows.Forms.Button();
             this.ReplicateOracle = new System.Windows.Forms.Button();
             this.ExportSalesReportToPdf = new System.Windows.Forms.Button();
             this.ExportToJsonMongoDb = new System.Windows.Forms.Button();
@@ -66,14 +66,15 @@
             this.button1.Text = "MSSQL => XLS";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // ImportSalesFromXls
             // 
-            this.button2.Location = new System.Drawing.Point(298, 147);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 28);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "XLS => MSSQL";
-            this.button2.UseVisualStyleBackColor = true;
+            this.ImportSalesFromXls.Location = new System.Drawing.Point(298, 147);
+            this.ImportSalesFromXls.Name = "ImportSalesFromXls";
+            this.ImportSalesFromXls.Size = new System.Drawing.Size(129, 28);
+            this.ImportSalesFromXls.TabIndex = 3;
+            this.ImportSalesFromXls.Text = "XLS => MSSQL";
+            this.ImportSalesFromXls.UseVisualStyleBackColor = true;
+            this.ImportSalesFromXls.Click += new System.EventHandler(this.ImportSalesFromXls_Click);
             // 
             // ReplicateOracle
             // 
@@ -113,7 +114,7 @@
             this.Controls.Add(this.ExportToJsonMongoDb);
             this.Controls.Add(this.ExportSalesReportToPdf);
             this.Controls.Add(this.ReplicateOracle);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.ImportSalesFromXls);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.programName);
             this.Controls.Add(this.ExportFromMSSQL);
@@ -129,7 +130,7 @@
         private System.Windows.Forms.Button ExportFromMSSQL;
         private System.Windows.Forms.Label programName;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ImportSalesFromXls;
         private System.Windows.Forms.Button ReplicateOracle;
         private System.Windows.Forms.Button ExportSalesReportToPdf;
         private System.Windows.Forms.Button ExportToJsonMongoDb;
