@@ -1,8 +1,14 @@
-﻿namespace SupermarketSoft
+﻿using System.IO;
+using SupermarketSoft.Utilities;
+
+namespace SupermarketSoft
 {
     using System;
     using System.Windows.Forms;
     using Oracle.Data;
+    using MySQL.DataSupermarket;
+    using SQLLite.Data;
+
 
     public partial class MainForm : Form
     {
@@ -12,7 +18,14 @@
         }
 
         private void ExportFromMSSQL_Click(object sender, EventArgs e)
-        {
+        {   // Test MySQL
+            MySQLRepository.Test();
+
+             //Test SQLite
+            SQLiteRepository.Test();
+
+             //Test Excel
+            ExcelUtilities.GenerateFile();
         }
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
