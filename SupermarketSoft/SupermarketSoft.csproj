@@ -121,6 +121,12 @@
     <Compile Include="ExportToJsonMongoForm.Designer.cs">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportExpensesToMSSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExpensesToMSSQL.Designer.cs">
+      <DependentUpon>ImportExpensesToMSSQL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ExcelUtilities.cs" />
     <Compile Include="Utilities\JsonUtilities.cs" />
     <Compile Include="MainForm.cs">
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportToJsonMongoForm.resx">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExpensesToMSSQL.resx">
+      <DependentUpon>ImportExpensesToMSSQL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
