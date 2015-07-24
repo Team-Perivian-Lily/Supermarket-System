@@ -8,6 +8,7 @@ namespace MSSQL.Data
         public MSSQLSupermarketEntities()
             : base("name=MSSQLSupermarketEntities")
         {
+            
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
         }
 
@@ -20,5 +21,6 @@ namespace MSSQL.Data
         public virtual IDbSet<Vendor> Vendors { get; set; }
 
         public virtual IDbSet<Location> Locations { get; set; }
+
     }
 }

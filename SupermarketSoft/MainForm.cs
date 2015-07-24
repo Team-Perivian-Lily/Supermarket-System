@@ -41,7 +41,7 @@
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(OracleRepository.ReplicateOracleToMSSQL());
+            OracleRepository.ReplicateOracleToMSSQL();
         }
 
         private void ExportToJsonMongoDb_Click(object sender, EventArgs e)

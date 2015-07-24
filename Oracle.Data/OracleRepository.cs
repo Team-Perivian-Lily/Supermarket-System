@@ -1,10 +1,24 @@
-﻿namespace Oracle.Data
+﻿using System;
+using System.Linq;
+
+namespace Oracle.Data
 {
     public static class OracleRepository
     {
-        public static string ReplicateOracleToMSSQL()
+        public static void ReplicateOracleToMSSQL()
         {
-            return "DATABASE REPLICATED :) DONE!";
+           //var sqlContex = new MSSQLSupermarketEntities();
+           var orcContex = new OracleDbContext();
+
+            //var orcMeasures = orcContex.Measures
+            ////    .Select(m => m.MeasureName)
+            ////    .ToList();
+
+            //foreach (var orcMeasure in orcMeasures)
+            //{
+            //    Console.WriteLine(orcMeasure);
+            //}
+
         }
     }
 }

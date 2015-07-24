@@ -1,7 +1,13 @@
-﻿namespace Supermarket.Models
-{
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace ClassLibrary1
+{
+     [Table("VENDORS")]
     public class Vendor
     {
         public Vendor()
@@ -15,6 +21,5 @@
 
         public virtual ICollection<Product> Products { get; set; }
 
-        public virtual string DatigonabiqNaKrivoNaMaikaTi { get; set; }
     }
 }
