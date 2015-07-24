@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ClassLibrary1
 {
      [Table("PRODUCTS")]
-    public class Product
+    public class ProductDTO
     {
         
 
@@ -22,9 +22,9 @@ namespace ClassLibrary1
 
         public double Price { get; set; }
 
-        public virtual Measure Measure { get; set; }
+        public virtual MeasureDTO Measure { get; set; }
 
-        public virtual Vendor Vendor { get; set; }
+        public virtual VendorDTO Vendor { get; set; }
 
         
     }

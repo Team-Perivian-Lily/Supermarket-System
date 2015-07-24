@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace ClassLibrary1
 {
      [Table("MEASURES")]
-    public class Measure
+    public class MeasureDTO
     {
-        public Measure()
+        public MeasureDTO()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<ProductDTO>();
         }
 
         public int Id { get; set; }
 
         public string MeasureName { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<ProductDTO> Products { get; set; }
     }
 }

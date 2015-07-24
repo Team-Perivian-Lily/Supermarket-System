@@ -33,12 +33,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(28, 42);
+            this.button1.Location = new System.Drawing.Point(60, 64);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(146, 33);
             this.button1.TabIndex = 0;
             this.button1.Text = "ImportXMLToMSSQL";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ImportExpensesToMSSQL
             // 

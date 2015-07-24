@@ -67,9 +67,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
+    <ProjectReference Include="..\ClassLibrary1\Oracle.Models.csproj">
       <Project>{35f31f00-0a27-441f-87b8-42f4e88788bd}</Project>
-      <Name>ClassLibrary1</Name>
+      <Name>Oracle.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Supermarket.Models\Supermarket.Models.csproj">
+      <Project>{DEF36B7D-7315-4640-AE22-A5F7065A50DC}</Project>
+      <Name>Supermarket.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

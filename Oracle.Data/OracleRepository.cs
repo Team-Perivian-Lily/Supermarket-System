@@ -1,24 +1,23 @@
-﻿using System;
-using System.Linq;
-
-namespace Oracle.Data
+﻿namespace Oracle.Data
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using ClassLibrary1;
+
     public static class OracleRepository
     {
-        public static void ReplicateOracleToMSSQL()
+        public static List<ProductDTO> ReplicateOracleToMSSQL()
         {
-           //var sqlContex = new MSSQLSupermarketEntities();
-           var orcContex = new OracleDbContext();
+            using (var orcContex = new OracleDbContext())
+            {
+                // Take data
 
-            //var orcMeasures = orcContex.Measures
-            ////    .Select(m => m.MeasureName)
-            ////    .ToList();
-
-            //foreach (var orcMeasure in orcMeasures)
-            //{
-            //    Console.WriteLine(orcMeasure);
-            //}
-
+                return orcContex.PRODUCTS
+                    .Include(p => p.Measure)
+                    .Include(p => p.Vendor)
+                    .ToList();
+            }
         }
     }
 }

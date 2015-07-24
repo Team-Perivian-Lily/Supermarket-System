@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using ClassLibrary1;
+    using Supermarket.Models;
     using Supermarket.Models.Reports;
 
     public static class MSSQLRepository
@@ -122,6 +124,32 @@
 
             return result;
         }
+
+        public static void FillData(List<ProductDTO> products)
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                foreach (var product in products)
+                {
+                    context.Products.Add(new Product()
+                        {
+                            ProductName = product.ProductName,
+                            Price = product.Price,
+                            Measure = new Measure()
+                            {
+                                MeasureName = product.Measure.MeasureName
+                            },
+                            Vendor = new Vendor()
+                            {
+                                VendorName = product.Vendor.VendorName
+                            }
+                        });
+                }
+
+                context.SaveChanges();
+
+            }
+        }
     }
-    
+
 }

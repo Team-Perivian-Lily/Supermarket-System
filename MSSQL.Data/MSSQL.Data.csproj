@@ -66,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Oracle.Models.csproj">
+      <Project>{35F31F00-0A27-441F-87B8-42F4E88788BD}</Project>
+      <Name>Oracle.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Supermarket.Models\Supermarket.Models.csproj">
       <Project>{def36b7d-7315-4640-ae22-a5f7065a50dc}</Project>
       <Name>Supermarket.Models</Name>

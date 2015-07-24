@@ -34,9 +34,12 @@
             //    Name = "Tuk"
             //});
             //ctx.SaveChanges();
-            var products = MSSQLRepository.GetProducts();
+            //var products = MSSQLRepository.GetProducts();
 
-            MySQLRepository.AddProducts(products);
+            //MySQLRepository.AddProducts(products);
+
+            var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
+            MSSQLRepository.FillData(productsForSQLServer);
         }
 
         private void ReplicateOracle_Click(object sender, EventArgs e)

@@ -45,7 +45,7 @@ namespace Oracle.Data.Migrations
 
                 for (int i = 0; i < vendors.Length; i++)
                 {
-                    context.VENDORS.Add(new Vendor()
+                    context.VENDORS.Add(new VendorDTO()
                     {
                         VendorName = vendors[i]
                     });
@@ -67,7 +67,7 @@ namespace Oracle.Data.Migrations
 
                 for (int i = 0; i < measures.Length; i++)
                 {
-                    context.MEASURES.Add(new Measure()
+                    context.MEASURES.Add(new MeasureDTO()
                     {
                         Id = i * 100,
                        MeasureName = measures[i]
@@ -108,7 +108,7 @@ namespace Oracle.Data.Migrations
                     string productName = currProduct[1];
                     int measureId = int.Parse(currProduct[2]);
                     double price = double.Parse(currProduct[3]);
-                    context.PRODUCTS.Add(new Product()
+                    context.PRODUCTS.Add(new ProductDTO()
                     {
                         VendorID = vendorID,
                         ProductName = productName,
