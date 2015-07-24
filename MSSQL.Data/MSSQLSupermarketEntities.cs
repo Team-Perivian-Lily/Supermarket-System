@@ -22,5 +22,6 @@ namespace MSSQL.Data
 
         public virtual IDbSet<Location> Locations { get; set; }
 
+        public virtual IDbSet<Expense> Expenses { get; set; }
     }
 }
