@@ -1,11 +1,9 @@
-using System.Reflection;
-using ClassLibrary1;
+using Oracle.Models;
 
 namespace Oracle.Data
 {
     using System.Data.Entity;
     using Migrations;
-    //using Supermarket.Models;
 
     public class OracleDbContext : DbContext
     {

@@ -1,6 +1,7 @@
 namespace MSSQL.Data
 {
     using System.Data.Entity;
+    using Migrations;
     using Supermarket.Models;
 
     public class MSSQLSupermarketEntities : DbContext
@@ -8,8 +9,7 @@ namespace MSSQL.Data
         public MSSQLSupermarketEntities()
             : base("name=MSSQLSupermarketEntities")
         {
-            
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
         }
 
         public virtual IDbSet<Product> Products { get; set; }

@@ -6,7 +6,7 @@
     {
         public Product()
         {
-            Sales = new HashSet<Sale>();
+            this.Sales = new HashSet<Sale>();
         }
 
         public int Id { get; set; }

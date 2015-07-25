@@ -1,12 +1,8 @@
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using ClassLibrary1;
-
 namespace Oracle.Data.Migrations
 {
     using System.Data.Entity.Migrations;
-    using System.IO;
-    //using Supermarket.Models;
+    using System.Linq;
+    using Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<OracleDbContext>
     {

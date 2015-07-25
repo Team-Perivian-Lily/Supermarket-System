@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Supermarket.Models
+﻿namespace Supermarket.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
-    [NotMapped]
     public class Location
     {
-        
         public Location()
         {
-            Sales = new HashSet<Sale>();
+            this.Sales = new HashSet<Sale>();
         }
 
         [Key]

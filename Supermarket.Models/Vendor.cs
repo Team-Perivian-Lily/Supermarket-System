@@ -14,7 +14,5 @@
         public string VendorName { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-
-        public virtual string DatigonabiqNaKrivoNaMaikaTi { get; set; }
     }
 }

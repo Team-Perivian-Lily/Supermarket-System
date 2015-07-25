@@ -6,7 +6,7 @@
     {
         public Measure()
         {
-            Products = new HashSet<Product>();
+            this.Products = new HashSet<Product>();
         }
 
         public int Id { get; set; }
