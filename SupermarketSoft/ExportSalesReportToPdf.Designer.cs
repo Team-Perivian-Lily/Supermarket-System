@@ -88,6 +88,7 @@
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
             this.Name = "ExportSalesReportToPdf";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExportSalesReportToPdf";
             this.ResumeLayout(false);
             this.PerformLayout();

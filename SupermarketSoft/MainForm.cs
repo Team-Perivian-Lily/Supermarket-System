@@ -78,25 +78,17 @@
                 using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
                 {
                     bool operationNotCompleted = false;
-                    foreach (var entry in zip.Entries)
-                    {
-                        string[] salesHeaders = entry.FullName.Split('/');
-                        List<List<string>> sales = new List<List<string>>();
+                    var sales = ExcelUtilities.ReadSaleData(zip);
 
-
-                        if (entry.FullName.EndsWith(".xls"))
-                        {
-                            var salesData = ExcelUtilities.ReadSaleData(entry, salesHeaders);
-                            sales.AddRange(salesData);
-                        }
-
-                        if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
+                    if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
                         {
                             operationNotCompleted = true;
                         }
-                    }
 
-                    MessageBox.Show(operationNotCompleted ? "Operation Error" : "Operation Completed");
+                    MessageBox.Show(
+                        operationNotCompleted ? 
+                        "Operation Error, no data was inserted" : 
+                        "Operation Completed");
                 }
             }
         }

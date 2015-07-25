@@ -9,7 +9,7 @@ namespace MSSQL.Data
         public MSSQLSupermarketEntities()
             : base("name=MSSQLSupermarketEntities")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
         }
 
         public virtual IDbSet<Product> Products { get; set; }

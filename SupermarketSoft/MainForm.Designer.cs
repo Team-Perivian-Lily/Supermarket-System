@@ -42,7 +42,7 @@
             // 
             this.ExportFromMSSQL.Location = new System.Drawing.Point(76, 147);
             this.ExportFromMSSQL.Name = "ExportFromMSSQL";
-            this.ExportFromMSSQL.Size = new System.Drawing.Size(129, 28);
+            this.ExportFromMSSQL.Size = new System.Drawing.Size(172, 28);
             this.ExportFromMSSQL.TabIndex = 0;
             this.ExportFromMSSQL.Text = "Export From MSSQL";
             this.ExportFromMSSQL.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
             // 
             this.ExportToXml.Location = new System.Drawing.Point(298, 212);
             this.ExportToXml.Name = "ExportToXml";
-            this.ExportToXml.Size = new System.Drawing.Size(129, 28);
+            this.ExportToXml.Size = new System.Drawing.Size(148, 28);
             this.ExportToXml.TabIndex = 2;
             this.ExportToXml.Text = "MSSQL => XML";
             this.ExportToXml.UseVisualStyleBackColor = true;
@@ -72,9 +72,9 @@
             // 
             this.ImportSalesFromXls.Location = new System.Drawing.Point(298, 147);
             this.ImportSalesFromXls.Name = "ImportSalesFromXls";
-            this.ImportSalesFromXls.Size = new System.Drawing.Size(129, 28);
+            this.ImportSalesFromXls.Size = new System.Drawing.Size(148, 28);
             this.ImportSalesFromXls.TabIndex = 3;
-            this.ImportSalesFromXls.Text = "XLS => MSSQL";
+            this.ImportSalesFromXls.Text = "ZIP (xls sales) => MSSQL";
             this.ImportSalesFromXls.UseVisualStyleBackColor = true;
             this.ImportSalesFromXls.Click += new System.EventHandler(this.ImportSalesFromXls_Click);
             // 
@@ -82,7 +82,7 @@
             // 
             this.ReplicateOracle.Location = new System.Drawing.Point(76, 212);
             this.ReplicateOracle.Name = "ReplicateOracle";
-            this.ReplicateOracle.Size = new System.Drawing.Size(129, 28);
+            this.ReplicateOracle.Size = new System.Drawing.Size(172, 28);
             this.ReplicateOracle.TabIndex = 4;
             this.ReplicateOracle.Text = "Oracle => MSSQL";
             this.ReplicateOracle.UseVisualStyleBackColor = true;
@@ -104,15 +104,15 @@
             this.ExportToJsonMongoDb.Name = "ExportToJsonMongoDb";
             this.ExportToJsonMongoDb.Size = new System.Drawing.Size(172, 28);
             this.ExportToJsonMongoDb.TabIndex = 6;
-            this.ExportToJsonMongoDb.Text = "Export to JSON/MongoDB";
+            this.ExportToJsonMongoDb.Text = "Export sales to JSON/MongoDB";
             this.ExportToJsonMongoDb.UseVisualStyleBackColor = true;
             this.ExportToJsonMongoDb.Click += new System.EventHandler(this.ExportToJsonMongoDb_Click);
             // 
-            // button1
+            // ImportXmlToSql
             // 
-            this.ImportXmlToSql.Location = new System.Drawing.Point(496, 277);
+            this.ImportXmlToSql.Location = new System.Drawing.Point(298, 279);
             this.ImportXmlToSql.Name = "ImportXmlToSql";
-            this.ImportXmlToSql.Size = new System.Drawing.Size(172, 28);
+            this.ImportXmlToSql.Size = new System.Drawing.Size(148, 28);
             this.ImportXmlToSql.TabIndex = 7;
             this.ImportXmlToSql.Text = "Import XML To MSSQL";
             this.ImportXmlToSql.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             this.Controls.Add(this.programName);
             this.Controls.Add(this.ExportFromMSSQL);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "SMSoft";
             this.ResumeLayout(false);
             this.PerformLayout();
 

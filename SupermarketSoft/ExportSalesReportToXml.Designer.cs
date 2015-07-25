@@ -88,6 +88,7 @@
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
             this.Name = "ExportSalesReportToXml";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExportSalesReportToXml";
             this.ResumeLayout(false);
             this.PerformLayout();

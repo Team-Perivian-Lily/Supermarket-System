@@ -195,14 +195,23 @@
                             var saleDate = DateTime.Parse(saleData[0]);
                             string locationName = saleData[1];
                             string productName = saleData[2];
-                            var location = context.Locations.FirstOrDefault(l => l.Name == locationName);
-                            var product = context.Products.FirstOrDefault(p => p.ProductName == productName);
+                            int locationId = context.Locations
+                                .Where(l => l.Name == locationName)
+                                .Take(1)
+                                .Select(l => l.Id)
+                                .FirstOrDefault();
+                            int productId = context.Products
+                                .Where(p => p.ProductName == productName)
+                                .Take(1)
+                                .Select(p => p.Id)
+                                .FirstOrDefault();
                             var quantity = int.Parse(saleData[3]);
+
                             var sale = new Sale()
                             {
                                 Date = saleDate,
-                                LocationID = location.Id,
-                                ProductID = product.Id,
+                                LocationID = locationId,
+                                ProductID = productId,
                                 Quantity = quantity
                             };
                             context.Sales.Add(sale);

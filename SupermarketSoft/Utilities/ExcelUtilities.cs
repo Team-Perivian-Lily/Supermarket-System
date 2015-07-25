@@ -143,26 +143,38 @@ namespace SupermarketSoft.Utilities
             return newFile.FullName;
         }
 
-        public static List<List<string>> ReadSaleData(ZipArchiveEntry entry, string[] salesHeaders)
+        public static List<List<string>> ReadSaleData(ZipArchive zip)
         {
-            var salesStrings = new List<List<string>>();
+            List<List<string>> sales = new List<List<string>>();
 
-            var ms = new MemoryStream();
-            CopyStream(entry.Open(), ms);
-            var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
-            var dataSet = excelReader.AsDataSet();
-            string location = dataSet.Tables[0].Rows[1][1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
-            for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
+            foreach (var entry in zip.Entries)
             {
-                var row = dataSet.Tables[0].Rows[i];
-                var date = salesHeaders[0];
-                var productName = row[1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
-                var quantity = row[2].ToString();
-                List<string> saleStrings = new List<string>() { date, location, productName, quantity };
+                string[] salesHeaders = entry.FullName.Split('/');
 
-                salesStrings.Add(saleStrings);
+                if (entry.FullName.EndsWith(".xls"))
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        CopyStream(entry.Open(), ms);
+                        var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
+                        var dataSet = excelReader.AsDataSet();
+                        string location = dataSet.Tables[0].Rows[1][1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
+
+                        for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
+                        {
+                            var row = dataSet.Tables[0].Rows[i];
+                            var date = salesHeaders[0];
+                            var productName = row[1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
+                            var quantity = row[2].ToString();
+                            List<string> saleStrings = new List<string>() { date, location, productName, quantity };
+
+                            sales.Add(saleStrings);
+                        }
+                    }
+               }
             }
-            return salesStrings;
+            
+            return sales;
         }
 
         public static void CopyStream(Stream input, Stream output)
