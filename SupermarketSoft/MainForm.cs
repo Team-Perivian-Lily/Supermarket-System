@@ -1,6 +1,7 @@
 ﻿namespace SupermarketSoft
 {
     using System;
+    using System.Collections.Generic;
     using System.IO.Compression;
     using System.Linq;
     using System.Windows.Forms;
@@ -76,15 +77,26 @@
 
                 using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
                 {
+                    bool operationNotCompleted = false;
                     foreach (var entry in zip.Entries)
                     {
-                        string[] salesData = entry.FullName.Split('/');
+                        string[] salesHeaders = entry.FullName.Split('/');
+                        List<List<string>> sales = new List<List<string>>();
+
 
                         if (entry.FullName.EndsWith(".xls"))
                         {
-                            ExcelUtilities.ReadExcelData(entry, salesData);
+                            var salesData = ExcelUtilities.ReadSaleData(entry, salesHeaders);
+                            sales.AddRange(salesData);
+                        }
+
+                        if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
+                        {
+                            operationNotCompleted = true;
                         }
                     }
+
+                    MessageBox.Show(operationNotCompleted ? "Operation Error" : "Operation Completed");
                 }
             }
         }

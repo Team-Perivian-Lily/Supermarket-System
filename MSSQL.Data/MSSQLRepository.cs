@@ -181,5 +181,45 @@
                 context.SaveChanges();
             }
         }
+
+        public static bool InsertSalesBySaleData(List<List<string>> salesData)
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var saleData in salesData)
+                        {
+                            var saleDate = DateTime.Parse(saleData[0]);
+                            string locationName = saleData[1];
+                            string productName = saleData[2];
+                            var location = context.Locations.FirstOrDefault(l => l.Name == locationName);
+                            var product = context.Products.FirstOrDefault(p => p.ProductName == productName);
+                            var quantity = int.Parse(saleData[3]);
+                            var sale = new Sale()
+                            {
+                                Date = saleDate,
+                                LocationID = location.Id,
+                                ProductID = product.Id,
+                                Quantity = quantity
+                            };
+                            context.Sales.Add(sale);
+                        }
+
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        dbContextTransaction.Rollback();
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }

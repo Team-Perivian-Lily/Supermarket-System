@@ -143,25 +143,26 @@ namespace SupermarketSoft.Utilities
             return newFile.FullName;
         }
 
-        public static void ReadExcelData(ZipArchiveEntry entry, string[] salesData)
+        public static List<List<string>> ReadSaleData(ZipArchiveEntry entry, string[] salesHeaders)
         {
+            var salesStrings = new List<List<string>>();
+
             var ms = new MemoryStream();
             CopyStream(entry.Open(), ms);
             var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
             var dataSet = excelReader.AsDataSet();
-            string shop = dataSet.Tables[0].Rows[1][1].ToString();
-            string result = string.Empty;
+            string location = dataSet.Tables[0].Rows[1][1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
             for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
             {
                 var row = dataSet.Tables[0].Rows[i];
+                var date = salesHeaders[0];
+                var productName = row[1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
+                var quantity = row[2].ToString();
+                List<string> saleStrings = new List<string>() { date, location, productName, quantity };
 
-                result +=
-                    "\n\nDate: " + salesData[0]
-                    + "\nShop: " + shop
-                    + "\nProduct: " + row[1]
-                    + "\nQuantity: " + row[2];
+                salesStrings.Add(saleStrings);
             }
-            MessageBox.Show(result);
+            return salesStrings;
         }
 
         public static void CopyStream(Stream input, Stream output)
