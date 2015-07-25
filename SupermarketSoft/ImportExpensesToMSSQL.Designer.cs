@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_ImportXmlData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btn_ImportXmlData
             // 
-            this.button1.Location = new System.Drawing.Point(60, 64);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 33);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ImportXMLToMSSQL";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_ImportXmlData.Location = new System.Drawing.Point(60, 64);
+            this.btn_ImportXmlData.Name = "bt_ImportXmlData";
+            this.btn_ImportXmlData.Size = new System.Drawing.Size(146, 33);
+            this.btn_ImportXmlData.TabIndex = 0;
+            this.btn_ImportXmlData.Text = "Import XML To MSSQL";
+            this.btn_ImportXmlData.UseVisualStyleBackColor = true;
+            this.btn_ImportXmlData.Click += new System.EventHandler(this.ImportXmlData_Click);
             // 
             // ImportExpensesToMSSQL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(256, 164);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_ImportXmlData);
             this.Name = "ImportExpensesToMSSQL";
             this.Text = "ImportExpensesToMSSQL";
             this.ResumeLayout(false);
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_ImportXmlData;
     }
 }

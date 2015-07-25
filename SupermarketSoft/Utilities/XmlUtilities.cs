@@ -39,6 +39,37 @@
             Process.Start(Path.GetTempPath() + "/Xml-Report/");
         }
 
+        public static Dictionary<string, List<string[]>> ReadXmlReport(string fileName)
+        {
+            XmlDocument xmlReportDoc = new XmlDocument();
+            xmlReportDoc.Load("../../../Vendor-Expenses.xml");
+            XmlNodeList nodes = xmlReportDoc.SelectNodes("/expenses-by-month/vendor");
+            var results = new Dictionary<string, List<string[]>>();
+
+            foreach (XmlNode vendors in nodes)
+            {
+                var vendorName = vendors.Attributes["name"].Value;
+
+                foreach (XmlNode expense in vendors.ChildNodes)
+                {
+                    var expensesResults = new string[2];
+                    expensesResults[0] = expense.Attributes["month"].Value;
+                    expensesResults[1] = expense.InnerText;
+
+                    if (results.ContainsKey(vendorName))
+                    {
+                        results[vendorName].Add(expensesResults);
+                    }
+                    else
+                    {
+                        results.Add(vendorName, new List<string[]> { expensesResults });
+                    }
+                }
+            }
+
+            return results;
+        }
+
         private static void WriteSale(XmlWriter reportWriter, string vendorName, IEnumerable<VendorSalesReport> summaries)
         {
             reportWriter.WriteStartElement("sale");

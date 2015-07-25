@@ -15,23 +15,23 @@
             {
                 return context.Products
                     .Where(p => p.Sales.Any())
-                        .Select(p => new SalesReport
-                        {
-                            ProductId = p.Id,
-                            Product = p,
-                            Vendor = p.Vendor,
-                            TotalQuantitySold = p.Sales
-                                    .Where(s => s.Date >= startDate && s.Date <= endDate)
-                                        .Select(s => s.Quantity)
-                                        .DefaultIfEmpty(0)
-                                        .Sum(),
-                            TotalIncomes = p.Sales
-                                    .Where(s => s.Date >= startDate && s.Date <= endDate)
-                                        .Select(s => s.Quantity)
-                                        .DefaultIfEmpty(0)
-                                        .Sum() * p.Price
-                        })
-                        .ToList();
+                    .Select(p => new SalesReport
+                    {
+                        ProductId = p.Id,
+                        Product = p,
+                        Vendor = p.Vendor,
+                        TotalQuantitySold = p.Sales
+                            .Where(s => s.Date >= startDate && s.Date <= endDate)
+                            .Select(s => s.Quantity)
+                            .DefaultIfEmpty(0)
+                            .Sum(),
+                        TotalIncomes = p.Sales
+                            .Where(s => s.Date >= startDate && s.Date <= endDate)
+                            .Select(s => s.Quantity)
+                            .DefaultIfEmpty(0)
+                            .Sum() * p.Price
+                    })
+                    .ToList();
             }
         }
 
@@ -49,7 +49,6 @@
                         Key = g.Key,
                         TotalSales = g.Sum(sale => sale.Quantity * sale.Product.Price),
                         Group = g
-
                             .Select(sale => new DateSalesReport
                             {
                                 Product = sale.Product,
@@ -66,30 +65,27 @@
                         TotalSumOfSales = @group.TotalSales,
                         ProductReports = @group.Group
                     })
-                );
+                    );
             }
 
             return result;
         }
 
-        public static List<SalesReport> GetProducts()
-        {
-            using (var context = new MSSQLSupermarketEntities())
-            {
-                return context.Products
-                    .Where(p => p.Sales.Any())
-                        .Select(p => new SalesReport
-                        {
-                            ProductId = p.Id,
-                            Product = p,
-                            Vendor = p.Vendor
-
-                        })
-                        .ToList();
-
-
-            }
-        }
+        //public static List<SalesReport> GetProducts()
+        //{
+        //    using (var context = new MSSQLSupermarketEntities())
+        //    {
+        //        return context.Products
+        //            .Where(p => p.Sales.Any())
+        //            .Select(p => new SalesReport
+        //            {
+        //                ProductId = p.Id,
+        //                Product = p,
+        //                Vendor = p.Vendor
+        //            })
+        //            .ToList();
+        //    }
+        //}
 
         public static List<VendorsSalesReports> GetSalesByVendor(DateTime startDate, DateTime endDate)
         {
@@ -119,37 +115,71 @@
                         Vendor = @group.Vendor,
                         VendorReports = @group.Group
                     })
-                );
+                    );
             }
 
             return result;
         }
 
-        public static void FillData(List<ProductDTO> products)
+        public static void FillOracleDataToSql(List<ProductDTO> products)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
                 foreach (var product in products)
                 {
                     context.Products.Add(new Product()
+                    {
+                        ProductName = product.ProductName,
+                        Price = product.Price,
+                        Measure = new Measure()
                         {
-                            ProductName = product.ProductName,
-                            Price = product.Price,
-                            Measure = new Measure()
-                            {
-                                MeasureName = product.Measure.MeasureName
-                            },
-                            Vendor = new Vendor()
-                            {
-                                VendorName = product.Vendor.VendorName
-                            }
-                        });
+                            MeasureName = product.Measure.MeasureName
+                        },
+                        Vendor = new Vendor()
+                        {
+                            VendorName = product.Vendor.VendorName
+                        }
+                    });
                 }
 
                 context.SaveChanges();
+            }
+        }
 
+        public static void FillXmlDataToSql(Dictionary<string, List<string[]>> expensesByVendor)
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                foreach (var expenses in expensesByVendor)
+                {
+                    var vendor = context.Vendors.FirstOrDefault(v => v.VendorName.Equals(expenses.Key));
+                    if (vendor == null)
+                    {
+                        vendor = new Vendor { VendorName = expenses.Key };
+                    }
+
+                    foreach (var expense in expenses.Value)
+                    {
+                        var expenseData = DateTime.Parse(expense[0]);
+                        var expenseValue = decimal.Parse(expense[1]);
+                        var expenseContained = !context.Expenses
+                            .Any(x => x.DateOfExpense.Equals(expenseData) &&
+                                      x.Vendor.VendorName.Equals(vendor.VendorName));
+
+                        if (!expenseContained)
+                        {
+                            context.Expenses.Add(new Expense
+                            {
+                                Vendor = vendor,
+                                DateOfExpense = expenseData,
+                                Value = expenseValue
+                            });
+                        }
+                    }
+                }
+
+                context.SaveChanges();
             }
         }
     }
-
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO.Compression;
+    using System.Linq;
     using System.Windows.Forms;
     using MySQL.DataSupermarket;
     using MSSQL.Data;
@@ -39,7 +40,7 @@
             //MySQLRepository.AddProducts(products);
 
             var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
-            MSSQLRepository.FillData(productsForSQLServer);
+            MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
         }
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
@@ -86,6 +87,12 @@
                     }
                 }
             }
+        }
+
+        private void ImportXmlToSql_Click(object sender, EventArgs e)
+        {
+            var ImportXmlToSql = new ImportExpensesToMSSQL();
+            ImportXmlToSql.ShowDialog();
         }
     }
 }

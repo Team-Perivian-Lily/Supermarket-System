@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace SupermarketSoft
+﻿namespace SupermarketSoft
 {
+    using System;
+    using System.Windows.Forms;
+    using MSSQL.Data;
+    using Utilities;
+
     public partial class ImportExpensesToMSSQL : Form
     {
         public ImportExpensesToMSSQL()
@@ -17,9 +12,10 @@ namespace SupermarketSoft
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ImportXmlData_Click(object sender, EventArgs e)
         {
-
+            var vendorExpensesData = XmlUtilities.ReadXmlReport("Vendor-Expenses.xml");
+            MSSQLRepository.FillXmlDataToSql(vendorExpensesData);
         }
     }
 }
