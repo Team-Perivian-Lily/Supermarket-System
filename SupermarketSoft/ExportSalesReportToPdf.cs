@@ -16,7 +16,7 @@
         {
             try
             {
-                PdfUtilities.CreatePdfFile(MSSQLRepository.GetSalesByDate(
+                PdfUtility.CreatePdfFile(MSSQLRepository.GetSalesByDate(
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text)));
             }

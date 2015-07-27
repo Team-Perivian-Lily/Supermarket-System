@@ -21,12 +21,12 @@
                         Product = p,
                         Vendor = p.Vendor,
                         TotalQuantitySold = p.Sales
-                            .Where(s => s.Date >= startDate && s.Date <= endDate)
+                            .Where(s => s.SoldOn >= startDate && s.SoldOn <= endDate)
                             .Select(s => s.Quantity)
                             .DefaultIfEmpty(0)
                             .Sum(),
                         TotalIncomes = p.Sales
-                            .Where(s => s.Date >= startDate && s.Date <= endDate)
+                            .Where(s => s.SoldOn >= startDate && s.SoldOn <= endDate)
                             .Select(s => s.Quantity)
                             .DefaultIfEmpty(0)
                             .Sum() * p.Price
@@ -42,8 +42,8 @@
             using (var context = new MSSQLSupermarketEntities())
             {
                 var dateGroups = context.Sales
-                    .Where(s => s.Date >= startDate && s.Date <= endDate)
-                    .GroupBy(s => s.Date)
+                    .Where(s => s.SoldOn >= startDate && s.SoldOn <= endDate)
+                    .GroupBy(s => new { s.SoldOn.Year, s.SoldOn.Month, s.SoldOn.Day })
                     .Select(g => new
                     {
                         Key = g.Key,
@@ -61,7 +61,7 @@
                 result.AddRange(dateGroups
                     .Select(@group => new DateSalesReports
                     {
-                        Key = @group.Key,
+                        Key = new DateTime(@group.Key.Year, @group.Key.Month, @group.Key.Day),
                         TotalSumOfSales = @group.TotalSales,
                         ProductReports = @group.Group
                     })
@@ -94,14 +94,14 @@
             using (var context = new MSSQLSupermarketEntities())
             {
                 var vendorGroups = context.Sales
-                    .Where(s => s.Date >= startDate && s.Date <= endDate)
+                    .Where(s => s.SoldOn >= startDate && s.SoldOn <= endDate)
                     .OrderBy(s => s.Product.Vendor.VendorName)
                     .GroupBy(s => s.Product.Vendor)
                     .Select(vg => new
                     {
                         Vendor = vg.Key,
                         Group = vg
-                            .GroupBy(sale => sale.Date)
+                            .GroupBy(sale => sale.SoldOn)
                             .Select(sg => new VendorSalesReport
                             {
                                 DateOfSale = sg.Key,
@@ -162,7 +162,7 @@
                     {
                         var expenseData = DateTime.Parse(expense[0]);
                         var expenseValue = decimal.Parse(expense[1]);
-                        var expenseContained = !context.Expenses
+                        var expenseContained = context.Expenses
                             .Any(x => x.DateOfExpense.Equals(expenseData) &&
                                       x.Vendor.VendorName.Equals(vendor.VendorName));
 
@@ -209,7 +209,7 @@
 
                             var sale = new Sale()
                             {
-                                Date = saleDate,
+                                SoldOn = saleDate,
                                 LocationID = locationId,
                                 ProductID = productId,
                                 Quantity = quantity

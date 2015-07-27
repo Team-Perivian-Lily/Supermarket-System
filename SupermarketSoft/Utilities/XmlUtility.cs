@@ -7,7 +7,7 @@
     using System.Xml;
     using Supermarket.Models.Reports;
 
-    public static class XmlUtilities
+    public static class XmlUtility
     {
         public static void CreateXmlFile(List<VendorsSalesReports> dataGroups)
         {
@@ -39,10 +39,11 @@
             Process.Start(Path.GetTempPath() + "/Xml-Report/");
         }
 
-        public static Dictionary<string, List<string[]>> ReadXmlReport(string fileName)
+        public static Dictionary<string, List<string[]>> ReadXmlReport(string filePath)
         {
             XmlDocument xmlReportDoc = new XmlDocument();
-            xmlReportDoc.Load("../../../Vendor-Expenses.xml");
+            xmlReportDoc.Load(filePath);
+
             XmlNodeList nodes = xmlReportDoc.SelectNodes("/expenses-by-month/vendor");
             var results = new Dictionary<string, List<string[]>>();
 

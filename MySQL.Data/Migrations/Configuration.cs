@@ -1,11 +1,11 @@
-namespace MySQL.DataSupermarket.Migrations
+namespace MySQL.Data.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MySQL.DataSupermarket.MySQLEntities>
+    internal sealed class Configuration : DbMigrationsConfiguration<MySQLEntities>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace MySQL.DataSupermarket.Migrations
             //SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
-        protected override void Seed(MySQL.DataSupermarket.MySQLEntities entities)
+        protected override void Seed(MySQLEntities entities)
         {
             //  This method will be called after migrating to the latest version.
 

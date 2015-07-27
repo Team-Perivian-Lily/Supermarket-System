@@ -8,7 +8,7 @@
     using iTextSharp.text.pdf;
     using Supermarket.Models.Reports;
 
-    public static class PdfUtilities
+    public static class PdfUtility
     {
         public static void CreatePdfFile(List<DateSalesReports> dataGroups)
         {
@@ -23,13 +23,13 @@
                 new FileStream(Path.GetTempPath() + "/Pdf-Report" + "/Sales-Report-Test.pdf", FileMode.Create));
 
             pdfReport.Open();
-            pdfReport.Add(CreateFileContent(dataGroups));
+            pdfReport.Add(PopulatePdfFile(dataGroups));
             pdfReport.Close();
 
             Process.Start(Path.GetTempPath() + "/Pdf-Report/");
         }
 
-        private static PdfPTable CreateFileContent(List<DateSalesReports> dataGroups)
+        private static PdfPTable PopulatePdfFile(List<DateSalesReports> dataGroups)
         {
             PdfPTable table = new PdfPTable(5);
             table.TotalWidth = 490f;

@@ -16,7 +16,7 @@
         {
             try
             {
-                XmlUtilities.CreateXmlFile(MSSQLRepository.GetSalesByVendor(
+                XmlUtility.CreateXmlFile(MSSQLRepository.GetSalesByVendor(
                         DateTime.Parse(this.startDatePicker.Text),
                         DateTime.Parse(this.endDatePicker.Text)));
             }

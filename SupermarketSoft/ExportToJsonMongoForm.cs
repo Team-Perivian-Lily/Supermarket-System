@@ -20,11 +20,11 @@
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text));
 
-                JsonUtilities.CreateJsonFiles(salesReports);
+                JsonUtility.CreateJsonFiles(salesReports);
 
                 foreach (var salesReport in salesReports)
                 {
-                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtilities.CreateJsonReport(salesReport));
+                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtility.CreateJsonReport(salesReport));
                 }
             }
             catch (Exception ex)

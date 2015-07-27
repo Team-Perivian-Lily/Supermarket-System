@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeOpenXml;
-using Supermarket.Models;
-using SQLLite.Data;
-
-
-namespace SupermarketSoft.Utilities
+﻿namespace SupermarketSoft.Utilities
 {
+    using System.Collections.Generic;
+    using System.IO;
     using System.IO.Compression;
-    using System.Windows.Forms;
-
+    using System.Linq;
     using Excel;
+    using OfficeOpenXml;
+    using SQLLite.Data;
 
-    public static class ExcelUtilities
+    public static class ExcelUtility
     {
         public static string GenerateFile(DirectoryInfo outputDir = null)
         {
@@ -171,9 +163,9 @@ namespace SupermarketSoft.Utilities
                             sales.Add(saleStrings);
                         }
                     }
-               }
+                }
             }
-            
+
             return sales;
         }
 

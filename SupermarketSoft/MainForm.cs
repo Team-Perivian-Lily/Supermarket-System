@@ -1,15 +1,11 @@
 ﻿namespace SupermarketSoft
 {
     using System;
-    using System.Collections.Generic;
     using System.IO.Compression;
-    using System.Linq;
     using System.Windows.Forms;
-    using MySQL.DataSupermarket;
     using MSSQL.Data;
     using Oracle.Data;
     using Utilities;
-
 
     public partial class MainForm : Form
     {
@@ -19,7 +15,7 @@
         }
 
         private void ExportFromMSSQL_Click(object sender, EventArgs e)
-        {   
+        {
             //// Test MySQL
             //MySQLRepository.Test();
 
@@ -44,17 +40,6 @@
             MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
         }
 
-        private void ReplicateOracle_Click(object sender, EventArgs e)
-        {
-            OracleRepository.ReplicateOracleToMSSQL();
-        }
-
-        private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
-        {
-            var jsonMongoForm = new ExportToJsonMongoForm();
-            jsonMongoForm.ShowDialog();
-        }
-
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
         {
             var exportToPdfForm = new ExportSalesReportToPdf();
@@ -65,7 +50,13 @@
         {
             var exportToPdfForm = new ExportSalesReportToXml();
             exportToPdfForm.ShowDialog();
-	}
+        }
+
+        private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
+        {
+            var jsonMongoForm = new ExportToJsonMongoForm();
+            jsonMongoForm.ShowDialog();
+        }
 
         private void ImportSalesFromXls_Click(object sender, EventArgs e)
         {
@@ -78,16 +69,16 @@
                 using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
                 {
                     bool operationNotCompleted = false;
-                    var sales = ExcelUtilities.ReadSaleData(zip);
+                    var sales = ExcelUtility.ReadSaleData(zip);
 
                     if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
-                        {
-                            operationNotCompleted = true;
-                        }
+                    {
+                        operationNotCompleted = true;
+                    }
 
                     MessageBox.Show(
-                        operationNotCompleted ? 
-                        "Operation Error, no data was inserted" : 
+                        operationNotCompleted ?
+                        "Operation Error, no data was inserted" :
                         "Operation Completed");
                 }
             }
@@ -95,8 +86,19 @@
 
         private void ImportXmlToSql_Click(object sender, EventArgs e)
         {
-            var ImportXmlToSql = new ImportExpensesToMSSQL();
-            ImportXmlToSql.ShowDialog();
+            var openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = openFileDialog.FileName;
+                var vendorExpensesData = XmlUtility.ReadXmlReport(filePath);
+                MSSQLRepository.FillXmlDataToSql(vendorExpensesData);
+            }
+        }
+
+        private void ReplicateOracle_Click(object sender, EventArgs e)
+        {
+            OracleRepository.ReplicateOracleToMSSQL();
         }
     }
 }

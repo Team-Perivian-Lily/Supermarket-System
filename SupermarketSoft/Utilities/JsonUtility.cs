@@ -6,7 +6,7 @@
     using System.Web.Script.Serialization;
     using Supermarket.Models.Reports;
 
-    public static class JsonUtilities
+    public static class JsonUtility
     {
         public static void CreateJsonFiles(List<SalesReport> productsSales)
         {

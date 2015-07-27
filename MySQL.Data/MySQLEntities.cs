@@ -1,12 +1,8 @@
-using MySql.Data.Entity;
-using MySQL.DataSupermarket.Migrations;
-using Supermarket.Models;
-
-namespace MySQL.DataSupermarket
+namespace MySQL.Data
 {
-    using System;
     using System.Data.Entity;
-    using System.Linq;
+    using Migrations;
+    using Supermarket.Models;
 
     //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MySQLEntities : DbContext

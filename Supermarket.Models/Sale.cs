@@ -1,12 +1,14 @@
 ﻿namespace Supermarket.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Sale
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
+        [Column("SoldOn", TypeName="datetime")]
+        public DateTime SoldOn { get; set; }
 
         public int LocationID { get; set; }
 
