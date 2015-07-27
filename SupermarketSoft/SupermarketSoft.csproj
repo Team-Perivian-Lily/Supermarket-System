@@ -188,7 +188,7 @@
       <Project>{1abc64dc-4e8f-4210-8408-4a5561c7ce24}</Project>
       <Name>MongoDB.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MySQL.DataSupermarket\MySQL.Data.csproj">
+    <ProjectReference Include="..\MySQL.Data\MySQL.Data.csproj">
       <Project>{3a1444e8-a1e9-4375-b979-ac7b0fe5f3cb}</Project>
       <Name>MySQL.Data</Name>
     </ProjectReference>
