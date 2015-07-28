@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Supermarket.Models
+﻿namespace Supermarket.Models
 {
     using System.Collections.Generic;
-
-    [NotMapped]
+    using System.ComponentModel.DataAnnotations;
+   
     public class Location
     {
         
