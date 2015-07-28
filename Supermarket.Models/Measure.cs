@@ -1,4 +1,6 @@
-﻿namespace Supermarket.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Supermarket.Models
 {
     using System.Collections.Generic;
 
@@ -6,9 +8,10 @@
     {
         public Measure()
         {
-            Products = new HashSet<Product>();
+            this.Products = new HashSet<Product>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         public string MeasureName { get; set; }

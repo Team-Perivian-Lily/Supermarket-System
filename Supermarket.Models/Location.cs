@@ -2,13 +2,12 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-   
+
     public class Location
     {
-        
         public Location()
         {
-            Sales = new HashSet<Sale>();
+            this.Sales = new HashSet<Sale>();
         }
 
         [Key]

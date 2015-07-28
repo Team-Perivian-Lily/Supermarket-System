@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeOpenXml;
-using Supermarket.Models;
-using SQLLite.Data;
-
-
-namespace SupermarketSoft.Utilities
+﻿namespace SupermarketSoft.Utilities
 {
+    using System.Collections.Generic;
+    using System.IO;
     using System.IO.Compression;
-    using System.Windows.Forms;
-
+    using System.Linq;
     using Excel;
+    using OfficeOpenXml;
+    using SQLLite.Data;
 
-    public static class ExcelUtilities
+    public static class ExcelUtility
     {
         public static string GenerateFile(DirectoryInfo outputDir = null)
         {
@@ -143,25 +135,38 @@ namespace SupermarketSoft.Utilities
             return newFile.FullName;
         }
 
-        public static void ReadExcelData(ZipArchiveEntry entry, string[] salesData)
+        public static List<List<string>> ReadSaleData(ZipArchive zip)
         {
-            var ms = new MemoryStream();
-            CopyStream(entry.Open(), ms);
-            var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
-            var dataSet = excelReader.AsDataSet();
-            string shop = dataSet.Tables[0].Rows[1][1].ToString();
-            string result = string.Empty;
-            for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
-            {
-                var row = dataSet.Tables[0].Rows[i];
+            List<List<string>> sales = new List<List<string>>();
 
-                result +=
-                    "\n\nDate: " + salesData[0]
-                    + "\nShop: " + shop
-                    + "\nProduct: " + row[1]
-                    + "\nQuantity: " + row[2];
+            foreach (var entry in zip.Entries)
+            {
+                string[] salesHeaders = entry.FullName.Split('/');
+
+                if (entry.FullName.EndsWith(".xls"))
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        CopyStream(entry.Open(), ms);
+                        var excelReader = ExcelReaderFactory.CreateBinaryReader(ms);
+                        var dataSet = excelReader.AsDataSet();
+                        string location = dataSet.Tables[0].Rows[1][1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
+
+                        for (int i = 3; i < dataSet.Tables[0].Rows.Count - 1; i++)
+                        {
+                            var row = dataSet.Tables[0].Rows[i];
+                            var date = salesHeaders[0];
+                            var productName = row[1].ToString().Replace("“", "\"").Replace("”", "\"").Replace("’", "'");
+                            var quantity = row[2].ToString();
+                            List<string> saleStrings = new List<string>() { date, location, productName, quantity };
+
+                            sales.Add(saleStrings);
+                        }
+                    }
+                }
             }
-            MessageBox.Show(result);
+
+            return sales;
         }
 
         public static void CopyStream(Stream input, Stream output)

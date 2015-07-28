@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySQL.DataSupermarket;
 using Supermarket.Models;
 using Supermarket.Models.Reports;
 
@@ -10,21 +11,65 @@ namespace MySQL.DataSupermarket
 {
     public static class MySQLRepository
     {
-        public static void AddProducts(List<SalesReport> list)
+        public static void AddProducts(List<Product> products)
         {
-            var ctx = new MySQLEntities();
-            //var p = list.Where(p => p.Product.ProductName != ctx.Locations);
 
-            foreach (var salesReport in list)
+            using (var ctx = new MySQLEntities())
             {
-                ctx.Locations.Add(new Location()
+                foreach (var product in products)
                 {
-                    Name = salesReport.Product.ProductName
-                });
+                    var productToAdd = new Product()
+                    {
+                        ProductName = product.ProductName,
+                        Measure = new Measure()
+                        {
+                            MeasureName = product.Measure.MeasureName
+                        },
+                        Price = product.Price,
+                        Vendor = new Vendor()
+                        {
+                            VendorName = product.Vendor.VendorName,
+                            
+                        }
+                    };
+
+                    productToAdd.Vendor.Expenses = new List<Expense>();
+
+                    productToAdd.Sales = new List<Sale>();
+
+                    foreach (var sale in product.Sales)
+                    {
+                        var saleToAdd = new Sale()
+                        {
+                            SoldOn = sale.SoldOn,
+                            Quantity = sale.Quantity,
+                            Location = new Location()
+                            {
+                                Name = sale.Location.Name
+                            }
+                        };
+                        productToAdd.Sales.Add(saleToAdd);
+
+                    }
+
+                    foreach (var expense in product.Vendor.Expenses)
+                    {
+                        var expenseToAdd = new Expense()
+                        {
+                            DateOfExpense = expense.DateOfExpense,
+                            Value = expense.Value,
+                        };
+
+                        productToAdd.Vendor.Expenses.Add(expenseToAdd);
+                    }
+
+                    if (!ctx.Products.Any(p => p.ProductName == productToAdd.ProductName))
+                    {
+                        ctx.Products.Add(productToAdd);
+                    }
+                }
                 ctx.SaveChanges();
             }
-
-           
         }
 
         public static void Test()

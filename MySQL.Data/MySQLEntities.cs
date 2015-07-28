@@ -1,18 +1,9 @@
-using MySql.Data.Entity;
-using MySQL.DataSupermarket.Migrations;
-using Supermarket.Models;
-
-//using Supermarket.Models;
-
-namespace MySQL.DataSupermarket
+namespace MySQL.Data
 {
-    using MySQL;
-
-    using System;
     using System.Data.Entity;
-    using System.Linq;
+    using Migrations;
+    using Supermarket.Models;
 
-    //Uncomment the next row before migrate from SQL Server and then comment it again
     //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MySQLEntities : DbContext
     {
@@ -25,7 +16,7 @@ namespace MySQL.DataSupermarket
         public MySQLEntities()
             : base("name=MySQLEntities")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySQLEntities, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySQLEntities, Configuration>());
         }
 
         public virtual IDbSet<Product> Products { get; set; }
@@ -38,7 +29,8 @@ namespace MySQL.DataSupermarket
 
         public virtual IDbSet<Location> Locations { get; set; }
 
-        public virtual IDbSet<Expense> Expenses  { get; set; }
+        public virtual IDbSet<Product> KUFFFFF { get; set; } 
+
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.

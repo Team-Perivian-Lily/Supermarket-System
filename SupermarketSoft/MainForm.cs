@@ -1,13 +1,13 @@
-﻿namespace SupermarketSoft
+﻿using MySQL.DataSupermarket;
+
+namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
     using System.Windows.Forms;
-    using MySQL.DataSupermarket;
     using MSSQL.Data;
     using Oracle.Data;
     using Utilities;
-
 
     public partial class MainForm : Form
     {
@@ -17,7 +17,7 @@
         }
 
         private void ExportFromMSSQL_Click(object sender, EventArgs e)
-        {   
+        {
             //// Test MySQL
             //MySQLRepository.Test();
 
@@ -38,19 +38,14 @@
 
             //MySQLRepository.AddProducts(products);
 
-            var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
-            MSSQLRepository.FillData(productsForSQLServer);
-        }
+            //var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
+            //MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
 
-        private void ReplicateOracle_Click(object sender, EventArgs e)
-        {
-            OracleRepository.ReplicateOracleToMSSQL();
-        }
 
-        private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
-        {
-            var jsonMongoForm = new ExportToJsonMongoForm();
-            jsonMongoForm.ShowDialog();
+
+            var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
+
+            MySQLRepository.AddProducts(productsFromMsSql);
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
@@ -63,7 +58,13 @@
         {
             var exportToPdfForm = new ExportSalesReportToXml();
             exportToPdfForm.ShowDialog();
-	}
+        }
+
+        private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
+        {
+            var jsonMongoForm = new ExportToJsonMongoForm();
+            jsonMongoForm.ShowDialog();
+        }
 
         private void ImportSalesFromXls_Click(object sender, EventArgs e)
         {
@@ -75,17 +76,37 @@
 
                 using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
                 {
-                    foreach (var entry in zip.Entries)
-                    {
-                        string[] salesData = entry.FullName.Split('/');
+                    bool operationNotCompleted = false;
+                    var sales = ExcelUtility.ReadSaleData(zip);
 
-                        if (entry.FullName.EndsWith(".xls"))
-                        {
-                            ExcelUtilities.ReadExcelData(entry, salesData);
-                        }
+                    if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
+                    {
+                        operationNotCompleted = true;
                     }
+
+                    MessageBox.Show(
+                        operationNotCompleted ?
+                        "Operation Error, no data was inserted" :
+                        "Operation Completed");
                 }
             }
+        }
+
+        private void ImportXmlToSql_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = openFileDialog.FileName;
+                var vendorExpensesData = XmlUtility.ReadXmlReport(filePath);
+                MSSQLRepository.FillXmlDataToSql(vendorExpensesData);
+            }
+        }
+
+        private void ReplicateOracle_Click(object sender, EventArgs e)
+        {
+            OracleRepository.ReplicateOracleToMSSQL();
         }
     }
 }

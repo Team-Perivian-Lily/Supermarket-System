@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClassLibrary1
+﻿namespace Oracle.Models
 {
-     [Table("PRODUCTS")]
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("PRODUCTS")]
     public class ProductDTO
     {
-        
-
+        [Key]
         public int Id { get; set; }
 
         public int VendorID { get; set; }
@@ -25,7 +20,5 @@ namespace ClassLibrary1
         public virtual MeasureDTO Measure { get; set; }
 
         public virtual VendorDTO Vendor { get; set; }
-
-        
     }
 }

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using ClassLibrary1;
+    using Models;
 
     public static class OracleRepository
     {
@@ -11,8 +11,6 @@
         {
             using (var orcContex = new OracleDbContext())
             {
-                // Take data
-
                 return orcContex.PRODUCTS
                     .Include(p => p.Measure)
                     .Include(p => p.Vendor)

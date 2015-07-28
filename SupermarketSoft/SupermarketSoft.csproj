@@ -56,10 +56,6 @@
     <Reference Include="itextsharp">
       <HintPath>..\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MySQL.DataSupermarket\assemblies\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MySQL.DataSupermarket\assemblies\MySql.Data.Entity.dll</HintPath>
@@ -78,6 +74,7 @@
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.1.022\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -128,24 +125,18 @@
     <Compile Include="ExportToJsonMongoForm.Designer.cs">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportExpensesToMSSQL.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ImportExpensesToMSSQL.Designer.cs">
-      <DependentUpon>ImportExpensesToMSSQL.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\ExcelUtilities.cs" />
-    <Compile Include="Utilities\JsonUtilities.cs" />
+    <Compile Include="Utilities\ExcelUtility.cs" />
+    <Compile Include="Utilities\JsonUtility.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\PdfUtilities.cs" />
+    <Compile Include="Utilities\PdfUtility.cs" />
     <Compile Include="SupermarketSoftMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\XmlUtilities.cs" />
+    <Compile Include="Utilities\XmlUtility.cs" />
     <EmbeddedResource Include="ExportSalesReportToPdf.resx">
       <DependentUpon>ExportSalesReportToPdf.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,9 +145,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportToJsonMongoForm.resx">
       <DependentUpon>ExportToJsonMongoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportExpensesToMSSQL.resx">
-      <DependentUpon>ImportExpensesToMSSQL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -188,7 +176,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Oracle.Models.csproj">
+    <ProjectReference Include="..\MySQL.DataSupermarket\MySQL.DataSupermarket.csproj">
+      <Project>{3a1444e8-a1e9-4375-b979-ac7b0fe5f3cb}</Project>
+      <Name>MySQL.DataSupermarket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Oracle.Models\Oracle.Models.csproj">
       <Project>{35F31F00-0A27-441F-87B8-42F4E88788BD}</Project>
       <Name>Oracle.Models</Name>
     </ProjectReference>
@@ -199,10 +191,6 @@
     <ProjectReference Include="..\MongoDB.Data\MongoDB.Data.csproj">
       <Project>{1abc64dc-4e8f-4210-8408-4a5561c7ce24}</Project>
       <Name>MongoDB.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MySQL.DataSupermarket\MySQL.DataSupermarket.csproj">
-      <Project>{3a1444e8-a1e9-4375-b979-ac7b0fe5f3cb}</Project>
-      <Name>MySQL.DataSupermarket</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oracle.Data\Oracle.Data.csproj">
       <Project>{e90a459e-488c-424d-8894-9029e56e66bb}</Project>
