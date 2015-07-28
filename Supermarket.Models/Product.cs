@@ -1,4 +1,6 @@
-﻿namespace Supermarket.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Supermarket.Models
 {
     using System.Collections.Generic;
 
@@ -9,6 +11,7 @@
             this.Sales = new HashSet<Sale>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         public int VendorID { get; set; }

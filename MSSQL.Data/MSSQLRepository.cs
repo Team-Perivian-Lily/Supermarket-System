@@ -1,4 +1,6 @@
-﻿namespace MSSQL.Data
+﻿using System.Data.Entity;
+
+namespace MSSQL.Data
 {
     using System;
     using System.Collections.Generic;
@@ -86,6 +88,37 @@
         //            .ToList();
         //    }
         //}
+
+        public static List<Product> GetProductsFromMsSqlFoMySql()
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                //return context.Products
+                //        .Select(p => new MySQLProduct()
+                //        {
+                //            ProductName = p.ProductName,
+                //            Price = p.Price,
+                //            Measure = p.Measure,
+                //            Vendor = p.Vendor,
+                //            MeasureID = p.MeasureID,
+                //            VendorID = p.VendorID,
+                //            Id = p.Id,
+                //            Sales = p.Sales
+
+                //        })
+                //        .ToList();
+
+                return context.Products.
+                    Include(p => p.Measure)
+                    .Include(p => p.Vendor)
+                    .Include(p => p.Sales)
+                    .Include(p => p.Sales.Select(s => s.Location))
+                    .Include(p => p.Vendor.Expenses)
+                    .ToList();
+            }
+
+
+        }
 
         public static List<VendorsSalesReports> GetSalesByVendor(DateTime startDate, DateTime endDate)
         {

@@ -1,10 +1,13 @@
-﻿namespace Supermarket.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Supermarket.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class Sale
     {
+        [Key]
         public int Id { get; set; }
 
         [Column("SoldOn", TypeName="datetime")]

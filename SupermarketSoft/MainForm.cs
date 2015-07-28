@@ -1,4 +1,6 @@
-﻿namespace SupermarketSoft
+﻿using MySQL.DataSupermarket;
+
+namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
@@ -36,8 +38,14 @@
 
             //MySQLRepository.AddProducts(products);
 
-            var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
-            MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
+            //var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
+            //MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
+
+
+
+            var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
+
+            MySQLRepository.AddProducts(productsFromMsSql);
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
