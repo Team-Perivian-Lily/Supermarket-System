@@ -15,7 +15,6 @@ namespace MySQL.DataSupermarket.Migrations
 
         protected override void Seed(MySQL.DataSupermarket.MySQLEntities entities)
         {
-            entities.Products.Count();
         }
     }
 }

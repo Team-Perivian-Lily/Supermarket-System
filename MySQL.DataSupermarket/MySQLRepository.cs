@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,16 +73,18 @@ namespace MySQL.DataSupermarket
             }
         }
 
-        public static void Test()
+        public static void GenerateMySqlDb()
         {
             var ctx = new MySQLEntities();
-
-            ctx.Locations.Add(new Location()
-            {
-                Name = "NEW"
-            });
-
+            ctx.Products.Count();
             ctx.SaveChanges();
+        }
+
+        public static List<Vendor> GetAllData()
+        {
+            var ctx = new MySQLEntities();
+            return ctx.Vendors.Include(v=>v.Products).Include(v=>v.Expenses).ToList();
+            
         }
     }
 }

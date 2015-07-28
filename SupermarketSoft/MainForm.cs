@@ -24,8 +24,8 @@ namespace SupermarketSoft
             // //Test SQLite
             //SQLiteRepository.Test();
 
-            // //Test Excel
-            //ExcelUtilities.GenerateFile();
+            //Test Excel
+            ExcelUtility.GenerateFile();
 
             //var ctx = new MySQLEntities();
 
@@ -42,10 +42,11 @@ namespace SupermarketSoft
             //MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
 
 
+            // Working MSSQL to MySQL
+            //MySQLRepository.GenerateMySqlDb();
+            //var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
 
-            var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
-
-            MySQLRepository.AddProducts(productsFromMsSql);
+            //MySQLRepository.AddProducts(productsFromMsSql);
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)

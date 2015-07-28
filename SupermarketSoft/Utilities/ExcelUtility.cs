@@ -1,4 +1,6 @@
-﻿namespace SupermarketSoft.Utilities
+﻿using MySQL.DataSupermarket;
+
+namespace SupermarketSoft.Utilities
 {
     using System.Collections.Generic;
     using System.IO;
@@ -22,9 +24,16 @@
                 path = outputDir.FullName;
             }
 
+
+
+
+            var vendors = MySQLRepository.GetAllData();
+
             var ctx = new SQLiteEntities();
 
             var taxes = ctx.Taxes.ToList();
+
+
 
             var colNames = typeof(Tax).GetProperties().Select(p => p.Name).ToList();
             FileInfo newFile = new FileInfo(path + @"\ProductTaxes.xlsx");
@@ -40,18 +49,42 @@
                 // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Product Taxes");
                 //Add the headers
-                for (int i = 1; i <= colNames.Count; i++)
+                worksheet.Cells[1, 1].Value = "Vendor";
+                worksheet.Cells[1, 2].Value = "Incomes";
+                worksheet.Cells[1, 3].Value = "Expenses";
+                worksheet.Cells[1, 4].Value = "Total Taxes";
+                worksheet.Cells[1, 5].Value = "Financial Result";
+
+
+
+                for (int i = 2; i < vendors.Count()+2; i++)
                 {
-                    worksheet.Cells[currentRow, i].Value = colNames[i - 1];
+                    worksheet.Cells[i, 1].Value = vendors[i - 2].VendorName;
+                    worksheet.Cells[i, 2].Value = vendors[i - 2].Products.Sum(p => p.Price*p.Sales.Count);
+                    worksheet.Cells[i, 3].Value = vendors[i - 2].Expenses.Sum(e => e.Value);
+                    
+
+                    var sum = 0.0;
+
+                    foreach (var product in vendors[i-2].Products)
+                    {
+                        sum += (double)product.Price * taxes.First(t => t.Name == vendors[i - 2].Products.First().ProductName).Tax1/100;
+                    }
+
+                    worksheet.Cells[i, 4].Value = sum;
+
+                    //worksheet.Cells[i, 5].Value = worksheet.Cells[i, 2] - worksheet.Cells[i, 3] - worksheet.Cells[i, 4];
+
                 }
 
-                currentRow++;
-                for (int i = currentRow; i < taxes.Count + currentRow; i++)
-                {
-                    worksheet.Cells[currentRow, 1].Value = taxes[i - currentRow].Id;
-                    worksheet.Cells[currentRow, 2].Value = taxes[i - currentRow].Name;
-                    worksheet.Cells[currentRow, 3].Value = taxes[i - currentRow].Tax1;
-                }
+
+                //currentRow++;
+                //for (int i = currentRow; i < taxes.Count + currentRow; i++)
+                //{
+                //    worksheet.Cells[currentRow, 1].Value = taxes[i - currentRow].Id;
+                //    worksheet.Cells[currentRow, 2].Value = taxes[i - currentRow].Name;
+                //    worksheet.Cells[currentRow, 3].Value = taxes[i - currentRow].Tax1;
+                //}
 
 
 
