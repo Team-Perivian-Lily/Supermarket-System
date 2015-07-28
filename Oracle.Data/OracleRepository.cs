@@ -12,8 +12,8 @@
             using (var orcContex = new OracleDbContext())
             {
                 return orcContex.PRODUCTS
-                    .Include(p => p.Measure)
                     .Include(p => p.Vendor)
+                    .Include(p => p.Measure)
                     .ToList();
             }
         }

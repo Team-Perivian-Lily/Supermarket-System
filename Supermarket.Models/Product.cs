@@ -14,11 +14,11 @@ namespace Supermarket.Models
         [Key]
         public int Id { get; set; }
 
-        public int VendorID { get; set; }
+        public int VendorId { get; set; }
 
         public string ProductName { get; set; }
 
-        public int MeasureID { get; set; }
+        public int MeasureId { get; set; }
 
         public double Price { get; set; }
 

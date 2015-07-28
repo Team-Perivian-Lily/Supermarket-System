@@ -36,6 +36,9 @@
             this.ExportSalesReportToPdf = new System.Windows.Forms.Button();
             this.ExportToJsonMongoDb = new System.Windows.Forms.Button();
             this.ImportXmlToSql = new System.Windows.Forms.Button();
+            this.GenerateMySqlDb = new System.Windows.Forms.Button();
+            this.ExportMsSqlToMySql = new System.Windows.Forms.Button();
+            this.ExportExcelReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ExportFromMSSQL
@@ -110,19 +113,52 @@
             // 
             // ImportXmlToSql
             // 
-            this.ImportXmlToSql.Location = new System.Drawing.Point(298, 279);
+            this.ImportXmlToSql.Location = new System.Drawing.Point(496, 279);
             this.ImportXmlToSql.Name = "ImportXmlToSql";
-            this.ImportXmlToSql.Size = new System.Drawing.Size(148, 28);
+            this.ImportXmlToSql.Size = new System.Drawing.Size(172, 28);
             this.ImportXmlToSql.TabIndex = 7;
             this.ImportXmlToSql.Text = "Import XML To MSSQL";
             this.ImportXmlToSql.UseVisualStyleBackColor = true;
             this.ImportXmlToSql.Click += new System.EventHandler(this.ImportXmlToSql_Click);
+            // 
+            // GenerateMySqlDb
+            // 
+            this.GenerateMySqlDb.Location = new System.Drawing.Point(76, 279);
+            this.GenerateMySqlDb.Name = "GenerateMySqlDb";
+            this.GenerateMySqlDb.Size = new System.Drawing.Size(172, 28);
+            this.GenerateMySqlDb.TabIndex = 8;
+            this.GenerateMySqlDb.Text = "Generate MySQL DB";
+            this.GenerateMySqlDb.UseVisualStyleBackColor = true;
+            this.GenerateMySqlDb.Click += new System.EventHandler(this.GenerateMySqlDb_Click);
+            // 
+            // ExportMsSqlToMySql
+            // 
+            this.ExportMsSqlToMySql.Location = new System.Drawing.Point(298, 279);
+            this.ExportMsSqlToMySql.Name = "ExportMsSqlToMySql";
+            this.ExportMsSqlToMySql.Size = new System.Drawing.Size(148, 28);
+            this.ExportMsSqlToMySql.TabIndex = 9;
+            this.ExportMsSqlToMySql.Text = "MS SQL => MySQL";
+            this.ExportMsSqlToMySql.UseVisualStyleBackColor = true;
+            this.ExportMsSqlToMySql.Click += new System.EventHandler(this.ExportMsSqlToMySql_Click);
+            // 
+            // ExportExcelReport
+            // 
+            this.ExportExcelReport.Location = new System.Drawing.Point(76, 343);
+            this.ExportExcelReport.Name = "ExportExcelReport";
+            this.ExportExcelReport.Size = new System.Drawing.Size(172, 28);
+            this.ExportExcelReport.TabIndex = 10;
+            this.ExportExcelReport.Text = "Generate Excel Report";
+            this.ExportExcelReport.UseVisualStyleBackColor = true;
+            this.ExportExcelReport.Click += new System.EventHandler(this.ExportExcelReport_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 383);
+            this.Controls.Add(this.ExportExcelReport);
+            this.Controls.Add(this.ExportMsSqlToMySql);
+            this.Controls.Add(this.GenerateMySqlDb);
             this.Controls.Add(this.ImportXmlToSql);
             this.Controls.Add(this.ExportToJsonMongoDb);
             this.Controls.Add(this.ExportSalesReportToPdf);
@@ -148,6 +184,9 @@
         private System.Windows.Forms.Button ExportSalesReportToPdf;
         private System.Windows.Forms.Button ExportToJsonMongoDb;
         private System.Windows.Forms.Button ImportXmlToSql;
+        private System.Windows.Forms.Button GenerateMySqlDb;
+        private System.Windows.Forms.Button ExportMsSqlToMySql;
+        private System.Windows.Forms.Button ExportExcelReport;
     }
 }
 

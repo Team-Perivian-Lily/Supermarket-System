@@ -100,8 +100,8 @@ namespace MSSQL.Data
                 //            Price = p.Price,
                 //            Measure = p.Measure,
                 //            Vendor = p.Vendor,
-                //            MeasureID = p.MeasureID,
-                //            VendorID = p.VendorID,
+                //            MeasureId = p.MeasureId,
+                //            VendorId = p.VendorId,
                 //            Id = p.Id,
                 //            Sales = p.Sales
 
@@ -154,28 +154,50 @@ namespace MSSQL.Data
             return result;
         }
 
-        public static void FillOracleDataToSql(List<ProductDTO> products)
+        public static void FillOracleDataToMsSql(List<ProductDTO> products)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
                 foreach (var product in products)
                 {
-                    context.Products.Add(new Product()
+                    var existingVendor = context.Vendors
+                        .FirstOrDefault(v => v.VendorName.Equals(product.Vendor.VendorName));
+                    var existingMeasure = context.Measures
+                        .FirstOrDefault(v => v.MeasureName.Equals(product.Measure.MeasureName));
+
+                    var productToAdd = new Product()
                     {
                         ProductName = product.ProductName,
-                        Price = product.Price,
-                        Measure = new Measure()
-                        {
-                            MeasureName = product.Measure.MeasureName
-                        },
-                        Vendor = new Vendor()
+                        Price = product.Price
+                    };
+
+                    if (existingVendor == null)
+                    {
+                        productToAdd.Vendor = new Vendor()
                         {
                             VendorName = product.Vendor.VendorName
-                        }
-                    });
-                }
+                        };
+                    }
+                    else
+                    {
+                        productToAdd.Vendor = existingVendor;
+                    }
 
-                context.SaveChanges();
+                    if (existingMeasure == null)
+                    {
+                        productToAdd.Measure = new Measure()
+                        {
+                             MeasureName = product.Measure.MeasureName
+                        };
+                    }
+                    else
+                    {
+                        productToAdd.Measure = existingMeasure;
+                    }
+
+                    context.Products.Add(productToAdd);
+                    context.SaveChanges();
+                }             
             }
         }
 
@@ -225,32 +247,35 @@ namespace MSSQL.Data
                     {
                         foreach (var saleData in salesData)
                         {
-                            var saleDate = DateTime.Parse(saleData[0]);
-                            string locationName = saleData[1];
-                            string productName = saleData[2];
-                            int locationId = context.Locations
-                                .Where(l => l.Name == locationName)
-                                .Take(1)
-                                .Select(l => l.Id)
-                                .FirstOrDefault();
-                            int productId = context.Products
-                                .Where(p => p.ProductName == productName)
-                                .Take(1)
-                                .Select(p => p.Id)
-                                .FirstOrDefault();
+                            var locationName = saleData[1];
+                            var productName = saleData[2];
+                            var soldOn = DateTime.Parse(saleData[0]);
+                            var existingLocation = context.Locations.FirstOrDefault(l => l.Name.Equals(locationName));
+                            var product = context.Products.FirstOrDefault(p => p.ProductName.Equals(productName));
                             var quantity = int.Parse(saleData[3]);
-
-                            var sale = new Sale()
+                            var saleToAdd = new Sale()
                             {
-                                SoldOn = saleDate,
-                                LocationID = locationId,
-                                ProductID = productId,
+                                SoldOn = soldOn,
+                                Product = product,
                                 Quantity = quantity
                             };
-                            context.Sales.Add(sale);
-                        }
 
-                        context.SaveChanges();
+                            if (existingLocation == null)
+                            {
+                                saleToAdd.Location = new Location()
+                                {
+                                    Name = locationName
+                                };
+                            }
+                            else
+                            {
+                                saleToAdd.Location = existingLocation;
+                            }
+
+                            context.Sales.Add(saleToAdd);
+                            context.SaveChanges();
+                        }
+                        
                         dbContextTransaction.Commit();
                     }
                     catch (Exception)

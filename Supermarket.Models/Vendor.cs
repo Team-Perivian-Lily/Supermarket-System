@@ -17,6 +17,7 @@
         public string VendorName { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+
         public virtual ICollection<Expense> Expenses { get; set; }
 
 

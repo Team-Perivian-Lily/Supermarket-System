@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProductTaxesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;D:\Marto\Google Drive\Team Projects\Supermarket-System\SQLLite.Data\SQLite database\ProductTaxes.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ProductTaxesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;E:\DISK D\Softuni-Projects\Modul Back-End\DB Apps July 2015\TeamWorkDBApps\Supermarket-System\SQLLite.Data\SQLite database\ProductTaxes.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Taxes">
           <Key>
             <PropertyRef Name="Id" />

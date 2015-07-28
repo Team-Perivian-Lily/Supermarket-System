@@ -25,7 +25,7 @@ namespace SupermarketSoft
             //SQLiteRepository.Test();
 
             //Test Excel
-            ExcelUtility.GenerateFile();
+            
 
             //var ctx = new MySQLEntities();
 
@@ -39,14 +39,12 @@ namespace SupermarketSoft
             //MySQLRepository.AddProducts(products);
 
             //var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
-            //MSSQLRepository.FillOracleDataToSql(productsForSQLServer);
+            //MSSQLRepository.FillOracleDataToMsSql(productsForSQLServer);
 
 
             // Working MSSQL to MySQL
-            //MySQLRepository.GenerateMySqlDb();
-            //var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
-
-            //MySQLRepository.AddProducts(productsFromMsSql);
+            
+           
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
@@ -107,7 +105,28 @@ namespace SupermarketSoft
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
         {
-            OracleRepository.ReplicateOracleToMSSQL();
+            var data = OracleRepository.ReplicateOracleToMSSQL();
+            MSSQLRepository.FillOracleDataToMsSql(data);
+            
+        }
+
+        private void GenerateMySqlDb_Click(object sender, EventArgs e)
+        {
+            MySQLRepository.GenerateMySqlDb();
+        }
+
+        private void ExportMsSqlToMySql_Click(object sender, EventArgs e)
+        {
+            var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
+
+
+
+            MySQLRepository.AddProducts(productsFromMsSql);
+        }
+
+        private void ExportExcelReport_Click(object sender, EventArgs e)
+        {
+            ExcelUtility.GenerateFile();
         }
     }
 }
