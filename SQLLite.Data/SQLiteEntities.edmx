@@ -26,7 +26,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Tax1" Type="Double" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SQLiteEntities" annotation:LazyLoadingEnabled="true">
@@ -42,7 +42,7 @@
             <EntityTypeMapping TypeName="ProductTaxesModel.Tax">
               <MappingFragment StoreEntitySet="Taxes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductName" ColumnName="Name" />
                 <ScalarProperty Name="Tax1" ColumnName="Tax" />
               </MappingFragment>
             </EntityTypeMapping>

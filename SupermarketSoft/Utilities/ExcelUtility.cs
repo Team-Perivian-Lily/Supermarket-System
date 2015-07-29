@@ -75,7 +75,7 @@
                     foreach (var product in vendors[i - 2].Products)
                     {
                         var tax = taxes
-                            .FirstOrDefault(t => t.Name == vendors[i - 2].Products
+                            .FirstOrDefault(t => t.ProductName == vendors[i - 2].Products
                             .FirstOrDefault().ProductName).Tax1;
 
                         var price = product.Price;

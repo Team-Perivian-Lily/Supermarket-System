@@ -8,7 +8,7 @@
 
             ctx.Taxes.Add(new Tax()
             {
-                Name = "Bira",
+                ProductName = "Bira",
                 Tax1 = 20
             });
 
