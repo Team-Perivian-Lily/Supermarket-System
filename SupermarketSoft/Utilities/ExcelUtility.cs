@@ -1,11 +1,12 @@
-﻿using MySQL.DataSupermarket;
-
-namespace SupermarketSoft.Utilities
+﻿namespace SupermarketSoft.Utilities
 {
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
+    using System.Drawing;
+    using MySQL.DataSupermarket;
+    using OfficeOpenXml.Style;
     using Excel;
     using OfficeOpenXml;
     using SQLLite.Data;
@@ -23,15 +24,10 @@ namespace SupermarketSoft.Utilities
             {
                 path = outputDir.FullName;
             }
-            
 
             var vendors = MySQLRepository.GetAllData();
-
-            var ctx = new SQLiteEntities();
-
-            var taxes = ctx.Taxes.ToList();
-
-
+            var context = new SQLiteEntities();
+            var taxes = context.Taxes.ToList();
 
             var colNames = typeof(Tax).GetProperties().Select(p => p.Name).ToList();
             FileInfo newFile = new FileInfo(path + @"\ProductTaxes.xlsx");
@@ -55,36 +51,60 @@ namespace SupermarketSoft.Utilities
 
 
 
-                for (int i = 2; i < vendors.Count()+2; i++)
+                for (int i = 2; i < vendors.Count() + 2; i++)
                 {
                     worksheet.Cells[i, 1].Value = vendors[i - 2].VendorName;
                     var sumPro = 0.0;
                     foreach (var product in vendors[i - 2].Products)
                     {
-                       
+
                         if (product.Sales.Count() != 0)
                         {
                             foreach (var sale in product.Sales)
                             {
-                                sumPro += sale.Quantity*product.Price;
+                                sumPro += sale.Quantity * product.Price;
                             }
                         }
-
                     }
+
                     worksheet.Cells[i, 2].Value = sumPro;
                     worksheet.Cells[i, 3].Value = vendors[i - 2].Expenses.Sum(e => e.Value);
-                    
 
-                    var sum = 0.0;
+                    var totalTax = 0.0;
 
-                    foreach (var product in vendors[i-2].Products)
+                    foreach (var product in vendors[i - 2].Products)
                     {
-                        sum += (double)product.Price * taxes.First(t => t.Name == vendors[i - 2].Products.First().ProductName).Tax1/100;
+                        var tax = taxes
+                            .FirstOrDefault(t => t.Name == vendors[i - 2].Products
+                            .FirstOrDefault().ProductName).Tax1;
+
+                        var price = product.Price;
+                        var quantity = 0;
+
+                        foreach (var sale in product.Sales)
+                        {
+                            quantity += sale.Quantity;
+                        }
+
+                        var temporaryTax = price * quantity * tax / 100;
+                        totalTax += temporaryTax;
                     }
 
-                    worksheet.Cells[i, 4].Value = sum;
+                    worksheet.Cells[i, 4].Value = totalTax;
 
-                    //worksheet.Cells[i, 5].Value = worksheet.Cells[i, 2] - worksheet.Cells[i, 3] - worksheet.Cells[i, 4];
+                    var cell = worksheet.Cells[i, 5];
+                    cell.Formula = worksheet.Cells[i, 2] + "-" + worksheet.Cells[i, 3] + "-" + worksheet.Cells[i, 4];
+
+
+                    using (var range = worksheet.Cells[1, 1, 1, 5])
+                    {
+                        range.Style.Font.Bold = true;
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.DarkGray);
+                        range.Style.Font.Color.SetColor(Color.Black);
+                    }
+
+                    worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
 
                 }
 

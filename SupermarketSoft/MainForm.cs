@@ -1,11 +1,10 @@
-﻿using MySQL.DataSupermarket;
-
-namespace SupermarketSoft
+﻿namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
     using System.Windows.Forms;
     using MSSQL.Data;
+    using MySQL.DataSupermarket;
     using Oracle.Data;
     using Utilities;
 
@@ -25,7 +24,7 @@ namespace SupermarketSoft
             //SQLiteRepository.Test();
 
             //Test Excel
-            
+
 
             //var ctx = new MySQLEntities();
 
@@ -36,15 +35,15 @@ namespace SupermarketSoft
             //ctx.SaveChanges();
             //var products = MSSQLRepository.GetProducts();
 
-            //MySQLRepository.AddProducts(products);
+            //MySQLRepository.AddSqlProductsToMsSql(products);
 
-            //var productsForSQLServer = OracleRepository.ReplicateOracleToMSSQL();
+            //var productsForSQLServer = OracleRepository.GetProductData();
             //MSSQLRepository.FillOracleDataToMsSql(productsForSQLServer);
 
 
             // Working MSSQL to MySQL
-            
-           
+
+
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
@@ -55,8 +54,8 @@ namespace SupermarketSoft
 
         private void ExportSalesReportToXml_Click(object sender, EventArgs e)
         {
-            var exportToPdfForm = new ExportSalesReportToXml();
-            exportToPdfForm.ShowDialog();
+            var xmlExportForm = new ExportSalesReportToXml();
+            xmlExportForm.ShowDialog();
         }
 
         private void ExportToJsonMongoDb_Click(object sender, EventArgs e)
@@ -105,9 +104,10 @@ namespace SupermarketSoft
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
         {
-            var data = OracleRepository.ReplicateOracleToMSSQL();
-            MSSQLRepository.FillOracleDataToMsSql(data);
-            
+            var productData = OracleRepository.GetProductData();
+            var emptyVendorsData = OracleRepository.GetEmptyVendorData();
+            MSSQLRepository.FillOracleDataToMsSql(productData, emptyVendorsData);
+
         }
 
         private void GenerateMySqlDb_Click(object sender, EventArgs e)
@@ -117,9 +117,9 @@ namespace SupermarketSoft
 
         private void ExportMsSqlToMySql_Click(object sender, EventArgs e)
         {
-            var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
-
-            MySQLRepository.AddProducts(productsFromMsSql);
+            var productsData = MSSQLRepository.GetProductsData();
+            var emptyVendorsData = MSSQLRepository.GetEmptyVendorData();
+            MySQLRepository.AddSqlProductsToMsSql(productsData, emptyVendorsData);
         }
 
         private void ExportExcelReport_Click(object sender, EventArgs e)

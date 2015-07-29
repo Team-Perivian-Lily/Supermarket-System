@@ -73,53 +73,6 @@ namespace MSSQL.Data
             return result;
         }
 
-        //public static List<SalesReport> GetProducts()
-        //{
-        //    using (var context = new MSSQLSupermarketEntities())
-        //    {
-        //        return context.Products
-        //            .Where(p => p.Sales.Any())
-        //            .Select(p => new SalesReport
-        //            {
-        //                ProductId = p.Id,
-        //                Product = p,
-        //                Vendor = p.Vendor
-        //            })
-        //            .ToList();
-        //    }
-        //}
-
-        public static List<Product> GetProductsFromMsSqlFoMySql()
-        {
-            using (var context = new MSSQLSupermarketEntities())
-            {
-                //return context.Products
-                //        .Select(p => new MySQLProduct()
-                //        {
-                //            ProductName = p.ProductName,
-                //            Price = p.Price,
-                //            Measure = p.Measure,
-                //            Vendor = p.Vendor,
-                //            MeasureId = p.MeasureId,
-                //            VendorId = p.VendorId,
-                //            Id = p.Id,
-                //            Sales = p.Sales
-
-                //        })
-                //        .ToList();
-
-                return context.Products
-                    .Include(p => p.Measure)
-                    .Include(p => p.Vendor)
-                    .Include(p => p.Sales)
-                    .Include(p => p.Sales.Select(s => s.Location))
-                    .Include(p => p.Vendor.Expenses)
-                    .ToList();
-            }
-
-
-        }
-
         public static List<VendorsSalesReports> GetSalesByVendor(DateTime startDate, DateTime endDate)
         {
             var result = new List<VendorsSalesReports>();
@@ -154,7 +107,39 @@ namespace MSSQL.Data
             return result;
         }
 
-        public static void FillOracleDataToMsSql(List<ProductDTO> products)
+        //public static List<SalesReport> GetProducts()
+        //{
+        //    using (var context = new MSSQLSupermarketEntities())
+        //    {
+        //        return context.Products
+        //            .Where(p => p.Sales.Any())
+        //            .Select(p => new SalesReport
+        //            {
+        //                ProductId = p.Id,
+        //                Product = p,
+        //                Vendor = p.Vendor
+        //            })
+        //            .ToList();
+        //    }
+        //}
+
+        public static List<Product> GetProductsData()
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                return context.Products
+                    .Include(p => p.Measure)
+                    .Include(p => p.Vendor)
+                    .Include(p => p.Sales)
+                    .Include(p => p.Sales.Select(s => s.Location))
+                    .Include(p => p.Vendor.Expenses)
+                    .ToList();
+            }
+
+
+        }
+
+        public static void FillOracleDataToMsSql(List<ProductDTO> products, List<VendorDTO> emptyVendorsData)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -196,6 +181,16 @@ namespace MSSQL.Data
                     }
 
                     context.Products.Add(productToAdd);
+                    context.SaveChanges();
+                }
+
+                foreach (var vendor in emptyVendorsData)
+                {
+                    var vendorToAdd = new Vendor()
+                    {
+                        VendorName = vendor.VendorName
+                    };
+                    context.Vendors.Add(vendorToAdd);
                     context.SaveChanges();
                 }
             }
@@ -287,6 +282,16 @@ namespace MSSQL.Data
             }
 
             return true;
+        }
+
+        public static List<Vendor> GetEmptyVendorData()
+        {
+            using (var context = new MSSQLSupermarketEntities())
+            {
+                return context.Vendors
+                    .Where(v => v.Products.Count == 0)
+                    .ToList();
+            }
         }
     }
 }

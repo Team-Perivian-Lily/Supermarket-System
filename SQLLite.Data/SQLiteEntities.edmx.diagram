@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="20f8d6f7a3094b20af98960ae7a7d44c" Name="Diagram1">
+      <Diagram DiagramId="20f8d6f7a3094b20af98960ae7a7d44c" Name="Diagram1" ZoomLevel="114">
         <EntityTypeShape EntityType="ProductTaxesModel.Tax" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
