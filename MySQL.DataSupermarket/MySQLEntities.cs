@@ -1,3 +1,4 @@
+using System.Data.Entity.ModelConfiguration.Conventions;
 using MySql.Data.Entity;
 using MySQL.DataSupermarket.Migrations;
 using Supermarket.Models;
@@ -26,6 +27,19 @@ namespace MySQL.DataSupermarket
             : base("name=MySQLEntities")
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySQLEntities, Configuration>());
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<Vendor>().HasMany(v => v.Products);
+            modelBuilder.Entity<Product>().HasRequired(p => p.Vendor);
+            modelBuilder.Entity<Sale>().HasRequired(s => s.Location);
+            modelBuilder.Entity<Location>().HasMany(l => l.Sales);
+
+            base.OnModelCreating(modelBuilder);
+
         }
 
         public virtual IDbSet<Product> Products { get; set; }

@@ -23,9 +23,7 @@ namespace SupermarketSoft.Utilities
             {
                 path = outputDir.FullName;
             }
-
-
-
+            
 
             var vendors = MySQLRepository.GetAllData();
 
@@ -60,7 +58,20 @@ namespace SupermarketSoft.Utilities
                 for (int i = 2; i < vendors.Count()+2; i++)
                 {
                     worksheet.Cells[i, 1].Value = vendors[i - 2].VendorName;
-                    worksheet.Cells[i, 2].Value = vendors[i - 2].Products.Sum(p => p.Price*p.Sales.Count);
+                    var sumPro = 0.0;
+                    foreach (var product in vendors[i - 2].Products)
+                    {
+                       
+                        if (product.Sales.Count() != 0)
+                        {
+                            foreach (var sale in product.Sales)
+                            {
+                                sumPro += sale.Quantity*product.Price;
+                            }
+                        }
+
+                    }
+                    worksheet.Cells[i, 2].Value = sumPro;
                     worksheet.Cells[i, 3].Value = vendors[i - 2].Expenses.Sum(e => e.Value);
                     
 

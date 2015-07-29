@@ -119,8 +119,6 @@ namespace SupermarketSoft
         {
             var productsFromMsSql = MSSQLRepository.GetProductsFromMsSqlFoMySql();
 
-
-
             MySQLRepository.AddProducts(productsFromMsSql);
         }
 

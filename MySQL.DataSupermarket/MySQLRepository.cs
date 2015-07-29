@@ -19,57 +19,92 @@ namespace MySQL.DataSupermarket
             {
                 foreach (var product in products)
                 {
+                    var existingVendor= ctx.Vendors
+                        .FirstOrDefault(v => v.VendorName.Equals(product.Vendor.VendorName));
+                    var existingMeasure = ctx.Measures
+                        .FirstOrDefault(v => v.MeasureName.Equals(product.Measure.MeasureName));
+                    
+
                     var productToAdd = new Product()
                     {
                         ProductName = product.ProductName,
-                        Measure = new Measure()
-                        {
-                            MeasureName = product.Measure.MeasureName
-                        },
                         Price = product.Price,
-                        Vendor = new Vendor()
-                        {
-                            VendorName = product.Vendor.VendorName,
-                            
-                        }
+                       
                     };
 
-                    productToAdd.Vendor.Expenses = new List<Expense>();
-
-                    productToAdd.Sales = new List<Sale>();
-
-                    foreach (var sale in product.Sales)
+                    if (existingMeasure == null)
                     {
-                        var saleToAdd = new Sale()
+                        productToAdd.Measure = new Measure()
                         {
-                            SoldOn = sale.SoldOn,
-                            Quantity = sale.Quantity,
-                            Location = new Location()
+                            MeasureName = product.Measure.MeasureName
+                        };
+                    }
+                    else
+                    {
+                        productToAdd.Measure = existingMeasure;
+                    }
+
+                    if (existingVendor == null)
+                    {
+                        productToAdd.Vendor = new Vendor()
+                        {
+                            VendorName = product.Vendor.VendorName
+                        };
+
+                        productToAdd.Vendor.Expenses = new List<Expense>();
+
+                        foreach (var expense in product.Vendor.Expenses)
+                        {
+                            var expenseToAdd = new Expense()
                             {
-                                Name = sale.Location.Name
-                            }
-                        };
-                        productToAdd.Sales.Add(saleToAdd);
+                                DateOfExpense = expense.DateOfExpense,
+                                Value = expense.Value,
+                            };
 
-                    }
+                            productToAdd.Vendor.Expenses.Add(expenseToAdd);
+                        }
 
-                    foreach (var expense in product.Vendor.Expenses)
-                    {
-                        var expenseToAdd = new Expense()
+                        productToAdd.Sales = new List<Sale>();
+                        foreach (var sale in product.Sales)
                         {
-                            DateOfExpense = expense.DateOfExpense,
-                            Value = expense.Value,
-                        };
+                            var existingLocation = ctx.Locations.FirstOrDefault(l => l.Name.Equals(sale.Location.Name));
 
-                        productToAdd.Vendor.Expenses.Add(expenseToAdd);
+                            var saleToAdd = new Sale()
+                            {
+                                SoldOn = sale.SoldOn,
+                                Quantity = sale.Quantity,
+
+                            };
+
+                            if (existingLocation == null)
+                            {
+                                saleToAdd.Location = new Location()
+                                {
+                                    Name = sale.Location.Name
+                                };
+                            }
+                            else
+                            {
+                                saleToAdd.Location = existingLocation;
+                            }
+                            productToAdd.Sales.Add(saleToAdd);
+                            if (!ctx.Products.Any(p => p.ProductName == productToAdd.ProductName))
+                            {
+                                ctx.Products.Add(productToAdd);
+                            }
+                            ctx.SaveChanges();
+                        }
                     }
-
-                    if (!ctx.Products.Any(p => p.ProductName == productToAdd.ProductName))
+                    else
                     {
-                        ctx.Products.Add(productToAdd);
+                        productToAdd.Vendor = existingVendor;
+                        if (!ctx.Products.Any(p => p.ProductName == productToAdd.ProductName))
+                        {
+                            ctx.Products.Add(productToAdd);
+                        }
+                        ctx.SaveChanges();
                     }
                 }
-                ctx.SaveChanges();
             }
         }
 

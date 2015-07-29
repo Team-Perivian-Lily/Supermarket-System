@@ -108,8 +108,8 @@ namespace MSSQL.Data
                 //        })
                 //        .ToList();
 
-                return context.Products.
-                    Include(p => p.Measure)
+                return context.Products
+                    .Include(p => p.Measure)
                     .Include(p => p.Vendor)
                     .Include(p => p.Sales)
                     .Include(p => p.Sales.Select(s => s.Location))
@@ -187,7 +187,7 @@ namespace MSSQL.Data
                     {
                         productToAdd.Measure = new Measure()
                         {
-                             MeasureName = product.Measure.MeasureName
+                            MeasureName = product.Measure.MeasureName
                         };
                     }
                     else
@@ -197,7 +197,7 @@ namespace MSSQL.Data
 
                     context.Products.Add(productToAdd);
                     context.SaveChanges();
-                }             
+                }
             }
         }
 
@@ -275,7 +275,7 @@ namespace MSSQL.Data
                             context.Sales.Add(saleToAdd);
                             context.SaveChanges();
                         }
-                        
+
                         dbContextTransaction.Commit();
                     }
                     catch (Exception)

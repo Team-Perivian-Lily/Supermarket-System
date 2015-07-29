@@ -9,17 +9,17 @@ namespace MSSQL.Data
         public MSSQLSupermarketEntities()
             : base("name=MSSQLSupermarketEntities")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MSSQLSupermarketEntities, Configuration>());
         }
 
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Vendor>().HasMany(v => v.Products);
-            modelBuilder.Entity<Product>().HasRequired(p => p.Vendor);
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Vendor>().HasMany(v => v.Products);
+        //    modelBuilder.Entity<Product>().HasRequired(p => p.Vendor);
 
-            base.OnModelCreating(modelBuilder);
-        }
+        //    base.OnModelCreating(modelBuilder);
+        //}
 
         public virtual IDbSet<Product> Products { get; set; }
 
