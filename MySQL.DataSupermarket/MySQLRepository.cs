@@ -138,7 +138,8 @@ namespace MySQL.DataSupermarket
             return ctx.Vendors
                 .Include(v => v.Products)
                 .Include(v => v.Products.Select(p => p.Sales))
-                .Include(v => v.Expenses).ToList();
+                .Include(v => v.Expenses)
+                .ToList();
         }
     }
 }

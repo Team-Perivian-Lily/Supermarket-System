@@ -11,6 +11,7 @@ namespace Oracle.Data
             : base("name=OracleDbContext")
         {
             var migrationStrategy = new MigrateDatabaseToLatestVersion<OracleDbContext, Configuration>();
+
             Database.SetInitializer(migrationStrategy);
             Database.Initialize(false);
         }

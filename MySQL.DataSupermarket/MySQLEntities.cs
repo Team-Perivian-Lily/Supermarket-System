@@ -3,6 +3,7 @@ namespace MySQL.DataSupermarket
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
     using Supermarket.Models;
+    using MySql.Data.Entity;
 
     //Uncomment the next row before migrate from SQL Server and then comment it again
     //[DbConfigurationType(typeof(MySqlEFConfiguration))]
@@ -16,8 +17,6 @@ namespace MySQL.DataSupermarket
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Entity<Vendor>().HasMany(v => v.Products);
             modelBuilder.Entity<Product>().HasRequired(p => p.Vendor);
             modelBuilder.Entity<Sale>().HasRequired(s => s.Location);

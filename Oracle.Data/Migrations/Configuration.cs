@@ -22,7 +22,7 @@ namespace Oracle.Data.Migrations
 
         public void FillVendors(OracleDbContext context)
         {
-           
+
             if (!context.VENDORS.Any())
             {
                 string[] vendors = new string[]
@@ -66,7 +66,7 @@ namespace Oracle.Data.Migrations
                     context.MEASURES.Add(new MeasureDTO()
                     {
                         Id = i * 100,
-                       MeasureName = measures[i]
+                        MeasureName = measures[i]
                     });
                 }
             }
@@ -80,21 +80,21 @@ namespace Oracle.Data.Migrations
             {
                 string[] products = new string[]
                 {
-                    "2,Beer \"Zagorka\",2,0.86",
-                    "3,Vodka \"Targovishte\",2,7.56",
-                    "2,Beer \"Beck's\",2,1.03",
-                    "1,Chocolate \"Milka\",3,2.80",
-                    "10,Victory White,4,4.8",
-                    "3,Vodka FLIRT,2,7.00",
-                    "10,Victory Blue,4,4.80",
-                    "3,Vodka Absolute,2,10.00",
-                    "9,Lotto Pizza,4,0.90",
-                    "10,Victory Deluxe,4,2.80",
-                    "9,Bruscetti MArreti,4,1.20",
-                    "10,Victory Exclusive,4,4.80",
-                    "3,Black Ram,2,9.00",
-                    "9,7 Days,4,1.10",
-                    "9,Mura ChocoDreams,4,0.70"
+                    "2,Beer \"Zagorka\",1,0.86",
+                    "3,Vodka \"Targovishte\",1,7.56",
+                    "2,Beer \"Beck's\",1,1.03",
+                    "1,Chocolate \"Milka\",2,2.80",
+                    "10,Victory White,3,4.8",
+                    "3,Vodka FLIRT,1,7.00",
+                    "10,Victory Blue,3,4.80",
+                    "3,Vodka Absolute,1,10.00",
+                    "9,Lotto Pizza,3,0.90",
+                    "10,Victory Deluxe,3,2.80",
+                    "9,Bruscetti MArreti,3,1.20",
+                    "10,Victory Exclusive,3,4.80",
+                    "3,Black Ram,1,9.00",
+                    "9,7 Days,3,1.10",
+                    "9,Mura ChocoDreams,3,0.70"
                 };
 
                 for (int i = 0; i < products.Length; i++)
@@ -113,6 +113,7 @@ namespace Oracle.Data.Migrations
                     });
                 }
             }
+
             context.SaveChanges();
         }
     }
