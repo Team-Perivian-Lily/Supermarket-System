@@ -1,4 +1,9 @@
-﻿namespace SupermarketSoft.Utilities
+﻿using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+using SQLLite.Data;
+
+namespace SupermarketSoft.Utilities
 {
     using System.Collections.Generic;
     using System.IO;
@@ -9,12 +14,14 @@
     using OfficeOpenXml.Style;
     using Excel;
     using OfficeOpenXml;
-    using SQLLite.Data;
+
 
     public static class ExcelUtility
     {
+        private const int ExcelColumns = 5;
         public static string GenerateFile(DirectoryInfo outputDir = null)
         {
+
             var path = "";
             if (outputDir == null)
             {
@@ -26,10 +33,10 @@
             }
 
             var vendors = MySQLRepository.GetAllData();
+
             var context = new SQLiteEntities();
             var taxes = context.Taxes.ToList();
 
-            var colNames = typeof(Tax).GetProperties().Select(p => p.Name).ToList();
             FileInfo newFile = new FileInfo(path + @"\ProductTaxes.xlsx");
 
             if (newFile.Exists)
@@ -39,46 +46,47 @@
             }
             using (ExcelPackage package = new ExcelPackage(newFile))
             {
-                var currentRow = 1;
                 // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Product Taxes");
-                //Add the headers
+
+                // Add the headers
                 worksheet.Cells[1, 1].Value = "Vendor";
                 worksheet.Cells[1, 2].Value = "Incomes";
                 worksheet.Cells[1, 3].Value = "Expenses";
                 worksheet.Cells[1, 4].Value = "Total Taxes";
                 worksheet.Cells[1, 5].Value = "Financial Result";
 
-
-
-                for (int i = 2; i < vendors.Count() + 2; i++)
+                var currentRow = 2;
+                for (int i = 0; i < vendors.Count(); i++, currentRow++)
                 {
-                    worksheet.Cells[i, 1].Value = vendors[i - 2].VendorName;
-                    var sumPro = 0.0;
-                    foreach (var product in vendors[i - 2].Products)
+                    // Vendors
+                    worksheet.Cells[currentRow, 1].Value = vendors[i].VendorName;
+                    var incomes = 0.0;
+                    foreach (var product in vendors[i].Products)
                     {
-
-                        if (product.Sales.Count() != 0)
+                        foreach (var sale in product.Sales)
                         {
-                            foreach (var sale in product.Sales)
-                            {
-                                sumPro += sale.Quantity * product.Price;
-                            }
+                            incomes += sale.Quantity * product.Price;
                         }
                     }
 
-                    worksheet.Cells[i, 2].Value = sumPro;
-                    worksheet.Cells[i, 3].Value = vendors[i - 2].Expenses.Sum(e => e.Value);
+                    // Incomes
+                    worksheet.Cells[currentRow, 2].Value = incomes;
 
+                    // Expenses
+                    worksheet.Cells[currentRow, 3].Value = vendors[i].Expenses.Sum(e => e.Value);
+
+                    // Calculate taxes
                     var totalTax = 0.0;
 
-                    foreach (var product in vendors[i - 2].Products)
+                    foreach (var product in vendors[i].Products)
                     {
                         var tax = taxes
-                            .FirstOrDefault(t => t.ProductName == vendors[i - 2].Products
+                            .FirstOrDefault(t => t.ProductName == vendors[i].Products
                             .FirstOrDefault().ProductName).Tax1;
 
                         var price = product.Price;
+
                         var quantity = 0;
 
                         foreach (var sale in product.Sales)
@@ -87,16 +95,17 @@
                         }
 
                         var temporaryTax = price * quantity * tax / 100;
-                        totalTax += temporaryTax;
+                        totalTax += (double)temporaryTax;
                     }
 
-                    worksheet.Cells[i, 4].Value = totalTax;
+                    worksheet.Cells[currentRow, 4].Value = totalTax;
 
-                    var cell = worksheet.Cells[i, 5];
-                    cell.Formula = worksheet.Cells[i, 2] + "-" + worksheet.Cells[i, 3] + "-" + worksheet.Cells[i, 4];
+                    // Calculate financial result
+                    var cell = worksheet.Cells[currentRow, 5];
+                    cell.Formula = worksheet.Cells[currentRow, 2] + "-" + worksheet.Cells[currentRow, 3] + "-" + worksheet.Cells[currentRow, 4];
 
 
-                    using (var range = worksheet.Cells[1, 1, 1, 5])
+                    using (var range = worksheet.Cells[1, 1, 1, ExcelColumns])
                     {
                         range.Style.Font.Bold = true;
                         range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -104,99 +113,47 @@
                         range.Style.Font.Color.SetColor(Color.Black);
                     }
 
-                    worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
+                    for (int row = 1; row <= vendors.Count + 1; row++)
+                    {
+                        for (int col = 1; col <= 5; col++)
+                        {
+                            worksheet.Cells[row, col].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                            worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
+                        }
+                    }
 
                 }
 
-
-                //currentRow++;
-                //for (int i = currentRow; i < taxes.Count + currentRow; i++)
-                //{
-                //    worksheet.Cells[currentRow, 1].Value = taxes[i - currentRow].Id;
-                //    worksheet.Cells[currentRow, 2].Value = taxes[i - currentRow].Name;
-                //    worksheet.Cells[currentRow, 3].Value = taxes[i - currentRow].Tax1;
-                //}
-
-
-
-                //var cell = worksheet.Cells[products.Count + 2, 1];
-
-                //cell.Formula = "Sum(" + worksheet.Cells[2, 1] + ":" + worksheet.Cells[products.Count + 1, 1] + ")";
-
-                //worksheet.Cells["A3"].Value = 12002;
-                //worksheet.Cells["B3"].Value = "Hammer";
-                //worksheet.Cells["C3"].Value = 5;
-                //worksheet.Cells["D3"].Value = 12.10;
-
-                //worksheet.Cells["A4"].Value = 12003;
-                //worksheet.Cells["B4"].Value = "Saw";
-                //worksheet.Cells["C4"].Value = 12;
-                //worksheet.Cells["D4"].Value = 15.37;
-
-                //Add a formula for the value-column
-                //worksheet.Cells["E2:E4"].Formula = "C2*D2";
-
-                ////Ok now format the values;
-                //using (var range = worksheet.Cells[1, 1, 1, 5])
-                //{
-                //    range.Style.Font.Bold = true;
-                //    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                //    range.Style.Fill.BackgroundColor.SetColor(Color.DarkBlue);
-                //    range.Style.Font.Color.SetColor(Color.White);
-                //}
-
-                //worksheet.Cells["A5:E5"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                //worksheet.Cells["A5:E5"].Style.Font.Bold = true;
-
-                //worksheet.Cells[5, 3, 5, 5].Formula = string.Format("SUBTOTAL(9,{0})", new ExcelAddress(2, 3, 4, 3).Address);
-                //worksheet.Cells["C2:C5"].Style.Numberformat.Format = "#,##0";
-                //worksheet.Cells["D2:E5"].Style.Numberformat.Format = "#,##0.00";
-
-                ////Create an autofilter for the range
-                //worksheet.Cells["A1:E4"].AutoFilter = true;
-
-                //worksheet.Cells["A2:A4"].Style.Numberformat.Format = "@";   //Format as text
-
-                ////There is actually no need to calculate, Excel will do it for you, but in some cases it might be useful. 
-                ////For example if you link to this workbook from another workbook or you will open the workbook in a program that hasn't a calculation engine or 
-                ////you want to use the result of a formula in your program.
-                //worksheet.Calculate();
+                worksheet.Calculate();
 
                 worksheet.Cells.AutoFitColumns(0);  //Autofit columns for all cells
 
-                // lets set the header text 
-                //worksheet.HeaderFooter.OddHeader.CenteredText = "&24&U&\"Arial,Regular Bold\" Inventory";
-                //// add the page number to the footer plus the total number of pages
-                //worksheet.HeaderFooter.OddFooter.RightAlignedText =
-                //    string.Format("Page {0} of {1}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
-                //// add the sheet name to the footer
-                //worksheet.HeaderFooter.OddFooter.CenteredText = ExcelHeaderFooter.SheetName;
-                //// add the file path to the footer
-                //worksheet.HeaderFooter.OddFooter.LeftAlignedText = ExcelHeaderFooter.FilePath + ExcelHeaderFooter.FileName;
+                // Pade layout
+                worksheet.View.PageLayoutView = true;
 
-                //worksheet.PrinterSettings.RepeatRows = worksheet.Cells["1:2"];
-                //worksheet.PrinterSettings.RepeatColumns = worksheet.Cells["A:G"];
-
-                //// Change the sheet view to show it in page layout mode
-                //worksheet.View.PageLayoutView = true;
+                // Header
+                worksheet.HeaderFooter.FirstHeader.CenteredText = "Баси данъците чуек";
 
                 // set some document properties
-                //package.Workbook.Properties.Title = "Invertory";
-                //package.Workbook.Properties.Author = "Jan Kдllman";
-                //package.Workbook.Properties.Comments = "This sample demonstrates how to create an Excel 2007 workbook using EPPlus";
+                package.Workbook.Properties.Title = "Product Taxs";
+                package.Workbook.Properties.Author = "Kor";
+                package.Workbook.Properties.Comments = "Fok diz sh*t";
 
-                //// set some extended property values
-                //package.Workbook.Properties.Company = "AdventureWorks Inc.";
-
-                //// set some custom property values
-                //package.Workbook.Properties.SetCustomPropertyValue("Checked by", "Jan Kдllman");
-                //package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
-                // save our new workbook and we are done!
                 package.Save();
-
             }
-
+            
+            GenerateMessageBox(path);
             return newFile.FullName;
+        }
+
+        private static void GenerateMessageBox(string path)
+        {
+            var msgBox = MessageBox.Show("Excel report created successfully. Do you want to open the directory?", "Confirm",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (msgBox == DialogResult.OK)
+            {
+                Process.Start(path);
+            }
         }
 
         public static List<List<string>> ReadSaleData(ZipArchive zip)

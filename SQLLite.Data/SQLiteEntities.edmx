@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProductTaxesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;E:\DISK D\Softuni-Projects\Modul Back-End\DB Apps July 2015\TeamWorkDBApps\Supermarket-System\SQLLite.Data\SQLite database\ProductTaxes.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ProductTaxesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;C:\Users\Elina Pavlova\Desktop\Supermarket-System\SQLLite.Data\SQLite database\ProductTaxes.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Taxes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="Tax" Type="real" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="2147483647" />
+          <Property Name="Tax" Type="real" />
         </EntityType>
         <EntityContainer Name="ProductTaxesModelStoreContainer">
           <EntitySet Name="Taxes" EntityType="Self.Taxes" store:Type="Tables" />
@@ -26,8 +26,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Tax1" Type="Double" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Tax1" Type="Double" />
         </EntityType>
         <EntityContainer Name="SQLiteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Taxes" EntityType="Self.Tax" />
@@ -42,7 +42,7 @@
             <EntityTypeMapping TypeName="ProductTaxesModel.Tax">
               <MappingFragment StoreEntitySet="Taxes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ProductName" ColumnName="Name" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Tax1" ColumnName="Tax" />
               </MappingFragment>
             </EntityTypeMapping>

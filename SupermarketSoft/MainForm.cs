@@ -1,4 +1,6 @@
-﻿namespace SupermarketSoft
+﻿using System.Diagnostics;
+
+namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
@@ -113,6 +115,8 @@
         private void GenerateMySqlDb_Click(object sender, EventArgs e)
         {
             MySQLRepository.GenerateMySqlDb();
+            MessageBox.Show("MySQL db generated successffully", "Confirm", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void ExportMsSqlToMySql_Click(object sender, EventArgs e)
@@ -120,11 +124,15 @@
             var productsData = MSSQLRepository.GetProductsData();
             var emptyVendorsData = MSSQLRepository.GetEmptyVendorData();
             MySQLRepository.AddSqlProductsToMsSql(productsData, emptyVendorsData);
+            MessageBox.Show("MySQL data seeded from MS SQL Server", "Confirm", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void ExportExcelReport_Click(object sender, EventArgs e)
         {
             ExcelUtility.GenerateFile();
+            
+            
         }
     }
 }

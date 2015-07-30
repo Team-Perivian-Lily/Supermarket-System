@@ -16,6 +16,6 @@ namespace SQLLite.Data
     {
         public long Id { get; set; }
         public string ProductName { get; set; }
-        public double Tax1 { get; set; }
+        public Nullable<double> Tax1 { get; set; }
     }
 }

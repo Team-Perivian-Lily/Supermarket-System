@@ -197,7 +197,7 @@
       <Name>Oracle.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\SQLLite.Data\SQLLite.Data.csproj">
-      <Project>{d25ad6dc-7721-41d7-b86c-a737ee4ddcc1}</Project>
+      <Project>{4ec85e5b-08d6-410a-9883-7232735b6f42}</Project>
       <Name>SQLLite.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Supermarket.Data\Supermarket.Data.csproj">
