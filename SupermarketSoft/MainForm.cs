@@ -108,7 +108,7 @@ namespace SupermarketSoft
         {
             var productData = OracleRepository.GetProductData();
             var emptyVendorsData = OracleRepository.GetEmptyVendorData();
-            MSSQLRepository.FillOracleDataToMsSql(productData, emptyVendorsData);
+            MSSQLRepository.FillOracleDataToMsSql(productData);
 
         }
 
@@ -123,7 +123,7 @@ namespace SupermarketSoft
         {
             var productsData = MSSQLRepository.GetProductsData();
             var emptyVendorsData = MSSQLRepository.GetEmptyVendorData();
-            MySQLRepository.AddSqlProductsToMsSql(productsData, emptyVendorsData);
+            MySQLRepository.AddSqlProductsToMsSql(productsData);
             MessageBox.Show("MySQL data seeded from MS SQL Server", "Confirm", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }

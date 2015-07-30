@@ -1,27 +1,23 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-using SQLLite.Data;
-
-namespace SupermarketSoft.Utilities
+﻿namespace SupermarketSoft.Utilities
 {
+    using System.Diagnostics;
+    using System.Windows.Forms;
+    using SQLLite.Data;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
     using System.Drawing;
     using MySQL.DataSupermarket;
+    using OfficeOpenXml;
     using OfficeOpenXml.Style;
     using Excel;
-    using OfficeOpenXml;
-
 
     public static class ExcelUtility
     {
         private const int ExcelColumns = 5;
         public static string GenerateFile(DirectoryInfo outputDir = null)
         {
-
             var path = "";
             if (outputDir == null)
             {
@@ -81,18 +77,9 @@ namespace SupermarketSoft.Utilities
 
                     foreach (var product in vendors[i].Products)
                     {
-                        var tax = taxes
-                            .FirstOrDefault(t => t.ProductName == vendors[i].Products
-                            .FirstOrDefault().ProductName).Tax1;
-
+                        var tax = 20;
                         var price = product.Price;
-
-                        var quantity = 0;
-
-                        foreach (var sale in product.Sales)
-                        {
-                            quantity += sale.Quantity;
-                        }
+                        var quantity = product.Sales.Sum(sale => sale.Quantity);
 
                         var temporaryTax = price * quantity * tax / 100;
                         totalTax += (double)temporaryTax;
@@ -103,7 +90,6 @@ namespace SupermarketSoft.Utilities
                     // Calculate financial result
                     var cell = worksheet.Cells[currentRow, 5];
                     cell.Formula = worksheet.Cells[currentRow, 2] + "-" + worksheet.Cells[currentRow, 3] + "-" + worksheet.Cells[currentRow, 4];
-
 
                     using (var range = worksheet.Cells[1, 1, 1, ExcelColumns])
                     {
@@ -121,7 +107,6 @@ namespace SupermarketSoft.Utilities
                             worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
                         }
                     }
-
                 }
 
                 worksheet.Calculate();
@@ -141,7 +126,7 @@ namespace SupermarketSoft.Utilities
 
                 package.Save();
             }
-            
+
             GenerateMessageBox(path);
             return newFile.FullName;
         }

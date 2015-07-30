@@ -107,22 +107,6 @@ namespace MSSQL.Data
             return result;
         }
 
-        //public static List<SalesReport> GetProducts()
-        //{
-        //    using (var context = new MSSQLSupermarketEntities())
-        //    {
-        //        return context.Products
-        //            .Where(p => p.Sales.Any())
-        //            .Select(p => new SalesReport
-        //            {
-        //                ProductId = p.Id,
-        //                Product = p,
-        //                Vendor = p.Vendor
-        //            })
-        //            .ToList();
-        //    }
-        //}
-
         public static List<Product> GetProductsData()
         {
             using (var context = new MSSQLSupermarketEntities())
@@ -135,11 +119,9 @@ namespace MSSQL.Data
                     .Include(p => p.Vendor.Expenses)
                     .ToList();
             }
-
-
         }
 
-        public static void FillOracleDataToMsSql(List<ProductDTO> products, List<VendorDTO> emptyVendorsData)
+        public static void FillOracleDataToMsSql(List<ProductDTO> products)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -180,17 +162,11 @@ namespace MSSQL.Data
                         productToAdd.Measure = existingMeasure;
                     }
 
-                    context.Products.Add(productToAdd);
-                    context.SaveChanges();
-                }
-
-                foreach (var vendor in emptyVendorsData)
-                {
-                    var vendorToAdd = new Vendor()
+                    if (!context.Products.Any(p => p.ProductName == productToAdd.ProductName))
                     {
-                        VendorName = vendor.VendorName
-                    };
-                    context.Vendors.Add(vendorToAdd);
+                        context.Products.Add(productToAdd);
+                    }
+
                     context.SaveChanges();
                 }
             }
@@ -267,13 +243,25 @@ namespace MSSQL.Data
                                 saleToAdd.Location = existingLocation;
                             }
 
-                            context.Sales.Add(saleToAdd);
+                            var existingSale = context.Sales
+                                .FirstOrDefault(
+                                    s => s.Product.ProductName == productName &&
+                                         s.Location.Name == locationName &&
+                                         s.SoldOn.Year.Equals(soldOn.Year) &&
+                                         s.SoldOn.Month.Equals(soldOn.Month) &&
+                                         s.SoldOn.Day.Equals(soldOn.Day));
+
+                            if (existingSale == null)
+                            {
+                                context.Sales.Add(saleToAdd);
+                            }
+
                             context.SaveChanges();
                         }
 
                         dbContextTransaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         dbContextTransaction.Rollback();
                         return false;

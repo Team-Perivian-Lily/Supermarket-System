@@ -22,7 +22,6 @@ namespace Oracle.Data.Migrations
 
         public void FillVendors(OracleDbContext context)
         {
-
             if (!context.VENDORS.Any())
             {
                 string[] vendors = new string[]
@@ -94,7 +93,12 @@ namespace Oracle.Data.Migrations
                     "10,Victory Exclusive,3,4.80",
                     "3,Black Ram,1,9.00",
                     "9,7 Days,3,1.10",
-                    "9,Mura ChocoDreams,3,0.70"
+                    "9,Mura ChocoDreams,3,0.70",
+                    "4,Fanta Orange,2,1.00",
+                    "5,Heineken,2,2.00",
+                    "6,Carlsberg,2,2.50",
+                    "7,Prestige,1,0.50",
+                    "8,Kori,1,0.70"
                 };
 
                 for (int i = 0; i < products.Length; i++)

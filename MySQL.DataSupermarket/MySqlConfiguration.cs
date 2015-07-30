@@ -1,4 +1,4 @@
-﻿namespace IdentityMySQLDemo
+﻿namespace MySQL.Data
 {
     using System.Data.Entity;
 

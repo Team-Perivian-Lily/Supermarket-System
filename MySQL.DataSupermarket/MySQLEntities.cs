@@ -1,18 +1,14 @@
-namespace MySQL.DataSupermarket
+namespace MySQL.Data
 {
     using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
     using Supermarket.Models;
-    using MySql.Data.Entity;
 
-    //Uncomment the next row before migrate from SQL Server and then comment it again
-    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySqlConfiguration))]
     public class MySQLEntities : DbContext
     {
         public MySQLEntities()
             : base("name=MySQLEntities")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MySQLEntities, Configuration>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -1,19 +1,17 @@
-namespace MySQL.DataSupermarket.Migrations
+namespace MySQL.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using MySql.Data.Entity;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MySQL.DataSupermarket.MySQLEntities>
+    internal sealed class Configuration : DbMigrationsConfiguration<MySQLEntities>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
+            SetSqlGenerator("MySql.Data.MySqlClient", new MySqlMigrationSqlGenerator());
         }
 
-        protected override void Seed(MySQL.DataSupermarket.MySQLEntities entities)
+        protected override void Seed(MySQLEntities entities)
         {
         }
     }

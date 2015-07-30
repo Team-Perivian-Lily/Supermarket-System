@@ -10,14 +10,17 @@ using Supermarket.Models.Reports;
 
 namespace MySQL.DataSupermarket
 {
+    using Data;
+
     public static class MySQLRepository
     {
-        public static void AddSqlProductsToMsSql(List<Product> products, List<Vendor> emptyVendorsData)
+        public static void AddSqlProductsToMsSql(List<Product> products)
         {
             HashSet<Location> addedLocations = new HashSet<Location>();
 
             using (var context = new MySQLEntities())
             {
+                context.Configuration.ValidateOnSaveEnabled = false;
                 foreach (var product in products)
                 {
                     // PRODUCT
@@ -25,7 +28,6 @@ namespace MySQL.DataSupermarket
                     {
                         ProductName = product.ProductName,
                         Price = product.Price,
-
                     };
 
                     var existingVendor = context.Vendors
@@ -84,12 +86,10 @@ namespace MySQL.DataSupermarket
 
                         var isLocationExist = addedLocations.Any(l => l.Name == locationToAdd.Name);
 
-
                         var saleToAdd = new Sale()
                         {
                             SoldOn = sale.SoldOn,
                             Quantity = sale.Quantity,
-
                         };
 
                         if (isLocationExist == false)
@@ -110,16 +110,6 @@ namespace MySQL.DataSupermarket
                         context.Products.Add(productToAdd);
                     }
 
-                    context.SaveChanges();
-                }
-
-                foreach (var emptyVendor in emptyVendorsData)
-                {
-                    var vendorToAdd = new Vendor()
-                    {
-                        VendorName = emptyVendor.VendorName
-                    };
-                    context.Vendors.Add(vendorToAdd);
                     context.SaveChanges();
                 }
             }
