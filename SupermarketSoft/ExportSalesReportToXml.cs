@@ -19,10 +19,12 @@
                 XmlUtility.CreateXmlFile(MSSQLRepository.GetSalesByVendor(
                         DateTime.Parse(this.startDatePicker.Text),
                         DateTime.Parse(this.endDatePicker.Text)));
+
+                MessageBox.Show("Data exported successfully!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error exporting data: " + ex.Message);
             }
         }
     }

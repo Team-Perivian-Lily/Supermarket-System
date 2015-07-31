@@ -16,7 +16,7 @@
         {
             try
             {
-                var salesReports = MSSQLRepository.SalesByProductReports(
+                var salesReports = MSSQLRepository.GetSalesByProduct(
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text));
 
@@ -24,12 +24,15 @@
 
                 foreach (var salesReport in salesReports)
                 {
-                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(JsonUtility.CreateJsonReport(salesReport));
+                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(
+                        JsonUtility.CreateJsonReport(salesReport));
                 }
+
+                MessageBox.Show("Data exported successfully!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error exporting data: " + ex.Message);
             }
         }
     }

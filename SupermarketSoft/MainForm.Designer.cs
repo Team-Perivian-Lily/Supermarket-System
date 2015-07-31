@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ExportFromMSSQL = new System.Windows.Forms.Button();
             this.programName = new System.Windows.Forms.Label();
             this.ExportToXml = new System.Windows.Forms.Button();
             this.ImportSalesFromXls = new System.Windows.Forms.Button();
@@ -41,21 +40,11 @@
             this.ExportExcelReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // ExportFromMSSQL
-            // 
-            this.ExportFromMSSQL.Location = new System.Drawing.Point(231, 413);
-            this.ExportFromMSSQL.Name = "ExportFromMSSQL";
-            this.ExportFromMSSQL.Size = new System.Drawing.Size(87, 28);
-            this.ExportFromMSSQL.TabIndex = 0;
-            this.ExportFromMSSQL.Text = "Test";
-            this.ExportFromMSSQL.UseVisualStyleBackColor = true;
-            this.ExportFromMSSQL.Click += new System.EventHandler(this.ExportFromMSSQL_Click);
-            // 
             // programName
             // 
             this.programName.AutoSize = true;
             this.programName.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.programName.Location = new System.Drawing.Point(118, 31);
+            this.programName.Location = new System.Drawing.Point(115, 49);
             this.programName.Name = "programName";
             this.programName.Size = new System.Drawing.Size(304, 39);
             this.programName.TabIndex = 1;
@@ -63,7 +52,7 @@
             // 
             // ExportToXml
             // 
-            this.ExportToXml.Location = new System.Drawing.Point(156, 229);
+            this.ExportToXml.Location = new System.Drawing.Point(153, 247);
             this.ExportToXml.Name = "ExportToXml";
             this.ExportToXml.Size = new System.Drawing.Size(243, 28);
             this.ExportToXml.TabIndex = 2;
@@ -73,7 +62,7 @@
             // 
             // ImportSalesFromXls
             // 
-            this.ImportSalesFromXls.Location = new System.Drawing.Point(156, 127);
+            this.ImportSalesFromXls.Location = new System.Drawing.Point(153, 145);
             this.ImportSalesFromXls.Name = "ImportSalesFromXls";
             this.ImportSalesFromXls.Size = new System.Drawing.Size(243, 28);
             this.ImportSalesFromXls.TabIndex = 3;
@@ -83,7 +72,7 @@
             // 
             // ReplicateOracle
             // 
-            this.ReplicateOracle.Location = new System.Drawing.Point(156, 93);
+            this.ReplicateOracle.Location = new System.Drawing.Point(153, 111);
             this.ReplicateOracle.Name = "ReplicateOracle";
             this.ReplicateOracle.Size = new System.Drawing.Size(243, 28);
             this.ReplicateOracle.TabIndex = 4;
@@ -93,7 +82,7 @@
             // 
             // ExportSalesReportToPdf
             // 
-            this.ExportSalesReportToPdf.Location = new System.Drawing.Point(156, 195);
+            this.ExportSalesReportToPdf.Location = new System.Drawing.Point(153, 213);
             this.ExportSalesReportToPdf.Name = "ExportSalesReportToPdf";
             this.ExportSalesReportToPdf.Size = new System.Drawing.Size(243, 28);
             this.ExportSalesReportToPdf.TabIndex = 5;
@@ -103,7 +92,7 @@
             // 
             // ExportToJsonMongoDb
             // 
-            this.ExportToJsonMongoDb.Location = new System.Drawing.Point(156, 263);
+            this.ExportToJsonMongoDb.Location = new System.Drawing.Point(153, 281);
             this.ExportToJsonMongoDb.Name = "ExportToJsonMongoDb";
             this.ExportToJsonMongoDb.Size = new System.Drawing.Size(243, 28);
             this.ExportToJsonMongoDb.TabIndex = 6;
@@ -113,7 +102,7 @@
             // 
             // ImportXmlToSql
             // 
-            this.ImportXmlToSql.Location = new System.Drawing.Point(156, 161);
+            this.ImportXmlToSql.Location = new System.Drawing.Point(153, 179);
             this.ImportXmlToSql.Name = "ImportXmlToSql";
             this.ImportXmlToSql.Size = new System.Drawing.Size(243, 28);
             this.ImportXmlToSql.TabIndex = 7;
@@ -123,7 +112,7 @@
             // 
             // GenerateMySqlDb
             // 
-            this.GenerateMySqlDb.Location = new System.Drawing.Point(156, 297);
+            this.GenerateMySqlDb.Location = new System.Drawing.Point(153, 315);
             this.GenerateMySqlDb.Name = "GenerateMySqlDb";
             this.GenerateMySqlDb.Size = new System.Drawing.Size(243, 28);
             this.GenerateMySqlDb.TabIndex = 8;
@@ -133,7 +122,7 @@
             // 
             // ExportMsSqlToMySql
             // 
-            this.ExportMsSqlToMySql.Location = new System.Drawing.Point(156, 331);
+            this.ExportMsSqlToMySql.Location = new System.Drawing.Point(153, 349);
             this.ExportMsSqlToMySql.Name = "ExportMsSqlToMySql";
             this.ExportMsSqlToMySql.Size = new System.Drawing.Size(243, 28);
             this.ExportMsSqlToMySql.TabIndex = 9;
@@ -143,7 +132,7 @@
             // 
             // ExportExcelReport
             // 
-            this.ExportExcelReport.Location = new System.Drawing.Point(156, 365);
+            this.ExportExcelReport.Location = new System.Drawing.Point(153, 383);
             this.ExportExcelReport.Name = "ExportExcelReport";
             this.ExportExcelReport.Size = new System.Drawing.Size(243, 28);
             this.ExportExcelReport.TabIndex = 10;
@@ -166,7 +155,6 @@
             this.Controls.Add(this.ExportToXml);
             this.Controls.Add(this.ImportSalesFromXls);
             this.Controls.Add(this.programName);
-            this.Controls.Add(this.ExportFromMSSQL);
             this.Name = "MainForm";
             this.Text = "Team - Perivian-Lilly - Supermarket System";
             this.ResumeLayout(false);
@@ -176,7 +164,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button ExportFromMSSQL;
         private System.Windows.Forms.Label programName;
         private System.Windows.Forms.Button ExportToXml;
         private System.Windows.Forms.Button ImportSalesFromXls;

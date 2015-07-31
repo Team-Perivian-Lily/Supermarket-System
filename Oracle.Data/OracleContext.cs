@@ -17,9 +17,10 @@ namespace Oracle.Data
         }
 
         public virtual IDbSet<VendorDTO> VENDORS { get; set; }
-        public virtual IDbSet<ProductDTO> PRODUCTS { get; set; }
-        public virtual IDbSet<MeasureDTO> MEASURES { get; set; }
 
+        public virtual IDbSet<ProductDTO> PRODUCTS { get; set; }
+
+        public virtual IDbSet<MeasureDTO> MEASURES { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,64 +1,52 @@
 ﻿namespace SupermarketSoft.Utilities
 {
-    using System.Diagnostics;
-    using System.Windows.Forms;
-    using SQLLite.Data;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Drawing;
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
-    using System.Drawing;
-    using MySQL.DataSupermarket;
+    using Excel;
+    using MySQL.Data;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
-    using Excel;
+    using SQLLite.Data;
+    using Supermarket.Models;
 
     public static class ExcelUtility
     {
         private const int ExcelColumns = 5;
-        public static string GenerateFile(DirectoryInfo outputDir = null)
+        private const string ExcelReportFilePath = @"..\..\..\Exported-Files\Excel";
+        private const string ExcelReportFileName = @"\Product-Taxes.xlsx";
+
+        private const string WorkSheetVendorColumn = "Vendor";
+        private const string WorkSheetExpensesColumn = "Expenses";
+        private const string WorkSheetIncomesColumn = "Incomes";
+        private const string WorkSheetTotalTaxesColumn = "Total Taxes";
+        private const string WorkSheetResultColumn = "Financial Result";
+
+        public static void GenerateExcelReportFile()
         {
-            var path = "";
-            if (outputDir == null)
-            {
-                path = @"..\..\..";
-            }
-            else
-            {
-                path = outputDir.FullName;
-            }
+            var newFile = CreateFile();
+            var vendorSalesData = MySQLRepository.GetVendorSalesData();
+            var productTaxesData = SQLLiteRepository.GetProductTaxData();
 
-            var vendors = MySQLRepository.GetAllData();
-
-            var context = new SQLiteEntities();
-            var taxes = context.Taxes.ToList();
-
-            FileInfo newFile = new FileInfo(path + @"\ProductTaxes.xlsx");
-
-            if (newFile.Exists)
-            {
-                newFile.Delete();  // ensures we create a new workbook
-                newFile = new FileInfo(path + @"\ProductTaxes.xlsx");
-            }
             using (ExcelPackage package = new ExcelPackage(newFile))
             {
-                // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Product Taxes");
 
-                // Add the headers
-                worksheet.Cells[1, 1].Value = "Vendor";
-                worksheet.Cells[1, 2].Value = "Incomes";
-                worksheet.Cells[1, 3].Value = "Expenses";
-                worksheet.Cells[1, 4].Value = "Total Taxes";
-                worksheet.Cells[1, 5].Value = "Financial Result";
+                worksheet.Cells[1, 1].Value = WorkSheetVendorColumn;
+                worksheet.Cells[1, 2].Value = WorkSheetIncomesColumn;
+                worksheet.Cells[1, 3].Value = WorkSheetExpensesColumn;
+                worksheet.Cells[1, 4].Value = WorkSheetTotalTaxesColumn;
+                worksheet.Cells[1, 5].Value = WorkSheetResultColumn;
 
                 var currentRow = 2;
-                for (int i = 0; i < vendors.Count(); i++, currentRow++)
+                for (int i = 0; i < vendorSalesData.Count(); i++, currentRow++)
                 {
-                    // Vendors
-                    worksheet.Cells[currentRow, 1].Value = vendors[i].VendorName;
+                    worksheet.Cells[currentRow, 1].Value = vendorSalesData[i].VendorName;
                     var incomes = 0.0;
-                    foreach (var product in vendors[i].Products)
+                    foreach (var product in vendorSalesData[i].Products)
                     {
                         foreach (var sale in product.Sales)
                         {
@@ -66,82 +54,31 @@
                         }
                     }
 
-                    // Incomes
+                    var totalTax = CalculateTaxes(vendorSalesData, i, productTaxesData);
+
                     worksheet.Cells[currentRow, 2].Value = incomes;
-
-                    // Expenses
-                    worksheet.Cells[currentRow, 3].Value = vendors[i].Expenses.Sum(e => e.Value);
-
-                    // Calculate taxes
-                    var totalTax = 0.0;
-
-                    foreach (var product in vendors[i].Products)
-                    {
-                        var tax = 20;
-                        var price = product.Price;
-                        var quantity = product.Sales.Sum(sale => sale.Quantity);
-
-                        var temporaryTax = price * quantity * tax / 100;
-                        totalTax += (double)temporaryTax;
-                    }
-
+                    worksheet.Cells[currentRow, 3].Value = vendorSalesData[i].Expenses.Sum(e => e.Value);
                     worksheet.Cells[currentRow, 4].Value = totalTax;
 
-                    // Calculate financial result
-                    var cell = worksheet.Cells[currentRow, 5];
-                    cell.Formula = worksheet.Cells[currentRow, 2] + "-" + worksheet.Cells[currentRow, 3] + "-" + worksheet.Cells[currentRow, 4];
-
-                    using (var range = worksheet.Cells[1, 1, 1, ExcelColumns])
-                    {
-                        range.Style.Font.Bold = true;
-                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        range.Style.Fill.BackgroundColor.SetColor(Color.DarkGray);
-                        range.Style.Font.Color.SetColor(Color.Black);
-                    }
-
-                    for (int row = 1; row <= vendors.Count + 1; row++)
-                    {
-                        for (int col = 1; col <= 5; col++)
-                        {
-                            worksheet.Cells[row, col].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                            worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
-                        }
-                    }
+                    CalculateFinancialResult(worksheet, currentRow, vendorSalesData);
                 }
 
                 worksheet.Calculate();
-
-                worksheet.Cells.AutoFitColumns(0);  //Autofit columns for all cells
-
-                // Pade layout
+                worksheet.Cells.AutoFitColumns(0);
                 worksheet.View.PageLayoutView = true;
-
-                // Header
                 worksheet.HeaderFooter.FirstHeader.CenteredText = "Баси данъците чуек";
 
-                // set some document properties
-                package.Workbook.Properties.Title = "Product Taxs";
+                package.Workbook.Properties.Title = "Product Taxes";
                 package.Workbook.Properties.Author = "Kor";
                 package.Workbook.Properties.Comments = "Fok diz sh*t";
 
                 package.Save();
             }
 
-            GenerateMessageBox(path);
-            return newFile.FullName;
+            Process.Start(ExcelReportFilePath);
         }
 
-        private static void GenerateMessageBox(string path)
-        {
-            var msgBox = MessageBox.Show("Excel report created successfully. Do you want to open the directory?", "Confirm",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (msgBox == DialogResult.OK)
-            {
-                Process.Start(path);
-            }
-        }
-
-        public static List<List<string>> ReadSaleData(ZipArchive zip)
+        public static List<List<string>> ReadSalesReportData(ZipArchive zip)
         {
             List<List<string>> sales = new List<List<string>>();
 
@@ -175,7 +112,65 @@
             return sales;
         }
 
-        public static void CopyStream(Stream input, Stream output)
+        private static FileInfo CreateFile()
+        {
+            if (!Directory.Exists(ExcelReportFilePath))
+            {
+                Directory.CreateDirectory(ExcelReportFilePath);
+            }
+
+            FileInfo newFile = new FileInfo(ExcelReportFilePath + ExcelReportFileName);
+
+            if (newFile.Exists)
+            {
+                newFile.Delete();
+                newFile = new FileInfo(ExcelReportFilePath + ExcelReportFileName);
+            }
+
+            return newFile;
+        }
+
+        private static double? CalculateTaxes(List<Vendor> vendors, int i, Dictionary<string, double?> productTaxesData)
+        {
+            double? totalTax = 0.0;
+
+            foreach (var product in vendors[i].Products)
+            {
+                var price = product.Price;
+                var quantity = product.Sales.Sum(sale => sale.Quantity);
+                var tax = productTaxesData.FirstOrDefault(t => t.Key.Equals(product.ProductName)).Value;
+
+                totalTax += (price * quantity * tax) / 100;
+            }
+
+            return totalTax;
+        }
+
+        private static void CalculateFinancialResult(ExcelWorksheet worksheet, int currentRow, List<Vendor> vendors)
+        {
+            var cell = worksheet.Cells[currentRow, 5];
+            cell.Formula = worksheet.Cells[currentRow, 2] + "-"
+                   + worksheet.Cells[currentRow, 3] + "-" + worksheet.Cells[currentRow, 4];
+
+            using (var range = worksheet.Cells[1, 1, 1, ExcelColumns])
+            {
+                range.Style.Font.Bold = true;
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(Color.DarkGray);
+                range.Style.Font.Color.SetColor(Color.Black);
+            }
+
+            for (int row = 1; row <= vendors.Count + 1; row++)
+            {
+                for (int col = 1; col <= 5; col++)
+                {
+                    worksheet.Cells[row, col].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    worksheet.Cells["B2:E100"].Style.Numberformat.Format = "0.00";
+                }
+            }
+        }
+
+        private static void CopyStream(Stream input, Stream output)
         {
             var buffer = new byte[16 * 1024];
             int read;

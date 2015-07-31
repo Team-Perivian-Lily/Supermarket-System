@@ -1,17 +1,16 @@
-﻿using System.Data.Entity;
-
-namespace MSSQL.Data
+﻿namespace MSSQL.Data
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Data.Entity;
     using Oracle.Models;
     using Supermarket.Models;
     using Supermarket.Models.Reports;
 
     public static class MSSQLRepository
     {
-        public static List<SalesReport> SalesByProductReports(DateTime startDate, DateTime endDate)
+        public static List<SalesReport> GetSalesByProduct(DateTime startDate, DateTime endDate)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -107,7 +106,7 @@ namespace MSSQL.Data
             return result;
         }
 
-        public static List<Product> GetProductsData()
+        public static List<Product> GetFullProductsData()
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -138,29 +137,8 @@ namespace MSSQL.Data
                         Price = product.Price
                     };
 
-                    if (existingVendor == null)
-                    {
-                        productToAdd.Vendor = new Vendor()
-                        {
-                            VendorName = product.Vendor.VendorName
-                        };
-                    }
-                    else
-                    {
-                        productToAdd.Vendor = existingVendor;
-                    }
-
-                    if (existingMeasure == null)
-                    {
-                        productToAdd.Measure = new Measure()
-                        {
-                            MeasureName = product.Measure.MeasureName
-                        };
-                    }
-                    else
-                    {
-                        productToAdd.Measure = existingMeasure;
-                    }
+                    AddProductVendor(existingVendor, productToAdd, product);
+                    AddProductMeasure(existingMeasure, productToAdd, product);
 
                     if (!context.Products.Any(p => p.ProductName == productToAdd.ProductName))
                     {
@@ -172,7 +150,7 @@ namespace MSSQL.Data
             }
         }
 
-        public static void FillXmlDataToSql(Dictionary<string, List<string[]>> expensesByVendor)
+        public static void FillExpensesDataToSql(Dictionary<string, List<string[]>> expensesByVendor)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -208,7 +186,7 @@ namespace MSSQL.Data
             }
         }
 
-        public static bool InsertSalesBySaleData(List<List<string>> salesData)
+        public static void FillSalesDataToSql(List<List<string>> salesData)
         {
             using (var context = new MSSQLSupermarketEntities())
             {
@@ -233,10 +211,7 @@ namespace MSSQL.Data
 
                             if (existingLocation == null)
                             {
-                                saleToAdd.Location = new Location()
-                                {
-                                    Name = locationName
-                                };
+                                saleToAdd.Location = new Location { Name = locationName };
                             }
                             else
                             {
@@ -264,21 +239,39 @@ namespace MSSQL.Data
                     catch (Exception e)
                     {
                         dbContextTransaction.Rollback();
-                        return false;
+                        throw new Exception("Transaction rolled back.");
                     }
                 }
             }
-
-            return true;
         }
 
-        public static List<Vendor> GetEmptyVendorData()
+        private static void AddProductMeasure(Measure existingMeasure, Product productToAdd, ProductDTO product)
         {
-            using (var context = new MSSQLSupermarketEntities())
+            if (existingMeasure == null)
             {
-                return context.Vendors
-                    .Where(v => v.Products.Count == 0)
-                    .ToList();
+                productToAdd.Measure = new Measure()
+                {
+                    MeasureName = product.Measure.MeasureName
+                };
+            }
+            else
+            {
+                productToAdd.Measure = existingMeasure;
+            }
+        }
+
+        private static void AddProductVendor(Vendor existingVendor, Product productToAdd, ProductDTO product)
+        {
+            if (existingVendor == null)
+            {
+                productToAdd.Vendor = new Vendor()
+                {
+                    VendorName = product.Vendor.VendorName
+                };
+            }
+            else
+            {
+                productToAdd.Vendor = existingVendor;
             }
         }
     }

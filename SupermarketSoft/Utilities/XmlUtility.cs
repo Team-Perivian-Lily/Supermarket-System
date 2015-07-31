@@ -9,14 +9,17 @@
 
     public static class XmlUtility
     {
+        private const string XmlReportFilePath = @"..\..\..\Exported-Files\Xml";
+        private const string XmlReportFileName = @"\Sales-by-Vendor-Report.xml";
+
         public static void CreateXmlFile(List<VendorsSalesReports> dataGroups)
         {
-            if (!Directory.Exists(Path.GetTempPath() + "/Xml-Report"))
+            if (!Directory.Exists(XmlReportFilePath))
             {
-                Directory.CreateDirectory(Path.GetTempPath() + "/Xml-Report");
+                Directory.CreateDirectory(XmlReportFilePath);
             }
 
-            string reportFileName = Path.GetTempPath() + "/Xml-Report" + "/Xml-Vendor-Report.xml";
+            string reportFileName = XmlReportFilePath + XmlReportFileName;
             Encoding reportEncoding = Encoding.GetEncoding("utf-8");
 
             using (var reportWriter = new XmlTextWriter(reportFileName, reportEncoding))
@@ -36,7 +39,7 @@
                 reportWriter.WriteEndDocument();
             }
 
-            Process.Start(Path.GetTempPath() + "/Xml-Report/");
+            Process.Start(XmlReportFilePath);
         }
 
         public static Dictionary<string, List<string[]>> ReadXmlReport(string filePath)

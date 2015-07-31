@@ -1,12 +1,10 @@
-﻿using System.Diagnostics;
-
-namespace SupermarketSoft
+﻿namespace SupermarketSoft
 {
     using System;
     using System.IO.Compression;
     using System.Windows.Forms;
     using MSSQL.Data;
-    using MySQL.DataSupermarket;
+    using MySQL.Data;
     using Oracle.Data;
     using Utilities;
 
@@ -17,35 +15,64 @@ namespace SupermarketSoft
             InitializeComponent();
         }
 
-        private void ExportFromMSSQL_Click(object sender, EventArgs e)
+        private void ReplicateOracle_Click(object sender, EventArgs e)
         {
-            //// Test MySQL
-            //MySQLRepository.Test();
+            try
+            {
+                var productData = OracleRepository.GetOracleProductsData();
+                MSSQLRepository.FillOracleDataToMsSql(productData);
 
-            // //Test SQLite
-            //SQLiteRepository.Test();
+                MessageBox.Show("Oracle data replicated complete!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Oracle data replicated failed: " + ex.Message);
+            }
+        }
 
-            //Test Excel
+        private void ImportSalesFromXls_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var filePath = openFileDialog.FileName;
+                using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
+                {
+                    try
+                    {
+                        var sales = ExcelUtility.ReadSalesReportData(zip);
+                        MSSQLRepository.FillSalesDataToSql(sales);
 
-            //var ctx = new MySQLEntities();
+                        MessageBox.Show("Successfully added sales reports.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Precedure failed: " + ex.Message);
+                    }
+                }
+            }
+        }
 
-            //ctx.Locations.Add(new Location()
-            //{
-            //    Name = "Tuk"
-            //});
-            //ctx.SaveChanges();
-            //var products = MSSQLRepository.GetProducts();
+        private void ImportXmlToSql_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var filePath = openFileDialog.FileName;
+                    var vendorExpensesData = XmlUtility.ReadXmlReport(filePath);
+                    MSSQLRepository.FillExpensesDataToSql(vendorExpensesData);
 
-            //MySQLRepository.AddSqlProductsToMsSql(products);
-
-            //var productsForSQLServer = OracleRepository.GetProductData();
-            //MSSQLRepository.FillOracleDataToMsSql(productsForSQLServer);
-
-
-            // Working MSSQL to MySQL
-
-
+                    MessageBox.Show("Xml report imported successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed while importing xml report: " + ex.Message);
+                }
+            }
         }
 
         private void ExportSalesReportToPdf_Click(object sender, EventArgs e)
@@ -66,73 +93,46 @@ namespace SupermarketSoft
             jsonMongoForm.ShowDialog();
         }
 
-        private void ImportSalesFromXls_Click(object sender, EventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog();
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var filePath = openFileDialog.FileName;
-
-                using (var zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
-                {
-                    bool operationNotCompleted = false;
-                    var sales = ExcelUtility.ReadSaleData(zip);
-
-                    if (MSSQLRepository.InsertSalesBySaleData(sales) == false)
-                    {
-                        operationNotCompleted = true;
-                    }
-
-                    MessageBox.Show(
-                        operationNotCompleted ?
-                        "Operation Error, no data was inserted" :
-                        "Operation Completed");
-                }
-            }
-        }
-
-        private void ImportXmlToSql_Click(object sender, EventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog();
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var filePath = openFileDialog.FileName;
-                var vendorExpensesData = XmlUtility.ReadXmlReport(filePath);
-                MSSQLRepository.FillXmlDataToSql(vendorExpensesData);
-            }
-        }
-
-        private void ReplicateOracle_Click(object sender, EventArgs e)
-        {
-            var productData = OracleRepository.GetProductData();
-            var emptyVendorsData = OracleRepository.GetEmptyVendorData();
-            MSSQLRepository.FillOracleDataToMsSql(productData);
-
-        }
-
         private void GenerateMySqlDb_Click(object sender, EventArgs e)
         {
-            MySQLRepository.GenerateMySqlDb();
-            MessageBox.Show("MySQL db generated successffully", "Confirm", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            try
+            {
+                MySQLRepository.GenerateMySqlDb();
+                MessageBox.Show("MySQL db generated successffully");
+            }
+            catch (Exception dbe)
+            {
+                MessageBox.Show("MySQL db generation failed: " + dbe);
+            }
         }
 
         private void ExportMsSqlToMySql_Click(object sender, EventArgs e)
         {
-            var productsData = MSSQLRepository.GetProductsData();
-            var emptyVendorsData = MSSQLRepository.GetEmptyVendorData();
-            MySQLRepository.AddSqlProductsToMsSql(productsData);
-            MessageBox.Show("MySQL data seeded from MS SQL Server", "Confirm", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            try
+            {
+                var productsData = MSSQLRepository.GetFullProductsData();
+                MySQLRepository.AddSqlProductsToMySql(productsData);
+
+                MessageBox.Show("MySQL data seeded from MSSQL Server!");
+            }
+            catch (Exception dbe)
+            {
+                MessageBox.Show("MySQL db seed failed: " + dbe);
+            }
         }
 
         private void ExportExcelReport_Click(object sender, EventArgs e)
         {
-            ExcelUtility.GenerateFile();
-            
-            
+            try
+            {
+                ExcelUtility.GenerateExcelReportFile();
+
+                MessageBox.Show("Excel report exported!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting report: " + ex.Message);
+            }
         }
     }
 }

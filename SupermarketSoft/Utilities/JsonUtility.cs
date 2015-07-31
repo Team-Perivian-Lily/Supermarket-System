@@ -8,23 +8,25 @@
 
     public static class JsonUtility
     {
+        private const string JsonReportFilePath = @"..\..\..\Exported-Files\Json";
+
         public static void CreateJsonFiles(List<SalesReport> productsSales)
         {
-            if (!Directory.Exists(Path.GetTempPath() + "/Json-Reports"))
+            if (!Directory.Exists(JsonReportFilePath))
             {
-                Directory.CreateDirectory(Path.GetTempPath() + "/Json-Reports");
+                Directory.CreateDirectory(JsonReportFilePath);
             }
 
             foreach (var productSales in productsSales)
             {
-                FileStream fs1 = new FileStream(Path.GetTempPath() + "/Json-Reports/" + productSales.Product.Id + ".json", FileMode.OpenOrCreate, FileAccess.Write);
+                FileStream fs1 = new FileStream(JsonReportFilePath + @"\" + productSales.Product.Id + ".json", FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter writer = new StreamWriter(fs1);
 
                 writer.WriteLine(CreateJsonReport(productSales));
                 writer.Close();
             }
 
-            Process.Start(Path.GetTempPath() + "/Json-Reports/");
+            Process.Start(JsonReportFilePath);
         }
 
         public static string CreateJsonReport(SalesReport salesReport)

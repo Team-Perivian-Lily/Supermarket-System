@@ -24,7 +24,7 @@ namespace Oracle.Data.Migrations
         {
             if (!context.VENDORS.Any())
             {
-                string[] vendors = new string[]
+                string[] vendors =
                 {
                     "Nestle Sofia Corp.",
                     "Zagorka Corp.",
@@ -46,6 +46,7 @@ namespace Oracle.Data.Migrations
                     });
                 }
             }
+
             context.SaveChanges();
         }
 
@@ -53,7 +54,7 @@ namespace Oracle.Data.Migrations
         {
             if (!context.MEASURES.Any())
             {
-                string[] measures = new string[]
+                string[] measures =
                 {
                     "lieters",
                     "pieces",
@@ -69,6 +70,7 @@ namespace Oracle.Data.Migrations
                     });
                 }
             }
+
             context.SaveChanges();
         }
 
@@ -77,7 +79,7 @@ namespace Oracle.Data.Migrations
 
             if (!context.PRODUCTS.Any())
             {
-                string[] products = new string[]
+                string[] products =
                 {
                     "2,Beer \"Zagorka\",1,0.86",
                     "3,Vodka \"Targovishte\",1,7.56",

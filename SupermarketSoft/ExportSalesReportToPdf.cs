@@ -19,10 +19,12 @@
                 PdfUtility.CreatePdfFile(MSSQLRepository.GetSalesByDate(
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text)));
+
+                MessageBox.Show("Successfully exported data!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error exporting data: " + ex.Message);
             }
         }
     }

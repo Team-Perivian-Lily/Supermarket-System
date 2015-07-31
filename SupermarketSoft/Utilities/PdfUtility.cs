@@ -18,29 +18,39 @@
         private static readonly Font FooterFont = new Font(Font.FontFamily.HELVETICA, 13, (int)FontStyle.Bold);
         private static readonly Font ContentFont = new Font(Font.FontFamily.HELVETICA, 12, 0);
 
+        private const string PdfReportFilePath = @"..\..\..\Exported-Files\Pdf";
+        private const string PdfReportFileName = @"\Sales-by-Date-Report.pdf";
+
+        private const float MarginLeft = 50f;
+        private const float MarginRight = 50f;
+        private const float MarginTop = 50f;
+        private const float MarginBottom = 50f;
+        private const int DocumentColumnsCount = 5;
+        private const float TotalFileWidth = 490f;
+
         public static void CreatePdfFile(List<DateSalesReports> dataGroups)
         {
-            if (!Directory.Exists(Path.GetTempPath() + "/Pdf-Report"))
+            if (!Directory.Exists(PdfReportFilePath))
             {
-                Directory.CreateDirectory(Path.GetTempPath() + "/Pdf-Report");
+                Directory.CreateDirectory(PdfReportFilePath);
             }
 
-            var pdfReport = new Document(PageSize.A4, 50f, 50f, 50f, 50f);
+            var pdfReport = new Document(PageSize.A4, MarginLeft, MarginRight, MarginTop, MarginBottom);
             PdfWriter.GetInstance(
                 pdfReport,
-                new FileStream(Path.GetTempPath() + "/Pdf-Report" + "/Sales-Report.pdf", FileMode.Create));
+                new FileStream(PdfReportFilePath + PdfReportFileName, FileMode.Create));
 
             pdfReport.Open();
             pdfReport.Add(PopulatePdfFile(dataGroups));
             pdfReport.Close();
 
-            Process.Start(Path.GetTempPath() + "/Pdf-Report/");
+            Process.Start(PdfReportFilePath);
         }
 
         private static PdfPTable PopulatePdfFile(List<DateSalesReports> dataGroups)
         {
-            PdfPTable table = new PdfPTable(5);
-            table.TotalWidth = 490f;
+            PdfPTable table = new PdfPTable(DocumentColumnsCount);
+            table.TotalWidth = TotalFileWidth;
             table.LockedWidth = true;
 
             AddContentMainHeader(table);
