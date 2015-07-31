@@ -5,17 +5,21 @@
     using System.Linq;
     using Models;
 
-    public static class OracleRepository
+    public class OracleRepository
     {
-        public static List<ProductDTO> GetOracleProductsData()
+        public OracleRepository()
         {
-            using (var orcContex = new OracleDbContext())
-            {
-                return orcContex.PRODUCTS
-                    .Include(p => p.Vendor)
-                    .Include(p => p.Measure)
-                    .ToList();
-            }
+            this.OracleContext = new OracleDbContext();
+        }
+
+        private OracleDbContext OracleContext { get; set; }
+
+        public List<ProductDTO> GetOracleProductsData()
+        {
+            return this.OracleContext.PRODUCTS
+                .Include(p => p.Vendor)
+                .Include(p => p.Measure)
+                .ToList();
         }
     }
 }

@@ -11,7 +11,7 @@
     using Supermarket.Models.Reports;
     using Font = iTextSharp.text.Font;
 
-    public static class PdfUtility
+    public class PdfUtility
     {
         private static readonly Font MainHeaderFont = new Font(Font.FontFamily.HELVETICA, 14, (int)FontStyle.Bold);
         private static readonly Font HeaderFont = new Font(Font.FontFamily.HELVETICA, 13, (int)FontStyle.Bold);

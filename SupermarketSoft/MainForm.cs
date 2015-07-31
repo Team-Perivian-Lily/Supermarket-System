@@ -6,6 +6,7 @@
     using MSSQL.Data;
     using MySQL.Data;
     using Oracle.Data;
+    using SQLLite.Data;
     using Utilities;
 
     public partial class MainForm : Form
@@ -17,10 +18,12 @@
 
         private void ReplicateOracle_Click(object sender, EventArgs e)
         {
+            var msSqlRepo = new MSSQLRepository();
+            var oracleRepo = new OracleRepository();
             try
             {
-                var productData = OracleRepository.GetOracleProductsData();
-                MSSQLRepository.FillOracleDataToMsSql(productData);
+                var productData = oracleRepo.GetOracleProductsData();
+                msSqlRepo.FillOracleDataToMsSql(productData);
 
                 MessageBox.Show("Oracle data replicated complete!");
             }
@@ -33,7 +36,7 @@
         private void ImportSalesFromXls_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-
+            var msSqlRepo = new MSSQLRepository();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var filePath = openFileDialog.FileName;
@@ -42,7 +45,7 @@
                     try
                     {
                         var sales = ExcelUtility.ReadSalesReportData(zip);
-                        MSSQLRepository.FillSalesDataToSql(sales);
+                        msSqlRepo.FillSalesDataToSql(sales);
 
                         MessageBox.Show("Successfully added sales reports.");
                     }
@@ -57,14 +60,14 @@
         private void ImportXmlToSql_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-            
+            var msSqlRepo = new MSSQLRepository();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     var filePath = openFileDialog.FileName;
                     var vendorExpensesData = XmlUtility.ReadXmlReport(filePath);
-                    MSSQLRepository.FillExpensesDataToSql(vendorExpensesData);
+                    msSqlRepo.FillExpensesDataToSql(vendorExpensesData);
 
                     MessageBox.Show("Xml report imported successfully!");
                 }
@@ -95,9 +98,10 @@
 
         private void GenerateMySqlDb_Click(object sender, EventArgs e)
         {
+            var mySqlRepo = new MySQLRepository();
             try
             {
-                MySQLRepository.GenerateMySqlDb();
+                mySqlRepo.GenerateMySqlDb();
                 MessageBox.Show("MySQL db generated successffully");
             }
             catch (Exception dbe)
@@ -108,10 +112,12 @@
 
         private void ExportMsSqlToMySql_Click(object sender, EventArgs e)
         {
+            var msSqlRepo = new MSSQLRepository();
+            var mySqlRepo = new MySQLRepository();
             try
             {
-                var productsData = MSSQLRepository.GetFullProductsData();
-                MySQLRepository.AddSqlProductsToMySql(productsData);
+                var productsData = msSqlRepo.GetFullProductsData();
+                mySqlRepo.AddSqlProductsToMySql(productsData);
 
                 MessageBox.Show("MySQL data seeded from MSSQL Server!");
             }
@@ -123,9 +129,13 @@
 
         private void ExportExcelReport_Click(object sender, EventArgs e)
         {
+            var mySqlRepo = new MySQLRepository();
+            var sqLiteRepo = new SQLLiteRepository();
             try
             {
-                ExcelUtility.GenerateExcelReportFile();
+                var vendorsData = mySqlRepo.GetVendorSalesData();
+                var taxes = sqLiteRepo.GetProductTaxData();
+                ExcelUtility.GenerateExcelReportFile(taxes, vendorsData);
 
                 MessageBox.Show("Excel report exported!");
             }

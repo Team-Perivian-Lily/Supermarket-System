@@ -7,10 +7,8 @@
     using System.IO.Compression;
     using System.Linq;
     using Excel;
-    using MySQL.Data;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
-    using SQLLite.Data;
     using Supermarket.Models;
 
     public static class ExcelUtility
@@ -25,11 +23,9 @@
         private const string WorkSheetTotalTaxesColumn = "Total Taxes";
         private const string WorkSheetResultColumn = "Financial Result";
 
-        public static void GenerateExcelReportFile()
+        public static void GenerateExcelReportFile(Dictionary<string, double?> taxes, List<Vendor> vendors)
         {
             var newFile = CreateFile();
-            var vendorSalesData = MySQLRepository.GetVendorSalesData();
-            var productTaxesData = SQLLiteRepository.GetProductTaxData();
 
             using (ExcelPackage package = new ExcelPackage(newFile))
             {
@@ -42,11 +38,11 @@
                 worksheet.Cells[1, 5].Value = WorkSheetResultColumn;
 
                 var currentRow = 2;
-                for (int i = 0; i < vendorSalesData.Count(); i++, currentRow++)
+                for (int i = 0; i < vendors.Count(); i++, currentRow++)
                 {
-                    worksheet.Cells[currentRow, 1].Value = vendorSalesData[i].VendorName;
+                    worksheet.Cells[currentRow, 1].Value = vendors[i].VendorName;
                     var incomes = 0.0;
-                    foreach (var product in vendorSalesData[i].Products)
+                    foreach (var product in vendors[i].Products)
                     {
                         foreach (var sale in product.Sales)
                         {
@@ -54,13 +50,13 @@
                         }
                     }
 
-                    var totalTax = CalculateTaxes(vendorSalesData, i, productTaxesData);
+                    var totalTax = CalculateTaxes(vendors, i, taxes);
 
                     worksheet.Cells[currentRow, 2].Value = incomes;
-                    worksheet.Cells[currentRow, 3].Value = vendorSalesData[i].Expenses.Sum(e => e.Value);
+                    worksheet.Cells[currentRow, 3].Value = vendors[i].Expenses.Sum(e => e.Value);
                     worksheet.Cells[currentRow, 4].Value = totalTax;
 
-                    CalculateFinancialResult(worksheet, currentRow, vendorSalesData);
+                    CalculateFinancialResult(worksheet, currentRow, vendors);
                 }
 
                 worksheet.Calculate();

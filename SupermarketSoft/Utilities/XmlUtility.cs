@@ -7,7 +7,7 @@
     using System.Xml;
     using Supermarket.Models.Reports;
 
-    public static class XmlUtility
+    public class XmlUtility
     {
         private const string XmlReportFilePath = @"..\..\..\Exported-Files\Xml";
         private const string XmlReportFileName = @"\Sales-by-Vendor-Report.xml";

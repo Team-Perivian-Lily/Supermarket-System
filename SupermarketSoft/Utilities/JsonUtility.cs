@@ -6,7 +6,7 @@
     using System.Web.Script.Serialization;
     using Supermarket.Models.Reports;
 
-    public static class JsonUtility
+    public class JsonUtility
     {
         private const string JsonReportFilePath = @"..\..\..\Exported-Files\Json";
 
@@ -31,8 +31,7 @@
 
         public static string CreateJsonReport(SalesReport salesReport)
         {
-            return
-                new JavaScriptSerializer().Serialize(
+            return new JavaScriptSerializer().Serialize(
                     new Dictionary<string, string>()
                         {
                             { "product-id", salesReport.ProductId.ToString() },

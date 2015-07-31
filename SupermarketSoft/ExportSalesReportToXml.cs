@@ -14,9 +14,10 @@
 
         private void GenerateSalesXml_Click(object sender, EventArgs e)
         {
+            var msSqlRepo = new MSSQLRepository();
             try
             {
-                XmlUtility.CreateXmlFile(MSSQLRepository.GetSalesByVendor(
+                XmlUtility.CreateXmlFile(msSqlRepo.GetSalesByVendor(
                         DateTime.Parse(this.startDatePicker.Text),
                         DateTime.Parse(this.endDatePicker.Text)));
 

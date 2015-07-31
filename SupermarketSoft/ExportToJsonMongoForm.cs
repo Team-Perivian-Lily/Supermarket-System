@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows.Forms;
+    using MongoDB.Data;
     using MSSQL.Data;
     using Utilities;
 
@@ -14,9 +15,11 @@
 
         private void GenerateJsonMongo_Click(object sender, EventArgs e)
         {
+            var msSqlRepo = new MSSQLRepository();
+            var mongoDbRepo = new MongoDBRepository();
             try
             {
-                var salesReports = MSSQLRepository.GetSalesByProduct(
+                var salesReports = msSqlRepo.GetSalesByProduct(
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text));
 
@@ -24,7 +27,7 @@
 
                 foreach (var salesReport in salesReports)
                 {
-                    MongoDB.Data.MongoDBRepository.ImportSalesByProductReport(
+                    mongoDbRepo.ImportSalesByProductReport(
                         JsonUtility.CreateJsonReport(salesReport));
                 }
 

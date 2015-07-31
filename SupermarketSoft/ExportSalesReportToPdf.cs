@@ -14,9 +14,10 @@
 
         private void GenerateSalesPdf_Click(object sender, EventArgs e)
         {
+            var msSqlRepo = new MSSQLRepository();
             try
             {
-                PdfUtility.CreatePdfFile(MSSQLRepository.GetSalesByDate(
+                PdfUtility.CreatePdfFile(msSqlRepo.GetSalesByDate(
                     DateTime.Parse(this.startDatePicker.Text),
                     DateTime.Parse(this.endDatePicker.Text)));
 
