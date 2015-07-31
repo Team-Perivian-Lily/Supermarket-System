@@ -176,9 +176,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MySQL.DataSupermarket\MySQL.DataSupermarket.csproj">
+    <ProjectReference Include="..\MySQL.Data\MySQL.Data.csproj">
       <Project>{3a1444e8-a1e9-4375-b979-ac7b0fe5f3cb}</Project>
-      <Name>MySQL.DataSupermarket</Name>
+      <Name>MySQL.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oracle.Models\Oracle.Models.csproj">
       <Project>{35F31F00-0A27-441F-87B8-42F4E88788BD}</Project>

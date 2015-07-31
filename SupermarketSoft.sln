@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSQL.Data", "MSSQL.Data\MS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oracle.Models", "Oracle.Models\Oracle.Models.csproj", "{35F31F00-0A27-441F-87B8-42F4E88788BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySQL.DataSupermarket", "MySQL.DataSupermarket\MySQL.DataSupermarket.csproj", "{3A1444E8-A1E9-4375-B979-AC7B0FE5F3CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySQL.Data", "MySQL.Data\MySQL.Data.csproj", "{3A1444E8-A1E9-4375-B979-AC7B0FE5F3CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLLite.Data", "SQLLite.Data\SQLLite.Data.csproj", "{4EC85E5B-08D6-410A-9883-7232735B6F42}"
 EndProject

@@ -225,10 +225,10 @@
 
                     dbContextTransaction.Commit();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     dbContextTransaction.Rollback();
-                    throw new Exception("Transaction rolled back.");
+                    throw new Exception("Transaction rolled back: " + ex.Message);
                 }
             }
 
